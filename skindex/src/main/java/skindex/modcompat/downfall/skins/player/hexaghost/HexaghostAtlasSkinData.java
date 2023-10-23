@@ -1,0 +1,30 @@
+package skindex.modcompat.downfall.skins.player.hexaghost;
+
+import com.google.gson.annotations.SerializedName;
+import skindex.skins.player.PlayerAtlasSkinData;
+
+public class HexaghostAtlasSkinData extends PlayerAtlasSkinData {
+    /** Variables */
+    @SerializedName("plasma1Url")
+    public String plasma1Url;
+    @SerializedName("plasma2Url")
+    public String plasma2Url;
+    @SerializedName("plasma3Url")
+    public String plasma3Url;
+    @SerializedName("shadowUrl")
+    public String shadowUrl;
+
+    @SerializedName("disablePlasma")
+    public boolean disablePlasma = false;
+
+    @SerializedName("standardRotationSpeed")
+    public Float standardRotationSpeed = 20.f;
+    @SerializedName("fastRotationSpeed")
+    public Float fastRotationSpeed = 100.f;
+
+    /** Create Player Skin */
+    @Override
+    public HexaghostAtlasSkin createPlayerSkin() {
+        return new HexaghostAtlasSkin(this);
+    }
+}

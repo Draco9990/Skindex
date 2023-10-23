@@ -1,0 +1,29 @@
+package skindex.skins.player.ironclad;
+
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import skindex.skins.player.PlayerAtlasSkin;
+import skindex.skins.player.PlayerAtlasSkinData;
+import skindex.unlockmethods.FreeUnlockMethod;
+
+public class IroncladBaseSkin extends PlayerAtlasSkin {
+    /** Constructors */
+    public IroncladBaseSkin() {
+        super(new SkinData());
+    }
+
+    /** Data */
+    public static class SkinData extends PlayerAtlasSkinData {
+        public static String ID = "BASE";
+        public SkinData(){
+            atlasUrl = "images/characters/ironclad/idle/skeleton.atlas";
+            skeletonUrl = "images/characters/ironclad/idle/skeleton.json";
+            resourceDirectoryUrl = "images/characters/ironclad/idle/";
+
+            id = ID;
+            name = "Base";
+
+            unlockMethod = FreeUnlockMethod.methodId;
+            playerClass = AbstractPlayer.PlayerClass.IRONCLAD.name();
+        }
+    }
+}

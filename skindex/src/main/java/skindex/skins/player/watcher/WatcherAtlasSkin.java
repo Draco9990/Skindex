@@ -1,0 +1,127 @@
+package skindex.skins.player.watcher;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Array;
+import com.esotericsoftware.spine.*;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
+import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
+import com.megacrit.cardcrawl.characters.Watcher;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import dLib.util.AssetLoader;
+import dLib.util.Reflection;
+import skindex.SkindexGame;
+import skindex.entities.player.SkindexPlayerAtlasEntity;
+import skindex.entities.player.SkindexPlayerEntity;
+import skindex.entities.player.SkindexWatcherAtlasEntity;
+import skindex.skins.player.PlayerAtlasSkin;
+import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.PlayerSpriterSkin;
+
+public class WatcherAtlasSkin extends PlayerAtlasSkin {
+    /** Variables */
+    public String eyeAtlasUrl;
+    public String eyeSkeletonUrl;
+    public String eyeResourceDirectory;
+
+    /** Constructors */
+    public WatcherAtlasSkin(WatcherAtlasSkinData skinData) {
+        super(skinData);
+
+        this.eyeAtlasUrl = skinData.eyeAtlasUrl;
+        this.eyeSkeletonUrl = skinData.eyeSkeletonUrl;
+        this.eyeResourceDirectory = skinData.eyeResourceDirectoryUrl;
+    }
+
+    /** Methods */
+    @Override
+    public boolean loadOnEntity(SkindexPlayerEntity entity) {
+        if(!super.loadOnEntity(entity)) return false;
+        if(!(entity instanceof SkindexWatcherAtlasEntity)) return false;
+
+        if(eyeAtlasUrl != null && eyeSkeletonUrl != null){
+            ((SkindexWatcherAtlasEntity) entity).setEyeBone(((SkindexPlayerAtlasEntity) entity).getSkeleton().findBone("eye_anchor"));
+            loadEyeAnimationOnEntity(((SkindexWatcherAtlasEntity) entity));
+        }
+        return true;
+    }
+    public void loadEyeAnimationOnEntity(SkindexWatcherAtlasEntity entity){
+        entity.setEyeAtlas(AssetLoader.loadTextureAtlas(eyeAtlasUrl, eyeResourceDirectory));
+        SkeletonJson json = new SkeletonJson(entity.getEyeAtlas());
+        json.setScale(1/ ((Settings.renderScale * entity.getScale()) * scale));
+
+        SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(eyeSkeletonUrl));
+
+        Skeleton eyeSkeleton = new Skeleton(skeletonData);
+        eyeSkeleton.setColor(Color.WHITE);
+        entity.setEyeSkeleton(eyeSkeleton);
+
+        AnimationStateData eyeStateData = new AnimationStateData(skeletonData);
+        AnimationState eyeState = new AnimationState(eyeStateData);
+        eyeStateData.setDefaultMix(0.2F);
+        eyeState.setAnimation(0, "None", true);
+        entity.setEyeStateData(eyeStateData);
+        entity.setEyeState(eyeState);
+    }
+
+    @Override
+    public boolean loadOnPlayer() {
+        if(!super.loadOnPlayer()) return false;
+
+        if(eyeAtlasUrl != null && eyeSkeletonUrl != null){
+            Skeleton skeleton = Reflection.getFieldValue("skeleton", AbstractDungeon.player);
+            Reflection.setFieldValue("eyeBone", AbstractDungeon.player, skeleton.findBone("eye_anchor"));
+            loadEyeAnimationOnPlayer();
+        }
+        else if(AbstractDungeon.player instanceof Watcher){
+            Skeleton eyeSkeleton = Reflection.getFieldValue("eyeSkeleton", AbstractDungeon.player);
+            eyeSkeleton.setDrawOrder(new Array<>());
+            Reflection.setFieldValue("eyeSkeleton", AbstractDungeon.player, eyeSkeleton);
+        }
+
+        return true;
+    }
+
+    private void loadEyeAnimationOnPlayer() {
+        Watcher w = (Watcher) AbstractDungeon.player;
+
+        TextureAtlas eyeAtlas = AssetLoader.loadTextureAtlas(eyeAtlasUrl, eyeResourceDirectory);
+        Reflection.setFieldValue("eyeAtlas", w, eyeAtlas);
+
+        SkeletonJson json = new SkeletonJson(eyeAtlas);
+        json.setScale(1/(Settings.scale * scale));
+        SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(eyeSkeletonUrl));
+
+        Skeleton skeleton = new Skeleton(skeletonData);
+        skeleton.setColor(Color.WHITE);
+        Reflection.setFieldValue("eyeSkeleton", w, skeleton);
+
+        AnimationStateData eyeStateData = new AnimationStateData(skeletonData);
+        eyeStateData.setDefaultMix(0.2F);
+        Reflection.setFieldValue("eyeStateData", w, eyeStateData);
+
+        AnimationState eyeState = new AnimationState(eyeStateData);
+        eyeState.setAnimation(0, "None", true);
+        Reflection.setFieldValue("eyeState", w, eyeState);
+    }
+
+    /** Patches */
+    public static class Patches{
+        @SpirePatch2(clz = Watcher.class, method = "renderPlayerImage")
+        public static class NoEyeRenderPatch{
+            public static SpireReturn Prefix(Watcher __instance, SpriteBatch sb){
+                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+
+                if(currentSkin instanceof PlayerSpriterSkin){
+                    ((PlayerSpriterSkin) currentSkin).renderModel(sb, (int)(__instance.drawX + __instance.animX), (int)(__instance.drawY + __instance.animY), __instance.flipHorizontal, __instance.flipVertical, 1);
+                    return SpireReturn.Return();
+                }
+
+                return SpireReturn.Continue();
+            }
+        }
+    }
+}
