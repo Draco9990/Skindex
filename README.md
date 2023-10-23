@@ -1,4 +1,4 @@
-# StS-Default Mod Base
+# Skindex
 
 Welcome to this extremely over-commented Slay the Spire modding base. 
 
