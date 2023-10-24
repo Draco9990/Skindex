@@ -10,6 +10,7 @@ import skindex.bundles.Bundle;
 import skindex.trackers.SkindexTracker;
 import skindex.unlockmethods.FreeUnlockMethod;
 import skindex.unlockmethods.UnlockMethod;
+import skindex.util.SkindexLogger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +31,13 @@ public abstract class CustomizableItem {
         this.name = itemData.name;
 
         credits = new ArrayList<>();
+    }
+
+    public CustomizableItem(String id, String name){
+        this.id = id;
+        this.name = name;
+
+         credits = new ArrayList<>();
     }
 
     /** Getters and Setters */
@@ -94,5 +102,16 @@ public abstract class CustomizableItem {
         CustomizableItem item = (CustomizableItem) obj;
 
         return item.getId().equals(((CustomizableItem) obj).getId());
+    }
+
+    /** System Methods */
+    public CustomizableItem makeCopy(){
+        try{
+            return this.getClass().newInstance();
+        }catch (Exception e){
+            SkindexLogger.logError("Could not create an instance copy of " + id  + " since it doesn't have a no-param constructor. Contact the developer to fix pls thank u.", SkindexLogger.ErrorType.NON_FATAL);
+        }
+
+        return this;
     }
 }

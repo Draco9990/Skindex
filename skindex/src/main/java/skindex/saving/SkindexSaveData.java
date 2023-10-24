@@ -85,7 +85,7 @@ public class SkindexSaveData {
         public static void Postfix(MenuButton __instance){
             if(__instance.result.equals(MenuButton.ClickResult.RESUME_GAME)){
                 if(SAVE_SKIN_CACHE != null){
-                    SkindexGame.queuePlayerSkin(SkindexRegistry.getPlayerSkinByClassAndId(PLAYER_CLASS_CACHE, SAVE_SKIN_CACHE));
+                    SkindexGame.queuePlayerSkin(SkindexRegistry.getPlayerSkinByClassAndId(PLAYER_CLASS_CACHE, SAVE_SKIN_CACHE, true));
                 }
             }
         }

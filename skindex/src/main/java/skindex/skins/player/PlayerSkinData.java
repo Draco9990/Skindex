@@ -7,6 +7,7 @@ import skindex.itemtypes.OwnableItemData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PlayerSkinData extends OwnableItemData implements Serializable {
     static final long serialVersionUID = 1L;
@@ -33,6 +34,11 @@ public class PlayerSkinData extends OwnableItemData implements Serializable {
     public ArrayList<String> cardSkins = new ArrayList<>();
     @SerializedName("cardTrailColors")
     public ArrayList<String> cardTrailColors = new ArrayList<>();
+
+    @SerializedName("orbSkins")
+    public HashMap<String, String> orbSkins = new HashMap<>();
+    @SerializedName("stanceSkins")
+    public HashMap<String, String> stanceSkins = new HashMap<>();
 
     /** Generate Player Skin */
     public PlayerSkin createPlayerSkin(){

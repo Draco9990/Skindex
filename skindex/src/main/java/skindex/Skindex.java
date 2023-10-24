@@ -3,6 +3,7 @@ package skindex;
 import basemod.*;
 import basemod.interfaces.*;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import skindex.modcompat.SkindexModCompat;
@@ -34,14 +35,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpireInitializer
-public class Skindex implements PostInitializeSubscriber, SkindexUnlockMethodRegistrant, SkindexPlayerSkinRegistrant {
+public class Skindex implements SkindexUnlockMethodRegistrant, SkindexPlayerSkinRegistrant {
     /** Variables */
     public static final Logger logger = LogManager.getLogger(Skindex.class.getName());
     private static String modID;
 
     /** Constructors */
     public Skindex() {
-        BaseMod.subscribe(this);
         BaseMod.subscribe(new SkinApplierPatches());
 
         SkindexRegistry.subscribe(this);
@@ -108,8 +108,10 @@ public class Skindex implements PostInitializeSubscriber, SkindexUnlockMethodReg
         return getModID() + ":" + idText;
     }
 
-    @Override
-    public void receivePostInitialize() {
-        SkindexRegistry.processRegistrants();
+    @SpirePatch2(clz = BaseMod.class, method = "publishPostInitialize")
+    public static class PostPostInitialize{
+        public static void Postfix(){
+            SkindexRegistry.processRegistrants();
+        }
     }
 }

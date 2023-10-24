@@ -25,7 +25,7 @@ public class MarisaBaseSkin extends PlayerAtlasSkin {
 
             id = ID;
             name = "Base";
-            scale = 2f;
+            invertedSkeletonScale = 2f;
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = MARISA_ENUM.name();

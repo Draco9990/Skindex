@@ -25,6 +25,10 @@ public class PlayerAtlasSkin extends PlayerSkin{
         this.defaultAnimName = skinData.defaultAnimName;
 
         this.defaultTimeScale = skinData.defaultTimeScale;
+
+        if(skinData.invertedSkeletonScale != null){
+            scale = 1/ skinData.invertedSkeletonScale;
+        }
     }
 
     /** Methods */
@@ -33,7 +37,7 @@ public class PlayerAtlasSkin extends PlayerSkin{
         if(!super.loadOnEntity(entity)) return false;
         if(!(entity instanceof SkindexPlayerAtlasEntity)) return false;
 
-        ((SkindexPlayerAtlasEntity) entity).loadAnimation(atlasUrl, skeletonUrl, resourceDirectory, scale * ((SkindexPlayerAtlasEntity) entity).getScale());
+        ((SkindexPlayerAtlasEntity) entity).loadAnimation(atlasUrl, skeletonUrl, resourceDirectory, 1 / scale);
         ((SkindexPlayerAtlasEntity) entity).getState().setAnimation(0, defaultAnimName, true);
         ((SkindexPlayerAtlasEntity) entity).getState().setTimeScale(defaultTimeScale);
         return true;
@@ -43,7 +47,7 @@ public class PlayerAtlasSkin extends PlayerSkin{
         if(!super.loadOnPlayer()) return false;
 
         PlayerLoadAnimationPatcher.LoadAnimationConsumer.resourceDirectoryUrl = resourceDirectory;
-        Reflection.invokeMethod("loadAnimation", AbstractDungeon.player, atlasUrl, skeletonUrl, scale);
+        Reflection.invokeMethod("loadAnimation", AbstractDungeon.player, atlasUrl, skeletonUrl, 1 / scale);
         AbstractDungeon.player.state.setAnimation(0, defaultAnimName, true);
         AbstractDungeon.player.state.setTimeScale(defaultTimeScale);
 

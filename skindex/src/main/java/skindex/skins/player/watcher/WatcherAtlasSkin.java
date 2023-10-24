@@ -51,7 +51,7 @@ public class WatcherAtlasSkin extends PlayerAtlasSkin {
     public void loadEyeAnimationOnEntity(SkindexWatcherAtlasEntity entity){
         entity.setEyeAtlas(AssetLoader.loadTextureAtlas(eyeAtlasUrl, eyeResourceDirectory));
         SkeletonJson json = new SkeletonJson(entity.getEyeAtlas());
-        json.setScale(1/ ((Settings.renderScale * entity.getScale()) * scale));
+        json.setScale(Settings.renderScale / scale * entity.getScale());
 
         SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(eyeSkeletonUrl));
 
@@ -92,7 +92,7 @@ public class WatcherAtlasSkin extends PlayerAtlasSkin {
         Reflection.setFieldValue("eyeAtlas", w, eyeAtlas);
 
         SkeletonJson json = new SkeletonJson(eyeAtlas);
-        json.setScale(1/(Settings.scale * scale));
+        json.setScale(Settings.renderScale / scale);
         SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(eyeSkeletonUrl));
 
         Skeleton skeleton = new Skeleton(skeletonData);

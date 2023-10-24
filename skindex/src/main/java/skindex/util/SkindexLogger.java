@@ -20,7 +20,7 @@ public class SkindexLogger {
         Skindex.logger.info(color + msg + ANSI_WHITE);
     }
 
-    public static void LogError(Object msg, ErrorType type){
+    public static void logError(Object msg, ErrorType type){
         Skindex.logger.info(ANSI_RED + type.name() + ": " + msg + ANSI_WHITE);
     }
 

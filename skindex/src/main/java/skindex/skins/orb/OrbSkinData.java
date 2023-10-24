@@ -12,7 +12,7 @@ public class OrbSkinData extends CustomizableItemData implements Serializable {
     @SerializedName("orbId")
     public String orbId;
     @SerializedName("texureUrl")
-    public String textureUrl;
+    public String orbImageUrl;
 
     @SerializedName("overlay")
     public boolean overlay = false;

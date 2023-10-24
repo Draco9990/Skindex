@@ -49,7 +49,10 @@ public class SkindexGame {
 
         PlayerSkin current = FieldPatches.Player.skin.get(AbstractDungeon.player);
         if(current == null){
-            current = SkindexRegistry.getDefaultPlayerSkinByClass(AbstractDungeon.player.chosenClass);
+            current = SkindexRegistry.getDefaultPlayerSkinByClass(AbstractDungeon.player.chosenClass, true);
+            if(current != null){
+                current.loadOnPlayer();
+            }
         }
         return current;
     }

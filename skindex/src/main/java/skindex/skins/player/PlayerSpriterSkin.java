@@ -23,7 +23,7 @@ public class PlayerSpriterSkin extends PlayerSkin{
 
     /** Methods */
     public void renderModel(SpriteBatch sb, int x, int y, boolean flipHorizontal, boolean flipVertical, float scale){
-        model.myPlayer.setScale(scale * this.scale * Settings.scale);
+        model.myPlayer.setScale(scale * this.scale * Settings.renderScale);
         model.setFlip(flipHorizontal, flipVertical);
 
         boolean simulatingPlayer = false;

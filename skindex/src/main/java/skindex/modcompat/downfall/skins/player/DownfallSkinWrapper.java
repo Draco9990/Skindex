@@ -25,7 +25,7 @@ public class DownfallSkinWrapper extends PlayerAtlasSkin {
             this.id = playerSkin.NAME;
             this.name = playerSkin.NAME;
 
-            scale = playerSkin.renderscale;
+            scale = 1 / playerSkin.renderscale;
         }
     }
 }

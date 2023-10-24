@@ -14,9 +14,13 @@ import skindex.registering.SkindexRegistry;
 import skindex.effects.AbstractCreatureEffect;
 import skindex.entities.player.SkindexPlayerEntity;
 import skindex.skins.cards.CardSkin;
+import skindex.skins.orb.OrbSkin;
+import skindex.skins.stances.StanceSkin;
 import skindex.util.SkindexLogger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class PlayerSkin extends OwnableItem {
@@ -31,6 +35,9 @@ public class PlayerSkin extends OwnableItem {
 
     public ArrayList<CardSkin> cardSkins = new ArrayList<>();
     public ArrayList<Color> cardTrailColors = new ArrayList<>();
+
+    public HashMap<String, OrbSkin> orbsSkinMap = new HashMap<>();
+    public HashMap<String, StanceSkin> stanceSkinMap = new HashMap<>();
 
     private AbstractCreatureEffect effect = null;
 
@@ -47,11 +54,20 @@ public class PlayerSkin extends OwnableItem {
         corpseIMG = loadImageIfExists(skinData.corpseIMG);
 
         for(String cardSkinId : skinData.cardSkins){
-            CardSkin cardSkin = SkindexRegistry.getCardSkinById(cardSkinId);
-            if(cardSkin != null) cardSkins.add(cardSkin);
+            CardSkin cardSkin = SkindexRegistry.getCardSkinById(cardSkinId, true);
+            if(cardSkin != null){
+                cardSkins.add(cardSkin);
+            }
         }
         for(String cardTrailColor : skinData.cardTrailColors){
             cardTrailColors.add(Color.valueOf(cardTrailColor));
+        }
+
+        for(Map.Entry<String, String> orbSkin : skinData.orbSkins.entrySet()){
+            orbsSkinMap.put(orbSkin.getKey(), SkindexRegistry.getOrbSkinById(orbSkin.getValue(), true));
+        }
+        for(Map.Entry<String, String> stanceSkin : skinData.stanceSkins.entrySet()){
+            stanceSkinMap.put(stanceSkin.getKey(), SkindexRegistry.getStanceSkinById(stanceSkin.getValue(), true));
         }
 
         scale = skinData.scale;
@@ -76,6 +92,10 @@ public class PlayerSkin extends OwnableItem {
         if(effect != null){
             effect.setTarget(updateSource);
             effect.update();
+        }
+
+        for(OrbSkin orbSkin : orbsSkinMap.values()){
+            orbSkin.update();
         }
     }
 

@@ -6,6 +6,7 @@ import skindex.registering.SkindexRegistry;
 import skindex.trackers.SkindexTracker;
 import skindex.unlockmethods.FreeUnlockMethod;
 import skindex.unlockmethods.UnlockMethod;
+import skindex.util.SkindexLogger;
 
 import java.util.ArrayList;
 import java.util.Arrays;

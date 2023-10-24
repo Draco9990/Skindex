@@ -14,6 +14,9 @@ public class PlayerAtlasSkinData extends PlayerSkinData{
     @SerializedName("defaultTimeScale")
     public Float defaultTimeScale = 1.f;
 
+    @SerializedName("invertedSkeletonScale")
+    public Float invertedSkeletonScale = null;
+
     /** Create Player Skin */
     @Override
     public PlayerSkin createPlayerSkin() {

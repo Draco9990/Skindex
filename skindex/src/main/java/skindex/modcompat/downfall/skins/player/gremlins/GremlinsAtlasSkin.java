@@ -74,7 +74,7 @@ public class GremlinsAtlasSkin extends PlayerSkin {
         String atlasLoc = gremlinSkin.atlasUrl;
         String jsonLoc = gremlinSkin.skeletonUrl;
 
-        ((SkindexPlayerAtlasEntity) entity).loadAnimation(atlasLoc, jsonLoc, gremlinSkin.resourceDirectory, scale * ((SkindexPlayerAtlasEntity) entity).getScale());
+        ((SkindexPlayerAtlasEntity) entity).loadAnimation(atlasLoc, jsonLoc, gremlinSkin.resourceDirectory, 1 / scale);
         AnimationState.TrackEntry trackEntry = ((SkindexPlayerAtlasEntity) entity).getState().setAnimation(0, animation, true);
         trackEntry.setTime(trackEntry.getEndTime() * MathUtils.random());
 
@@ -99,7 +99,7 @@ public class GremlinsAtlasSkin extends PlayerSkin {
             String jsonLoc = gremlinSkin.skeletonUrl;
 
             PlayerLoadAnimationPatcher.LoadAnimationConsumer.resourceDirectoryUrl = gremlinSkin.resourceDirectory;
-            Reflection.invokeMethod("loadAnimation", gremlinChar, atlasLoc, jsonLoc, scale);
+            Reflection.invokeMethod("loadAnimation", gremlinChar, atlasLoc, jsonLoc, 1 / scale);
             AnimationState.TrackEntry trackEntry = gremlinChar.state.setAnimation(0, animation, true);
             trackEntry.setTime(trackEntry.getEndTime() * MathUtils.random());
         }

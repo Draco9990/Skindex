@@ -65,7 +65,7 @@ public class NeowWardrobePatches {
                 super.onLeftClick();
 
                 PlayerSkin playerSkin = SkindexGame.getActivePlayerSkin();
-                playerSkin = SkindexRegistry.getPreviousSkin(playerSkin, true);
+                playerSkin = SkindexRegistry.getPreviousSkin(playerSkin, true, true);
                 if(playerSkin != null) {
                     playerSkin.loadOnPlayer();
                     textBox.setText(playerSkin.getName());
@@ -84,7 +84,7 @@ public class NeowWardrobePatches {
                 super.onLeftClick();
 
                 PlayerSkin playerSkin = SkindexGame.getActivePlayerSkin();
-                playerSkin = SkindexRegistry.getNextSkin(playerSkin, true);
+                playerSkin = SkindexRegistry.getNextSkin(playerSkin, true, true);
                 if(playerSkin != null){
                     playerSkin.loadOnPlayer();
                     textBox.setText(playerSkin.getName());

@@ -125,8 +125,8 @@ public class HexaghostAtlasSkin extends PlayerAtlasSkin {
         @SpirePatch2(clz = MyBody.class, method = "render", requiredModId = ModManager.Downfall.modId, optional = true)
         public static class MyBodyRenderPatch{
             public static SpireReturn Prefix(MyBody __instance, SpriteBatch sb){
-                Float scaleMult = FieldPatches.scale.get(__instance);
-                if(scaleMult != null){
+                Float scale = FieldPatches.scale.get(__instance);
+                if(scale != null){
                     PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                     if(currentSkin instanceof HexaghostAtlasSkin && AbstractDungeon.player instanceof TheHexaghost){
                         if(__instance.equals(((TheHexaghost) AbstractDungeon.player).myBody)){
@@ -148,8 +148,6 @@ public class HexaghostAtlasSkin extends PlayerAtlasSkin {
                     Texture shadow = Reflection.getFieldValue("shadow", __instance);
 
                     BobEffect effect = Reflection.getFieldValue("effect", __instance);
-
-                    float scale = 1 / scaleMult;
 
                     sb.setColor(AbstractDungeon.player.tint.color);
                     sb.draw(plasma3, __instance.XOffset + AbstractDungeon.player.drawX - 270.0F + AbstractDungeon.player.animX - 12.0F * Settings.scale * scale, __instance.YOffset + AbstractDungeon.player.drawY + AbstractDungeon.player.animY + effect.y * 2.0F - 256.0F + BODY_OFFSET_Y * scale, 256.0F, 256.0F, 512.0F, 512.0F, Settings.scale * 0.95F * scale, Settings.scale * 0.95F * scale, plasma3Angle, 0, 0, 512, 512, false, false);
