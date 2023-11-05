@@ -10,6 +10,8 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import skindex.SkindexGame;
 
+import java.util.Objects;
+
 public class PlayerSpriterSkin extends PlayerSkin{
     /** Variables */
     public SpriterAnimation model;
@@ -42,10 +44,12 @@ public class PlayerSpriterSkin extends PlayerSkin{
         @SpirePatch2(clz = AbstractPlayer.class, method = "renderPlayerImage")
         public static class EffectPatcher{
             public static SpireReturn Prefix(AbstractPlayer __instance, SpriteBatch sb){
-                PlayerSkin playerSkin = SkindexGame.getActivePlayerSkin();
-                if(playerSkin instanceof PlayerSpriterSkin){
-                    ((PlayerSpriterSkin) playerSkin).renderModel(sb, (int)(__instance.drawX + __instance.animX), (int)(__instance.drawY + __instance.animY), __instance.flipHorizontal, __instance.flipVertical, 1);
-                    return SpireReturn.Return();
+                if(Objects.equals(__instance, AbstractDungeon.player)){
+                    PlayerSkin playerSkin = SkindexGame.getActivePlayerSkin();
+                    if(playerSkin instanceof PlayerSpriterSkin){
+                        ((PlayerSpriterSkin) playerSkin).renderModel(sb, (int)(__instance.drawX + __instance.animX), (int)(__instance.drawY + __instance.animY), __instance.flipHorizontal, __instance.flipVertical, 1);
+                        return SpireReturn.Return();
+                    }
                 }
                 return SpireReturn.Continue();
             }

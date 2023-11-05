@@ -1,14 +1,13 @@
 package skindex.registering;
 
-import com.badlogic.gdx.Gdx;
-import com.google.gson.Gson;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.random.Random;
 import skindex.bundles.Bundle;
+import skindex.callbacks.SkindexPostRegistryFinishCallback;
 import skindex.skins.cards.CardSkin;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.player.PlayerSkin;
-import skindex.skins.player.PlayerSkinData;
 import skindex.skins.stances.StanceSkin;
 import skindex.trackers.SkindexTracker;
 import skindex.unlockmethods.NonUnlockableUnlockMethod;
@@ -30,8 +29,10 @@ public class SkindexRegistry {
 
     private static ArrayList<SkindexPlayerSkinRegistrant> playerSkinRegistrants = new ArrayList<>();
 
+    private static ArrayList<SkindexPostRegistryFinishCallback> postRegistryFinishCallbacks = new ArrayList<>();
+
     /** Vairables */
-    private static LinkedHashMap<String, SkindexTracker> trackers = new LinkedHashMap<>();
+    private static LinkedHashMap<Integer, LinkedHashMap<String, SkindexTracker>> trackers = new LinkedHashMap<Integer, LinkedHashMap<String, SkindexTracker>>();
 
     private static LinkedHashMap<String, UnlockMethod> unlockMethods = new LinkedHashMap<>();
     private static LinkedHashMap<String, Bundle> bundles = new LinkedHashMap<>();
@@ -55,11 +56,15 @@ public class SkindexRegistry {
         if(skindexRegistrant instanceof  SkindexCardSkinRegistrant) cardSkinRegistrants.add((SkindexCardSkinRegistrant) skindexRegistrant);
 
         if(skindexRegistrant instanceof  SkindexPlayerSkinRegistrant) playerSkinRegistrants.add((SkindexPlayerSkinRegistrant) skindexRegistrant);
+
+        if(skindexRegistrant instanceof  SkindexPostRegistryFinishCallback) postRegistryFinishCallbacks.add((SkindexPostRegistryFinishCallback) skindexRegistrant);
     }
     public static void processRegistrants(){
         for(SkindexTrackerRegistrant skindexRegistrant : trackerRegistrants){
-            for(SkindexTracker item : skindexRegistrant.getTrackersToRegister()){
-                registerTracker(item);
+            for(int i = 0; i < 3; i++){
+                for(SkindexTracker item : skindexRegistrant.getTrackersToRegister(i)){
+                    registerTracker(i, item);
+                }
             }
         }
         for(SkindexUnlockMethodRegistrant skindexRegistrant : unlockMethodRegistrants){
@@ -109,15 +114,23 @@ public class SkindexRegistry {
         return unlockMethods.get(id);
     }
 
-    private static void registerTracker(SkindexTracker tracker){
+    private static void registerTracker(int saveSlot, SkindexTracker tracker){
         if(tracker == null) return;
 
-        trackers.put(tracker.getId(), tracker);
+        if(!trackers.containsKey(saveSlot)){
+            trackers.put(saveSlot, new LinkedHashMap<>());
+        }
+
+        trackers.get(saveSlot).put(tracker.getId(), tracker);
     }
     public static SkindexTracker getTrackerById(String id){
         if(id == null) return null;
 
-        return trackers.get(id);
+        if(!trackers.containsKey(CardCrawlGame.saveSlot)){
+            return null;
+        }
+
+        return trackers.get(CardCrawlGame.saveSlot).get(id);
     }
 
     private static void registerBundle(Bundle bundle){

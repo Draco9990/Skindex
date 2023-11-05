@@ -127,8 +127,8 @@ public class PlayerSkin extends OwnableItem {
     /** Methods */
     @Override
     public boolean unlock() {
-        if(tracker != null){
-            return tracker.unlockSkin(this);
+        if(getTracker() != null){
+            return getTracker().unlockSkin(this);
         }
 
         return false;
@@ -137,8 +137,8 @@ public class PlayerSkin extends OwnableItem {
     public boolean hasUnlocked() {
         if(super.hasUnlocked()) return true;
 
-        if(tracker != null){
-            return tracker.hasSkin(this);
+        if(getTracker() != null){
+            return getTracker().hasSkin(this);
         }
 
         return false;

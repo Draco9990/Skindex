@@ -3,11 +3,17 @@ package skindex.skins.orb;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
+import com.megacrit.cardcrawl.audio.Sfx;
+import com.megacrit.cardcrawl.audio.SoundMaster;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.events.beyond.SpireHeart;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.orbs.*;
 import com.megacrit.cardcrawl.vfx.BobEffect;
+import dLib.util.Help;
 import dLib.util.Reflection;
 import skindex.SkindexGame;
 import skindex.itemtypes.CustomizableItem;
@@ -49,6 +55,9 @@ public class OrbSkin extends CustomizableItem {
     public Texture getTexture(){
         return orbImage;
     }
+
+    public Sfx getChannelSound(){ return null; }
+    public Sfx getEvokeSound(){ return null; }
 
     /** Patches */
     public static class Patches{
@@ -169,6 +178,45 @@ public class OrbSkin extends CustomizableItem {
                             }
                         }
                     }
+                }
+            }
+        }
+
+        public static class AudioPatches{
+            @SpirePatch2(clz = SoundMaster.class, method = "play", paramtypez = {String.class, float.class})
+            public static class OrbAudioReplacer{
+                public static SpireReturn<Long> Prefix(String key, float pitchVariation){
+                    PlayerSkin activeSkin = SkindexGame.getActivePlayerSkin();
+                    if(activeSkin == null || activeSkin.orbsSkinMap.isEmpty()) return SpireReturn.Continue();
+
+                    if(key.contains("ORB_")){
+                        String orbKey = key.replace("ORB_", "");
+
+                        if(orbKey.contains("_CHANNEL")){
+                            String orbId = key.replace("_CHANNEL", "");
+                            orbId = Help.StringOps.capitalize(orbId);
+                            OrbSkin orbSkin = activeSkin.orbsSkinMap.get(orbId);
+                            if(orbSkin == null) return SpireReturn.Continue();
+
+                            Sfx evokeSound = orbSkin.getChannelSound();
+                            if(evokeSound == null) return SpireReturn.Continue();
+
+                            return SpireReturn.Return(evokeSound.play(Settings.SOUND_VOLUME * Settings.MASTER_VOLUME, 1.0F + MathUtils.random(-pitchVariation, pitchVariation), 0.0F));
+                        }
+                        if(orbKey.contains("_EVOKE")){
+                            String orbId = key.replace("_EVOKE", "");
+                            orbId = Help.StringOps.capitalize(orbId);
+                            OrbSkin orbSkin = activeSkin.orbsSkinMap.get(orbId);
+                            if(orbSkin == null) return SpireReturn.Continue();
+
+                            Sfx evokeSound = orbSkin.getEvokeSound();
+                            if(evokeSound == null) return SpireReturn.Continue();
+
+                            return SpireReturn.Return(evokeSound.play(Settings.SOUND_VOLUME * Settings.MASTER_VOLUME, 1.0F + MathUtils.random(-pitchVariation, pitchVariation), 0.0F));
+                        }
+                    }
+
+                    return SpireReturn.Continue();
                 }
             }
         }

@@ -20,7 +20,7 @@ public abstract class OwnableItem extends CustomizableItem{
 
     private String unlockDescription;
 
-    protected SkindexTracker tracker;
+    protected String trackerId;
 
     /** Constructors */
     public OwnableItem(OwnableItemData itemData){
@@ -29,7 +29,7 @@ public abstract class OwnableItem extends CustomizableItem{
         unlockMethod = SkindexRegistry.getUnlockMethodById(itemData.unlockMethod);
         bundles = new ArrayList<>();
 
-        tracker = SkindexRegistry.getTrackerById(itemData.tracker);
+        trackerId = itemData.tracker;
     }
 
     /** Getters and Setters */
@@ -62,6 +62,12 @@ public abstract class OwnableItem extends CustomizableItem{
         return bundles.contains(bundle);
     }
 
+    public SkindexTracker getTracker(){
+        if(trackerId == null) return null;
+
+        return SkindexRegistry.getTrackerById(trackerId);
+    }
+
     /** Methods */
     public boolean canUse(){
         if(SkindexDev.unlockAll) return true;
@@ -73,9 +79,9 @@ public abstract class OwnableItem extends CustomizableItem{
 
     public abstract boolean unlock();
     public boolean hasUnlocked(){
-        if(tracker != null){
+        if(getTracker() != null){
             for(Bundle b : bundles){
-                if(tracker.hasBundle(b)){
+                if(getTracker().hasBundle(b)){
                     return true;
                 }
             }

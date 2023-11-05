@@ -67,24 +67,10 @@ public abstract class CustomizableItem {
         return 10000 + new Random(id.hashCode()).nextInt(90000);
     }
 
-    public String getResourceAssetPathIfExists(String assetName){
-        return getResourceAssetPathIfExists(resourceDirectory, assetName);
-    }
-    public String getResourceAssetPathIfExists(String resourcePath, String assetName){
-        String imagePath = resourcePath + assetName;
-        return (Gdx.files.internal(imagePath).exists()) ? imagePath : null;
-    }
-
     public Texture loadImageIfExists(String assetName){
         if(assetName == null) return null;
 
         String imageName = assetName.contains(".") ? assetName : assetName + ".png";
-        return TextureManager.getTexture(imageName);
-    }
-    public Texture loadLocalImageIfExists(String assetName){
-        if(assetName == null) return null;
-
-        String imageName = getResourceAssetPathIfExists(assetName.contains(".") ? assetName : assetName + ".png");
         return TextureManager.getTexture(imageName);
     }
 
