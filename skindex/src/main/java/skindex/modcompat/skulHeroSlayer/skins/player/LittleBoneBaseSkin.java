@@ -1,22 +1,22 @@
-package skindex.modcompat.skins.player.skulHeroSlayer;
+package skindex.modcompat.skulHeroSlayer.skins.player;
 
 import skindex.skins.player.PlayerAtlasSkin;
 import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 import skulmod.character.LittleBone;
 
-public class LittleBoneBaseSkin extends PlayerAtlasSkin {
+public class LittleBoneBaseSkin extends LittleBoneAtlasSkin {
     /** Constructors */
     public LittleBoneBaseSkin() {
         super(new SkinData());
     }
 
     /** Data */
-    public static class SkinData extends PlayerAtlasSkinData {
+    public static class SkinData extends LittleBoneAtlasSkinData {
         public static String ID = "BASE";
         public SkinData(){
-            atlasUrl = "skulmod/character/animation/LittleBoneAnim.atlas";
-            skeletonUrl = "skulmod/character/animation/LittleBoneAnim.json";
+            atlasDirectoryUrl = "skulmod/character/animation/";
+            skeletonDirectoryUrl = "skulmod/character/animation/";
             resourceDirectoryUrl = "skulmod/character/animation/";
 
             id = ID;

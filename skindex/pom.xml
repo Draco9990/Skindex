@@ -16,7 +16,8 @@
         <ModTheSpire.version>3.8.0</ModTheSpire.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--CHANGE THIS TO YOUR STEAM INSTALLATION-->
-        <Steam.path>C:\Projects\[IntelliJ] Together in Spire\Builds</Steam.path>
+        <Steam.path>D:\Marino\Programs\Steam\steamapps</Steam.path>
+        <WorkshopContent.path>D:\Marino\Programs\Steam\steamapps\workshop\content\646570</WorkshopContent.path>
         <Libraries.path>D:\Marino\Projects\Together in Spire\Libraries</Libraries.path>
         <Mods.path>D:\Marino\Games\Slay The Spire\Game\mods</Mods.path>
     </properties>
@@ -105,6 +106,13 @@
             <version>0.0.1</version>
             <scope>system</scope>
             <systemPath>${Libraries.path}/skulmod.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>packmaster</groupId>
+            <artifactId>Packmaster</artifactId>
+            <version>0.0.1</version>
+            <scope>system</scope>
+            <systemPath>${WorkshopContent.path}/2920075378/ThePackmaster.jar</systemPath>
         </dependency>
     </dependencies>
 

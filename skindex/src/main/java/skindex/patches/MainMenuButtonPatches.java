@@ -21,7 +21,7 @@ public class MainMenuButtonPatches {
             int indx = 0;
             for(MenuButton b : buttons){
                 if(b.result == MenuButton.ClickResult.INFO){
-                    __instance.buttons.add(new MenuButton(Enums.SKINDEX, indx++));
+                    //__instance.buttons.add(new MenuButton(Enums.SKINDEX, indx++));
                 }
                 __instance.buttons.add(new MenuButton(b.result, indx++));
             }
@@ -31,7 +31,7 @@ public class MainMenuButtonPatches {
     @SpirePatch(clz = MenuButton.class, method = "setLabel")
     public static class LabelPatcher{
         public static void Postfix(MenuButton __instance, String ___label){
-            if(__instance.result == Enums.SKINDEX) Reflection.setFieldValue("label", __instance, "SKINDEX");
+            if(__instance.result == Enums.SKINDEX) Reflection.setFieldValue("label", __instance, "Skindex");
         }
     }
 

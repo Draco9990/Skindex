@@ -289,7 +289,7 @@ public class SkindexRegistry {
         ArrayList<PlayerSkin> skins = getSkinsForClass(playerClass, onlyOwned);
         if(skins.isEmpty()) return null;
 
-        PlayerSkin skin = skins.get(new Random().random(skins.size()));
+        PlayerSkin skin = skins.get(new Random().random(skins.size()-1));
         if(skin == null || !makeCopy) return skin;
 
         return (PlayerSkin) skin.makeCopy();

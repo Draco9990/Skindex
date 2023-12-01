@@ -1,8 +1,13 @@
 package skindex.modcompat;
 
 import dLib.modcompat.ModManager;
+import skindex.modcompat.packmaster.skins.player.PackmasterBaseSkin;
+import skindex.modcompat.packmaster.skins.player.PackmasterBuilderSkin;
+import skindex.modcompat.packmaster.skins.player.PackmasterHipsterSkin;
+import skindex.modcompat.packmaster.skins.player.PackmasterPackmistressSkin;
+import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneElMuerteSkin;
+import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneLittleHelperSkin;
 import skindex.registering.SkindexPlayerSkinRegistrant;
-import skindex.registering.SkindexRegistry;
 import skindex.modcompat.downfall.skins.player.automaton.AutomatonBaseSkin;
 import skindex.modcompat.downfall.skins.player.automaton.AutomatonBetaSkin;
 import skindex.modcompat.downfall.skins.player.automaton.AutomatonThePerfectSkin;
@@ -26,7 +31,7 @@ import skindex.modcompat.downfall.skins.player.snecko.SneckoBaseSkin;
 import skindex.modcompat.downfall.skins.player.snecko.SneckoBetaSkin;
 import skindex.modcompat.downfall.skins.player.snecko.SneckoChanSkin;
 import skindex.modcompat.skins.player.marisaContinued.MarisaBaseSkin;
-import skindex.modcompat.skins.player.skulHeroSlayer.LittleBoneBaseSkin;
+import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneBaseSkin;
 import skindex.modcompat.skins.player.theAbyssal.AbyssalBaseSkin;
 import skindex.modcompat.skins.player.theUnchained.UnchainedBaseSkin;
 import skindex.modcompat.skins.player.theUnchained.UnchainedPrinceUnboundSkin;
@@ -46,6 +51,7 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
         if(ModManager.SkulHeroSlayer.isActive()) totalList.addAll(getDefaultSkulHeroSlayerSkinsToRegister());
         if(ModManager.TheAbyssal.isActive()) totalList.addAll(getDefaultTheAbyssalSkinsToRegister());
         if(ModManager.TheUnchained.isActive()) totalList.addAll(getDefaultTheUnchainedSkinsToRegister());
+        if(ModManager.ThePackmaster.isActive()) totalList.addAll(getDefaultPackmasterSkinsToRegister());
         return totalList;
     }
 
@@ -74,6 +80,9 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
     private static List<PlayerSkin> getDefaultTheUnchainedSkinsToRegister(){
         return Arrays.asList(new UnchainedBaseSkin());
     }
+    private static List<PlayerSkin> getDefaultPackmasterSkinsToRegister(){
+        return Arrays.asList(new PackmasterBaseSkin());
+    }
 
 
     @Override
@@ -81,6 +90,8 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
         ArrayList<PlayerSkin> totalList = new ArrayList<>();
         if(ModManager.Downfall.isActive()) totalList.addAll(getDownfallSkinsToRegister());
         if(ModManager.TheUnchained.isActive()) totalList.addAll(getTheUnchainedSkinsToRegister());
+        if(ModManager.SkulHeroSlayer.isActive()) totalList.addAll(getSkulHeroSlayerSkinsToRegister());
+        if(ModManager.ThePackmaster.isActive()) totalList.addAll(getPackmasterSkinsToRegister());
         return totalList;
     }
 
@@ -108,5 +119,18 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
     }
     private static List<PlayerSkin> getTheUnchainedSkinsToRegister(){
         return Arrays.asList(new UnchainedPrinceUnboundSkin());
+    }
+    private static List<PlayerSkin> getSkulHeroSlayerSkinsToRegister(){
+        return Arrays.asList(
+            new LittleBoneElMuerteSkin(),
+            new LittleBoneLittleHelperSkin()
+        );
+    }
+    private static List<PlayerSkin> getPackmasterSkinsToRegister(){
+        return Arrays.asList(
+            new PackmasterPackmistressSkin(),
+            new PackmasterHipsterSkin(),
+            new PackmasterBuilderSkin()
+        );
     }
 }
