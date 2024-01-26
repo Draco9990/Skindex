@@ -14,7 +14,7 @@ public class UnchainedPrinceUnboundSkin extends PlayerAtlasSkin {
 
     @Override
     public boolean hasUnlocked() {
-        return TheUnchainedMod.UNCHAINED_SKIN_UNLOCKED;
+        return TheUnchainedMod.PrinceUnboundUnlocked();
     }
 
     /** Data */

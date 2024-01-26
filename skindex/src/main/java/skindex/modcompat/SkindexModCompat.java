@@ -1,10 +1,12 @@
 package skindex.modcompat;
 
 import dLib.modcompat.ModManager;
+import skindex.modcompat.duelistmod.skins.player.*;
 import skindex.modcompat.packmaster.skins.player.PackmasterBaseSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterBuilderSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterHipsterSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterPackmistressSkin;
+import skindex.modcompat.skins.player.theUnchained.UnchainedBirthdaySkin;
 import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneElMuerteSkin;
 import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneLittleHelperSkin;
 import skindex.registering.SkindexPlayerSkinRegistrant;
@@ -52,6 +54,7 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
         if(ModManager.TheAbyssal.isActive()) totalList.addAll(getDefaultTheAbyssalSkinsToRegister());
         if(ModManager.TheUnchained.isActive()) totalList.addAll(getDefaultTheUnchainedSkinsToRegister());
         if(ModManager.ThePackmaster.isActive()) totalList.addAll(getDefaultPackmasterSkinsToRegister());
+        if(ModManager.DuelistMod.isActive()) totalList.addAll(getDefaultDuelistModSkinsToRegister());
         return totalList;
     }
 
@@ -83,6 +86,9 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
     private static List<PlayerSkin> getDefaultPackmasterSkinsToRegister(){
         return Arrays.asList(new PackmasterBaseSkin());
     }
+    private static List<PlayerSkin> getDefaultDuelistModSkinsToRegister(){
+        return Arrays.asList(new DuelistBaseSkin());
+    }
 
 
     @Override
@@ -92,6 +98,7 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
         if(ModManager.TheUnchained.isActive()) totalList.addAll(getTheUnchainedSkinsToRegister());
         if(ModManager.SkulHeroSlayer.isActive()) totalList.addAll(getSkulHeroSlayerSkinsToRegister());
         if(ModManager.ThePackmaster.isActive()) totalList.addAll(getPackmasterSkinsToRegister());
+        if(ModManager.DuelistMod.isActive()) totalList.addAll(getDuelistModSkinsToRegister());
         return totalList;
     }
 
@@ -118,7 +125,10 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
         );
     }
     private static List<PlayerSkin> getTheUnchainedSkinsToRegister(){
-        return Arrays.asList(new UnchainedPrinceUnboundSkin());
+        return Arrays.asList(
+            new UnchainedPrinceUnboundSkin(),
+            new UnchainedBirthdaySkin()
+        );
     }
     private static List<PlayerSkin> getSkulHeroSlayerSkinsToRegister(){
         return Arrays.asList(
@@ -131,6 +141,14 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
             new PackmasterPackmistressSkin(),
             new PackmasterHipsterSkin(),
             new PackmasterBuilderSkin()
+        );
+    }
+    private static List<PlayerSkin> getDuelistModSkinsToRegister(){
+        return Arrays.asList(
+            new DuelistClassicYugiSkin(),
+            new DuelistKaibaSkin(),
+            new DuelistAnimatedYugiSkin(),
+            new DuelistAnimatedKaibaSkin()
         );
     }
 }

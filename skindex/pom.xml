@@ -66,11 +66,11 @@
             <systemPath>${Libraries.path}/downfall.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>com.theunchained.mod</groupId>
-            <artifactId>theunchained</artifactId>
+            <groupId>thenchained</groupId>
+            <artifactId>TheUnchained</artifactId>
             <version>0.0.1</version>
             <scope>system</scope>
-            <systemPath>${Libraries.path}/TheUnchainedMod.jar</systemPath>
+            <systemPath>${WorkshopContent.path}/2898404807/TheUnchainedMod.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.shadowverse.mod</groupId>
@@ -105,7 +105,7 @@
             <artifactId>skulMod</artifactId>
             <version>0.0.1</version>
             <scope>system</scope>
-            <systemPath>${Libraries.path}/skulmod.jar</systemPath>
+            <systemPath>${WorkshopContent.path}/3025811995/skulmod.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>packmaster</groupId>
@@ -113,6 +113,13 @@
             <version>0.0.1</version>
             <scope>system</scope>
             <systemPath>${WorkshopContent.path}/2920075378/ThePackmaster.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>duelistmod</groupId>
+            <artifactId>DuelistMod</artifactId>
+            <version>0.0.1</version>
+            <scope>system</scope>
+            <systemPath>${WorkshopContent.path}/1673346215/DuelistMod.jar</systemPath>
         </dependency>
     </dependencies>
 

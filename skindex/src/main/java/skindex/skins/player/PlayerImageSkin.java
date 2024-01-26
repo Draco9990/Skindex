@@ -1,14 +1,22 @@
 package skindex.skins.player;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.evacipated.cardcrawl.modthespire.lib.*;
+import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.util.Reflection;
+import javassist.CannotCompileException;
+import javassist.CtBehavior;
+import skindex.SkindexGame;
 import skindex.entities.player.SkindexPlayerEntity;
 import skindex.entities.player.SkindexPlayerImageEntity;
+import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneAtlasSkin;
+import skulmod.character.LittleBone;
 
 public class PlayerImageSkin extends PlayerSkin{
     /** Variables */
-    public Texture image;
+    private Texture image;
 
     /** Constructors */
     public PlayerImageSkin(PlayerImageSkinData skinData) {

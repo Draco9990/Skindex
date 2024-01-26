@@ -20,7 +20,7 @@ public class PlayerLoadAnimationPatcher {
     public static class LoadAnimationConsumer{
         public static String resourceDirectoryUrl = null;
 
-        public static SpireReturn Postfix(AbstractCreature __instance, String atlasUrl, String skeletonUrl, float scale){
+        public static SpireReturn Prefix(AbstractCreature __instance, String atlasUrl, String skeletonUrl, float scale){
             if(resourceDirectoryUrl != null && __instance instanceof AbstractPlayer){
                 TextureAtlas atlas = AssetLoader.loadTextureAtlas(atlasUrl, resourceDirectoryUrl);
                 Reflection.setFieldValue("atlas", __instance, atlas);

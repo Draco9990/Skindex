@@ -1,9 +1,13 @@
 package skindex.modcompat.skulHeroSlayer.skins.player;
 
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
+import com.evacipated.cardcrawl.modthespire.lib.*;
+import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.modcompat.ModManager;
 import dLib.util.Reflection;
+import javassist.CannotCompileException;
+import javassist.CtBehavior;
 import skindex.SkindexGame;
 import skindex.entities.player.SkindexPlayerAtlasEntity;
 import skindex.entities.player.SkindexPlayerEntity;
@@ -68,11 +72,21 @@ public class LittleBoneAtlasSkin extends PlayerSkin {
     /** Patches */
     public static class Patches{
         @SpirePatch2(clz = LittleBone.class, method = "AnimateSkull", requiredModId = ModManager.SkulHeroSlayer.modId, optional = true)
-        public static class ReapplySkinPatch{
-            public static void Postfix(){
+        public static class SkinLoaderPatcher {
+            @SpireInsertPatch(locator = Locator.class)
+            public static void Insert(){
                 PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin instanceof LittleBoneAtlasSkin){
                     currentSkin.loadOnPlayer();
+                }
+            }
+
+            private static class Locator extends SpireInsertLocator {
+                public int[] Locate(CtBehavior ctMethodToPatch) throws CannotCompileException, PatchingException {
+                    Matcher finalMatcher = new Matcher.MethodCallMatcher(LittleBone.class, "loadAnimation");
+                    int[] lines = LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
+                    lines[0]++;
+                    return lines;
                 }
             }
         }

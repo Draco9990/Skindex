@@ -16,6 +16,7 @@ import skindex.unlockmethods.UnlockMethod;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class SkindexRegistry {
     /** Registrant Variables */
@@ -62,44 +63,69 @@ public class SkindexRegistry {
     public static void processRegistrants(){
         for(SkindexTrackerRegistrant skindexRegistrant : trackerRegistrants){
             for(int i = 0; i < 3; i++){
-                for(SkindexTracker item : skindexRegistrant.getTrackersToRegister(i)){
+                List<SkindexTracker> trackersToRegister = skindexRegistrant.getTrackersToRegister(i);
+                if(trackersToRegister == null) continue;
+
+                for(SkindexTracker item : trackersToRegister){
                     registerTracker(i, item);
                 }
             }
         }
         for(SkindexUnlockMethodRegistrant skindexRegistrant : unlockMethodRegistrants){
-            for(UnlockMethod item : skindexRegistrant.getUnlockMethodsToRegister()){
+            List<UnlockMethod> unlockMethodsToRegister = skindexRegistrant.getUnlockMethodsToRegister();
+            if(unlockMethodsToRegister == null) continue;
+
+            for(UnlockMethod item : unlockMethodsToRegister){
                 registerUnlockMethod(item);
             }
         }
         for(SkindexBundleRegistrant skindexRegistrant : bundleRegistrants){
-            for(Bundle item : skindexRegistrant.getBundlesToRegister()){
+            List<Bundle> bundlesToRegister = skindexRegistrant.getBundlesToRegister();
+            if(bundlesToRegister == null) continue;
+
+            for(Bundle item : bundlesToRegister){
                 registerBundle(item);
             }
         }
 
         for(SkindexOrbSkinRegistrant skindexRegistrant : orbSkinRegistrants){
-            for(OrbSkin item : skindexRegistrant.getOrbSkinsToRegister()){
+            List<OrbSkin> orbSkinsToRegister = skindexRegistrant.getOrbSkinsToRegister();
+            if(orbSkinsToRegister == null) continue;
+
+            for(OrbSkin item : orbSkinsToRegister){
                 registerOrbSkin(item);
             }
         }
         for(SkindexStanceSkinRegistrant skindexRegistrant : stanceSkinRegistrants){
-            for(StanceSkin item : skindexRegistrant.getStanceSkinsToRegister()){
+            List<StanceSkin> stanceSkinsToRegister = skindexRegistrant.getStanceSkinsToRegister();
+            if(stanceSkinsToRegister == null) continue;
+
+            for(StanceSkin item : stanceSkinsToRegister){
                 registerStanceSkin(item);
             }
         }
         for(SkindexCardSkinRegistrant skindexRegistrant : cardSkinRegistrants){
-            for(CardSkin item : skindexRegistrant.getCardSkinsToRegister()){
+            List<CardSkin> cardSkinsToRegister = skindexRegistrant.getCardSkinsToRegister();
+            if(cardSkinsToRegister == null) continue;
+
+            for(CardSkin item : cardSkinsToRegister){
                 registerCardSkin(item);
             }
         }
 
         for(SkindexPlayerSkinRegistrant skindexRegistrant : playerSkinRegistrants){
-            for(PlayerSkin item : skindexRegistrant.getDefaultPlayerSkinsToRegister()){
-                registerDefaultPlayerSkin(item);
+            List<PlayerSkin> defaultPlayerSkinsToRegister = skindexRegistrant.getDefaultPlayerSkinsToRegister();
+            if(defaultPlayerSkinsToRegister != null){
+                for(PlayerSkin item : defaultPlayerSkinsToRegister){
+                    registerDefaultPlayerSkin(item);
+                }
             }
-            for(PlayerSkin item : skindexRegistrant.getPlayerSkinsToRegister()){
-                registerPlayerSkin(item);
+
+            List<PlayerSkin> playerSkinsToRegister = skindexRegistrant.getPlayerSkinsToRegister();
+            if(playerSkinsToRegister != null){
+                for(PlayerSkin item : skindexRegistrant.getPlayerSkinsToRegister()){
+                    registerPlayerSkin(item);
+                }
             }
         }
     }
