@@ -16,10 +16,9 @@
         <ModTheSpire.version>3.8.0</ModTheSpire.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--CHANGE THIS TO YOUR STEAM INSTALLATION-->
-        <Steam.path>D:\Marino\Programs\Steam\steamapps</Steam.path>
-        <WorkshopContent.path>D:\Marino\Programs\Steam\steamapps\workshop\content\646570</WorkshopContent.path>
-        <Libraries.path>D:\Marino\Projects\Together in Spire\Libraries</Libraries.path>
-        <Mods.path>D:\Marino\Games\Slay The Spire\Game\mods</Mods.path>
+        <WorkshopContent.path>D:\SteamLibrary\steamapps\workshop\content\646570</WorkshopContent.path>
+        <Libraries.path>E:\Marino\Projects\Together in Spire\Libraries</Libraries.path>
+        <Mods.path>E:\Marino\Games\Slay The Spire\Game\mods</Mods.path>
     </properties>
 
     <dependencies>

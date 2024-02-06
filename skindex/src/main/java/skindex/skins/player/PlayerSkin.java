@@ -163,16 +163,14 @@ public class PlayerSkin extends OwnableItem {
             static Random colorRand = new Random();
 
             public static void Postfix(CardTrailEffect __instance){
-                if(__instance.equals(AbstractDungeon.player)){
-                    PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
-                    if(currentSkin != null){
-                        ArrayList<Color> cardTrailColors = currentSkin.cardTrailColors;
-                        if(cardTrailColors.size() == 1){
-                            dLib.util.Reflection.setFieldValue("color", __instance, cardTrailColors.get(0));
-                        }
-                        else if(cardTrailColors.size() > 1){
-                            dLib.util.Reflection.setFieldValue("color", __instance, cardTrailColors.get(colorRand.nextInt(cardTrailColors.size())));
-                        }
+                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                if(currentSkin != null){
+                    ArrayList<Color> cardTrailColors = currentSkin.cardTrailColors;
+                    if(cardTrailColors.size() == 1){
+                        dLib.util.Reflection.setFieldValue("color", __instance, cardTrailColors.get(0));
+                    }
+                    else if(cardTrailColors.size() > 1){
+                        dLib.util.Reflection.setFieldValue("color", __instance, cardTrailColors.get(colorRand.nextInt(cardTrailColors.size())));
                     }
                 }
             }
