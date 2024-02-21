@@ -5,12 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.neow.NeowRoom;
-import dLib.ui.elements.ElementGroup;
+import dLib.ui.elements.CompositeUIElement;
 import dLib.ui.elements.implementations.Interactable;
 import dLib.ui.elements.prefabs.TextBox;
 import dLib.ui.elements.prefabs.Toggle;
-import dLib.ui.screens.AbstractScreen;
-import dLib.ui.screens.ScreenManager;
 import dLib.ui.themes.UIThemeManager;
 import dLib.util.TextureManager;
 import skindex.SkindexGame;
@@ -20,7 +18,7 @@ import skindex.skins.player.PlayerSkin;
 public class NeowWardrobePatches {
     public static Toggle wardrobe;
 
-    public static ElementGroup skinController;
+    public static CompositeUIElement skinController;
 
     public static void initializeElements(){
         if(wardrobe != null) return;
@@ -52,8 +50,8 @@ public class NeowWardrobePatches {
         }
         .setRenderColor(Color.WHITE);
 
-        skinController = new ElementGroup();
-        skinController.other.add(textBox);
+        skinController = new CompositeUIElement(286, 1080-828, 55, 56);
+        skinController.foreground.add(textBox);
         skinController.left = new Interactable(UIThemeManager.getDefaultTheme().arrow_left, 286, 1080-828, 55, 56){
             @Override
             public boolean isActive() {

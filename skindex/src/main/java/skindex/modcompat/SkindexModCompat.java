@@ -9,6 +9,7 @@ import skindex.modcompat.packmaster.skins.player.PackmasterPackmistressSkin;
 import skindex.modcompat.skins.player.theUnchained.UnchainedBirthdaySkin;
 import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneElMuerteSkin;
 import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneLittleHelperSkin;
+import skindex.modcompat.unchained.skins.player.UnchainedPixelSkin;
 import skindex.registering.SkindexPlayerSkinRegistrant;
 import skindex.modcompat.downfall.skins.player.automaton.AutomatonBaseSkin;
 import skindex.modcompat.downfall.skins.player.automaton.AutomatonBetaSkin;
@@ -127,7 +128,8 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
     private static List<PlayerSkin> getTheUnchainedSkinsToRegister(){
         return Arrays.asList(
             new UnchainedPrinceUnboundSkin(),
-            new UnchainedBirthdaySkin()
+            new UnchainedBirthdaySkin(),
+            new UnchainedPixelSkin()
         );
     }
     private static List<PlayerSkin> getSkulHeroSlayerSkinsToRegister(){

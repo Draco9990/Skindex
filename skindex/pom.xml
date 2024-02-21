@@ -58,11 +58,11 @@
             <systemPath>${Mods.path}/dLib.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>com.downfall.mod</groupId>
-            <artifactId>downfall</artifactId>
+            <groupId>downfall</groupId>
+            <artifactId>Downfall</artifactId>
             <version>0.0.1</version>
             <scope>system</scope>
-            <systemPath>${Libraries.path}/downfall.jar</systemPath>
+            <systemPath>${WorkshopContent.path}/1610056683/downfall.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>thenchained</groupId>

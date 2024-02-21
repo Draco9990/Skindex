@@ -2,6 +2,7 @@ package skindex.modcompat.downfall.patches;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
+import dLib.modcompat.ModManager;
 import reskinContent.skinCharacter.AbstractSkinCharacter;
 import skindex.SkindexGame;
 import skindex.modcompat.downfall.skins.player.DownfallSkinWrapper;
@@ -10,7 +11,7 @@ import skindex.skins.player.PlayerAtlasSkin;
 import skindex.skins.player.PlayerSkin;
 
 public class DownfallSkinPatches {
-    @SpirePatch2(clz = AbstractSkinCharacter.class, method = "isOriginal", requiredModId = "downfall", optional = true)
+    @SpirePatch2(clz = AbstractSkinCharacter.class, method = "isOriginal", requiredModId = ModManager.Downfall.modId, optional = true)
     public static class IsOriginalPatch{
         public static SpireReturn<Boolean> Prefix(){
             PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();

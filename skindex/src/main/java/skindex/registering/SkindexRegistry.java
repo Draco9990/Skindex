@@ -128,6 +128,12 @@ public class SkindexRegistry {
                 }
             }
         }
+
+        for(SkindexPostRegistryFinishCallback skindexRegistrant : postRegistryFinishCallbacks){
+            if(skindexRegistrant != null){
+                skindexRegistrant.onRegistryFinish();
+            }
+        }
     }
 
     private static void registerUnlockMethod(UnlockMethod unlockMethod){

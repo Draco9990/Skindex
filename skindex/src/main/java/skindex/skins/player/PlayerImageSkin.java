@@ -1,10 +1,14 @@
 package skindex.skins.player;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import dLib.modcompat.ModManager;
 import dLib.util.Reflection;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
@@ -13,6 +17,8 @@ import skindex.entities.player.SkindexPlayerEntity;
 import skindex.entities.player.SkindexPlayerImageEntity;
 import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneAtlasSkin;
 import skulmod.character.LittleBone;
+
+import java.util.Objects;
 
 public class PlayerImageSkin extends PlayerSkin{
     /** Variables */
@@ -25,26 +31,74 @@ public class PlayerImageSkin extends PlayerSkin{
         image = loadImageIfExists(skinData.imageUrl);
     }
 
-    /** Methods */
+    /** Update */
     @Override
-    public boolean loadOnEntity(SkindexPlayerEntity entity) {
-        if(!super.loadOnEntity(entity)) return false;
-        if(image == null) return false;
-        if(!(entity instanceof SkindexPlayerImageEntity)) return false;
+    public void update(AbstractCreature updateSource) {
+        super.update(updateSource);
 
-        ((SkindexPlayerImageEntity) entity).setRenderImage(image);
-
-        return true;
+        if(updateSource instanceof SkindexPlayerImageEntity){
+            ((SkindexPlayerImageEntity) updateSource).setRenderImage(getImageToRender());
+        }
+        else if(updateSource instanceof AbstractPlayer){
+            AbstractDungeon.player.img = getImageToRender();
+            Reflection.setFieldValue("atlas", AbstractDungeon.player, null);
+        }
     }
 
-    @Override
-    public boolean loadOnPlayer() {
-        if(!super.loadOnPlayer()) return false;
-        if(image == null) return false;
+    /** Image */
+    protected Texture getImageToRender(){
+        return image;
+    }
 
-        AbstractDungeon.player.img = image;
-        Reflection.setFieldValue("atlas", AbstractDungeon.player, null);
+    /** Render Helpers */
+    public void renderSkinImage(SpriteBatch sb, AbstractCreature creature, Texture img, float scaleMult){
+        sb.setColor(renderColor);
 
-        return true;
+        sb.draw(img, creature.drawX - ((float)img.getWidth() / 2.0F) * scale * Settings.xScale + creature.animX, creature.drawY, (float)img.getWidth() / 2, 0, (float)img.getWidth() * Settings.scale, (float)img.getHeight() * Settings.scale, scaleMult * scale * Settings.xScale, scaleMult * scale * Settings.yScale, 0, 0, 0, img.getWidth(), img.getHeight(), creature.flipHorizontal, creature.flipVertical);
+    }
+
+    /** Patches */
+    public static class Patches{
+        @SpirePatch2(clz = AbstractPlayer.class, method = "render")
+        public static class PlayerImageSkinPatcher {
+            @SpireInsertPatch(locator = Locator.class)
+            public static SpireReturn Insert(AbstractPlayer __instance, SpriteBatch sb){
+                if(Objects.equals(AbstractDungeon.player, __instance)){
+                    PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                    if(currentSkin instanceof PlayerImageSkin){
+                        PlayerImageSkin imgSkin = (PlayerImageSkin) currentSkin;
+                        imgSkin.renderSkinImage(sb, __instance, __instance.img, 1.0f);
+
+                        return SpireReturn.Return();
+                    }
+                }
+                return SpireReturn.Continue();
+            }
+        }
+
+        @SpirePatch2(clz = AbstractPlayer.class, method = "renderPlayerImage")
+        public static class PlayerImageSkinPatcher2 {
+            @SpireInsertPatch(locator = Locator.class)
+            public static SpireReturn Insert(AbstractPlayer __instance, SpriteBatch sb){
+                if(Objects.equals(AbstractDungeon.player, __instance)){
+                    PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                    if(currentSkin instanceof PlayerImageSkin){
+                        PlayerImageSkin imgSkin = (PlayerImageSkin) currentSkin;
+                        imgSkin.renderSkinImage(sb, __instance, __instance.img, 1.0f);
+
+                        return SpireReturn.Return();
+                    }
+                }
+                return SpireReturn.Continue();
+            }
+        }
+
+        private static class Locator extends SpireInsertLocator {
+            public int[] Locate(CtBehavior ctMethodToPatch) throws CannotCompileException, PatchingException {
+                Matcher finalMatcher = new Matcher.MethodCallMatcher(SpriteBatch.class, "draw");
+                int[] lines = LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
+                return lines;
+            }
+        }
     }
 }

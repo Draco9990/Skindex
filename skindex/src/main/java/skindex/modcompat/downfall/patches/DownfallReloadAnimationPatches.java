@@ -92,7 +92,7 @@ public class DownfallReloadAnimationPatches {
         }
     }
 
-    @SpirePatch(clz = ChampChar.class, method = "reloadAnimation", requiredModId = "downfall", optional = true)
+    @SpirePatch(clz = ChampChar.class, method = "reloadAnimation", requiredModId = ModManager.Downfall.modId, optional = true)
     public static class ChampPatch{
         public static SpireReturn Prefix(ChampChar __instance){
             if(Objects.equals(__instance, AbstractDungeon.player)){
@@ -107,7 +107,7 @@ public class DownfallReloadAnimationPatches {
         }
     }
 
-    @SpirePatch(clz = AutomatonChar.class, method = "reloadAnimation", requiredModId = "downfall", optional = true)
+    @SpirePatch(clz = AutomatonChar.class, method = "reloadAnimation", requiredModId = ModManager.Downfall.modId, optional = true)
     public static class AutomatonPatch{
         public static SpireReturn Prefix(AutomatonChar __instance){
             if(Objects.equals(__instance, AbstractDungeon.player)){
