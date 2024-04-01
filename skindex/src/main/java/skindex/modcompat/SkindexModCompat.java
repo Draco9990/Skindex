@@ -7,9 +7,15 @@ import skindex.modcompat.packmaster.skins.player.PackmasterBuilderSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterHipsterSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterPackmistressSkin;
 import skindex.modcompat.skins.player.theUnchained.UnchainedBirthdaySkin;
+import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneElMuerteCardSkin;
+import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneLittleHelperCardSkin;
+import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneRoyalGuardCardSkin;
 import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneElMuerteSkin;
 import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneLittleHelperSkin;
+import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneRoyalGuardSkin;
+import skindex.modcompat.unchained.skins.card.UnchainedPixelCardSkin;
 import skindex.modcompat.unchained.skins.player.UnchainedPixelSkin;
+import skindex.registering.SkindexCardSkinRegistrant;
 import skindex.registering.SkindexPlayerSkinRegistrant;
 import skindex.modcompat.downfall.skins.player.automaton.AutomatonBaseSkin;
 import skindex.modcompat.downfall.skins.player.automaton.AutomatonBetaSkin;
@@ -38,13 +44,14 @@ import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneBaseSkin;
 import skindex.modcompat.skins.player.theAbyssal.AbyssalBaseSkin;
 import skindex.modcompat.skins.player.theUnchained.UnchainedBaseSkin;
 import skindex.modcompat.skins.player.theUnchained.UnchainedPrinceUnboundSkin;
+import skindex.skins.cards.CardSkin;
 import skindex.skins.player.PlayerSkin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
+public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCardSkinRegistrant {
     /** Methods */
     @Override
     public List<PlayerSkin> getDefaultPlayerSkinsToRegister() {
@@ -135,7 +142,8 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
     private static List<PlayerSkin> getSkulHeroSlayerSkinsToRegister(){
         return Arrays.asList(
             new LittleBoneElMuerteSkin(),
-            new LittleBoneLittleHelperSkin()
+            new LittleBoneLittleHelperSkin(),
+            new LittleBoneRoyalGuardSkin()
         );
     }
     private static List<PlayerSkin> getPackmasterSkinsToRegister(){
@@ -151,6 +159,28 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant {
             new DuelistKaibaSkin(),
             new DuelistAnimatedYugiSkin(),
             new DuelistAnimatedKaibaSkin()
+        );
+    }
+
+
+
+    @Override
+    public List<CardSkin> getCardSkinsToRegister() {
+        ArrayList<CardSkin> totalList = new ArrayList<>();
+        if(ModManager.TheUnchained.isActive()) totalList.addAll(getTheUnchainedCardSkinsToRegister());
+        if(ModManager.SkulHeroSlayer.isActive()) totalList.addAll(getSkulheroSlayerCardSkinsToRegister());
+        return totalList;
+    }
+
+    private static List<CardSkin> getTheUnchainedCardSkinsToRegister(){
+        return Arrays.asList(new UnchainedPixelCardSkin());
+    }
+
+    private static List<CardSkin> getSkulheroSlayerCardSkinsToRegister(){
+        return Arrays.asList(
+            new LittleBoneElMuerteCardSkin(),
+            new LittleBoneLittleHelperCardSkin(),
+            new LittleBoneRoyalGuardCardSkin()
         );
     }
 }

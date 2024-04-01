@@ -1,6 +1,7 @@
 package skindex.modcompat.unchained.skins.player;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import skindex.modcompat.unchained.skins.card.UnchainedPixelCardSkin;
 import skindex.skins.player.PlayerGifSkin;
 import skindex.skins.player.PlayerGifSkinData;
 import skindex.skins.player.PlayerImageSkin;
@@ -12,6 +13,7 @@ public class UnchainedPixelSkin extends PlayerGifSkin {
     /** Constructors */
     public UnchainedPixelSkin() {
         super(new SkinData());
+        setCredits("Mezix");
     }
 
     /** Data */
@@ -19,6 +21,8 @@ public class UnchainedPixelSkin extends PlayerGifSkin {
         public static String ID = "PIXEL";
         public SkinData(){
             gifUrl = "skindexResources/images/skins/player/unchained/pixel/model.gif";
+
+            cardSkins.add(UnchainedPixelCardSkin.SkinData.ID);
 
             id = ID;
             name = "Pixel";

@@ -16,7 +16,7 @@
         <ModTheSpire.version>3.8.0</ModTheSpire.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--CHANGE THIS TO YOUR STEAM INSTALLATION-->
-        <WorkshopContent.path>D:\SteamLibrary\steamapps\workshop\content\646570</WorkshopContent.path>
+        <WorkshopContent.path>C:\SteamLibrary\steamapps\workshop\content\646570</WorkshopContent.path>
         <Libraries.path>E:\Marino\Projects\Together in Spire\Libraries</Libraries.path>
         <Mods.path>E:\Marino\Games\Slay The Spire\Game\mods</Mods.path>
     </properties>
@@ -38,10 +38,10 @@
         </dependency>
         <dependency>
             <groupId>basemod</groupId>
-            <artifactId>basemod</artifactId>
-            <version>5.0.0</version>
+            <artifactId>BaseMod</artifactId>
+            <version>0.0.1</version>
             <scope>system</scope>
-            <systemPath>${Libraries.path}/BaseMod.jar</systemPath>
+            <systemPath>${WorkshopContent.path}/1605833019/BaseMod.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.evacipated.cardcrawl.mod</groupId>

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.neow.NeowRoom;
-import dLib.ui.elements.CompositeUIElement;
+import dLib.ui.elements.UIElement;
 import dLib.ui.elements.implementations.Interactable;
 import dLib.ui.elements.prefabs.TextBox;
 import dLib.ui.elements.prefabs.Toggle;
@@ -18,7 +18,7 @@ import skindex.skins.player.PlayerSkin;
 public class NeowWardrobePatches {
     public static Toggle wardrobe;
 
-    public static CompositeUIElement skinController;
+    public static UIElement skinController;
 
     public static void initializeElements(){
         if(wardrobe != null) return;
@@ -40,7 +40,7 @@ public class NeowWardrobePatches {
 
         TextBox textBox = (TextBox) new TextBox(
                 SkindexGame.getActivePlayerSkin() != null ? SkindexGame.getActivePlayerSkin().getName() : "",
-                348, 1080-827,
+                62, 0,
                 265, 56,
                 0.07F, 0.20F){
             @Override
@@ -50,9 +50,10 @@ public class NeowWardrobePatches {
         }
         .setRenderColor(Color.WHITE);
 
-        skinController = new CompositeUIElement(286, 1080-828, 55, 56);
-        skinController.foreground.add(textBox);
-        skinController.left = new Interactable(UIThemeManager.getDefaultTheme().arrow_left, 286, 1080-828, 55, 56){
+        //todo replace with one element
+        skinController = new UIElement(286, 1080-828, 55, 56);
+        skinController.addChildNCS(textBox);
+        skinController.addChildCS(new Interactable(UIThemeManager.getDefaultTheme().arrow_left, 0, 0, 55, 56){
             @Override
             public boolean isActive() {
                 return super.isActive() && wardrobe.isToggled();
@@ -70,8 +71,8 @@ public class NeowWardrobePatches {
                 }
 
             }
-        };
-        skinController.right = new Interactable(UIThemeManager.getDefaultTheme().arrow_right, 620, 1080-828, 55, 56){
+        });
+        skinController.addChildCS(new Interactable(UIThemeManager.getDefaultTheme().arrow_right, 334, 0, 55, 56){
             @Override
             public boolean isActive() {
                 return super.isActive() && wardrobe.isToggled();
@@ -88,7 +89,7 @@ public class NeowWardrobePatches {
                     textBox.setText(playerSkin.getName());
                 }
             }
-        };
+        });
     }
 
     @SpirePatch2(clz = NeowRoom.class, method = "update")

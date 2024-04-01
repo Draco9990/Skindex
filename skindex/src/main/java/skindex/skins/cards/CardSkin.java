@@ -1,14 +1,19 @@
 package skindex.skins.cards;
 
+import basemod.patches.com.megacrit.cardcrawl.cards.AbstractCard.RenderFixSwitches;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
-import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
+import com.evacipated.cardcrawl.modthespire.lib.*;
+import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import javassist.CannotCompileException;
+import javassist.CtBehavior;
 import skindex.SkindexGame;
 import skindex.itemtypes.CustomizableItem;
+import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneAtlasSkin;
+import skindex.skins.player.PlayerSkin;
 
 public class CardSkin extends CustomizableItem {
     /** Variables */
@@ -68,6 +73,43 @@ public class CardSkin extends CustomizableItem {
                     return SpireReturn.Return();
                 }
                 return SpireReturn.Continue();
+            }
+        }
+
+        /** For Modded Characters */
+        @SpirePatch2(clz = RenderFixSwitches.class, method = "renderHelper", paramtypez = {AbstractCard.class, SpriteBatch.class, Color.class, TextureAtlas.AtlasRegion.class, float.class, float.class})
+        public static class CardBGPatcherModded{
+            public static void Prefix(AbstractCard card, @ByRef TextureAtlas.AtlasRegion[] region){
+                CardSkin cardSkin = SkindexGame.getActiveCardSkinForColor(card.color);
+                if(cardSkin != null && region != null && region.length > 0){
+                    if(card.type.equals(AbstractCard.CardType.ATTACK) && cardSkin.attackBg != null){
+                        region[0] = cardSkin.attackBg;
+                    }
+                    if(card.type.equals(AbstractCard.CardType.SKILL) && cardSkin.skillBg != null){
+                        region[0] = cardSkin.skillBg;
+                    }
+                    if(card.type.equals(AbstractCard.CardType.POWER) && cardSkin.powerBg != null){
+                        region[0] = cardSkin.powerBg;
+                    }
+                }
+            }
+        }
+
+        @SpirePatch2(clz = RenderFixSwitches.class, method = "renderHelper", paramtypez = {AbstractCard.class, SpriteBatch.class, Color.class, TextureAtlas.AtlasRegion.class, float.class, float.class, float.class})
+        public static class CardBGPatcherModded2{
+            public static void Prefix(AbstractCard card, @ByRef TextureAtlas.AtlasRegion[] region){
+                CardSkin cardSkin = SkindexGame.getActiveCardSkinForColor(card.color);
+                if(cardSkin != null && region != null && region.length > 0){
+                    if(card.type.equals(AbstractCard.CardType.ATTACK) && cardSkin.attackBg != null){
+                        region[0] = cardSkin.attackBg;
+                    }
+                    if(card.type.equals(AbstractCard.CardType.SKILL) && cardSkin.skillBg != null){
+                        region[0] = cardSkin.skillBg;
+                    }
+                    if(card.type.equals(AbstractCard.CardType.POWER) && cardSkin.powerBg != null){
+                        region[0] = cardSkin.powerBg;
+                    }
+                }
             }
         }
     }

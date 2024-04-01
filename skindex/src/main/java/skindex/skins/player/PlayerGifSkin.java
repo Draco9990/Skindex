@@ -53,6 +53,9 @@ public class PlayerGifSkin extends PlayerImageSkin {
         }
 
         BufferedImage bufferedImage = gifDecoder.getFrame(currentFrameIndex);
+        if(gifTexture != null){
+            gifTexture.dispose();
+        }
         gifTexture = TextureHelpers.convertBufferedImageToTexture(bufferedImage);
         super.update(updateSource);
     }
