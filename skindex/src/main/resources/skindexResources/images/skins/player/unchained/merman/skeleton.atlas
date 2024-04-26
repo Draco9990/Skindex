@@ -1,0 +1,104 @@
+
+skeleton.png
+size: 171,271
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Back Arm Chains
+  rotate: false
+  xy: 162, 37
+  size: 7, 39
+  orig: 7, 39
+  offset: 0, 0
+  index: -1
+Back Lower Arm
+  rotate: true
+  xy: 2, 2
+  size: 28, 60
+  orig: 31, 64
+  offset: 0, 3
+  index: -1
+Back Upper Arm
+  rotate: false
+  xy: 147, 142
+  size: 19, 41
+  orig: 19, 41
+  offset: 0, 0
+  index: -1
+Body
+  rotate: true
+  xy: 2, 59
+  size: 65, 127
+  orig: 74, 127
+  offset: 9, 0
+  index: -1
+Face BG
+  rotate: true
+  xy: 98, 3
+  size: 26, 33
+  orig: 26, 33
+  offset: 0, 0
+  index: -1
+Front Arm Chains
+  rotate: true
+  xy: 117, 132
+  size: 8, 37
+  orig: 8, 37
+  offset: 0, 0
+  index: -1
+Front Lower Arm
+  rotate: false
+  xy: 117, 142
+  size: 28, 64
+  orig: 38, 72
+  offset: 5, 8
+  index: -1
+Front Upper Arm
+  rotate: false
+  xy: 131, 31
+  size: 29, 45
+  orig: 29, 45
+  offset: 0, 0
+  index: -1
+Mask
+  rotate: true
+  xy: 64, 3
+  size: 27, 32
+  orig: 27, 32
+  offset: 0, 0
+  index: -1
+Neck Area
+  rotate: true
+  xy: 131, 78
+  size: 52, 34
+  orig: 52, 34
+  offset: 0, 0
+  index: -1
+Shadow
+  rotate: false
+  xy: 2, 32
+  size: 110, 25
+  orig: 110, 26
+  offset: 0, 0
+  index: -1
+Unchained_Character_design/Hair
+  rotate: true
+  xy: 117, 208
+  size: 61, 52
+  orig: 61, 52
+  offset: 0, 0
+  index: -1
+Unchained_Character_design/Neck
+  rotate: false
+  xy: 147, 185
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+tail
+  rotate: false
+  xy: 2, 126
+  size: 113, 143
+  orig: 150, 150
+  offset: 35, 5
+  index: -1
