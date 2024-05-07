@@ -100,13 +100,4 @@ public abstract class OwnableItem extends CustomizableItem{
     //endregion
 
     //endregion
-    /** Variables */
-
-    /** Constructors */
-
-    /** Getters and Setters */
-
-
-
-    /** Methods */
 }
