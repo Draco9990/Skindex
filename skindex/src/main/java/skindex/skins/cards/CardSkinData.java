@@ -8,13 +8,13 @@ import java.io.Serializable;
 public class CardSkinData extends CustomizableItemData implements Serializable {
     static final long serialVersionUID = 1L;
 
-    /** Variables */
+    @SerializedName("cardColor")
+    public String cardColor;
+
     @SerializedName("attackBg")
     public String attackBg;
     @SerializedName("skillBg")
     public String skillBg;
     @SerializedName("powerBg")
     public String powerBg;
-    @SerializedName("cardColor")
-    public String cardColor;
 }

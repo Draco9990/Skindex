@@ -118,5 +118,7 @@ public abstract class CustomizableItem {
         return this;
     }
     //endregion
+
+    public void dispose(){}
     //endregion Class Methods
 }

@@ -16,14 +16,15 @@ import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneAtlasSkin;
 import skindex.skins.player.PlayerSkin;
 
 public class CardSkin extends CustomizableItem {
-    /** Variables */
-    public AbstractCard.CardColor cardColor;
+    //region Variables
+    protected TextureAtlas.AtlasRegion attackBg;
+    protected TextureAtlas.AtlasRegion skillBg;
+    protected TextureAtlas.AtlasRegion powerBg;
 
-    public TextureAtlas.AtlasRegion attackBg;
-    public TextureAtlas.AtlasRegion skillBg;
-    public TextureAtlas.AtlasRegion powerBg;
+    protected AbstractCard.CardColor cardColor;
+    //endregion Variables
 
-    /** Constructors */
+    //region Constructors
     public CardSkin(CardSkinData cardSkinData){
         super(cardSkinData);
 
@@ -31,14 +32,27 @@ public class CardSkin extends CustomizableItem {
         Texture skillTexture = loadImageIfExists(cardSkinData.skillBg);
         Texture powerTexture = loadImageIfExists(cardSkinData.powerBg);
 
-        this.attackBg = makeAtlasRegionFromTexture(attackTexture);
-        this.skillBg = makeAtlasRegionFromTexture(skillTexture);
-        this.powerBg = makeAtlasRegionFromTexture(powerTexture);
+        if(attackTexture != null) this.attackBg = makeAtlasRegionFromTexture(attackTexture);
+        if(skillTexture != null) this.skillBg = makeAtlasRegionFromTexture(skillTexture);
+        if(powerTexture != null) this.powerBg = makeAtlasRegionFromTexture(powerTexture);
 
         if(cardSkinData.cardColor != null) cardColor = AbstractCard.CardColor.valueOf(cardSkinData.cardColor);
     }
+    //endregion Constructors
 
-    /** Patches */
+    //region Class Methods
+
+    @Override
+    public void dispose() {
+        super.dispose();
+
+        if(this.attackBg != null) this.attackBg.getTexture().dispose();
+        if(this.skillBg != null) this.skillBg.getTexture().dispose();
+        if(this.powerBg != null) this.powerBg.getTexture().dispose();
+    }
+    //endregion Class Methods
+
+    //region Patches
     public static class Patches{
         @SpirePatch2(clz = AbstractCard.class, method = "renderAttackBg")
         public static class AttackCardBGPatcher{
@@ -113,4 +127,5 @@ public class CardSkin extends CustomizableItem {
             }
         }
     }
+    //endregion
 }
