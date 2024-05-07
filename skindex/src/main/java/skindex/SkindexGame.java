@@ -58,6 +58,10 @@ public class SkindexGame {
     public static void setActivePlayerSkin(PlayerSkin skin){
         if(!CardCrawlGame.isInARun()) return;
 
+        PlayerSkin prevSkin = FieldPatches.Player.skin.get(AbstractDungeon.player);
+        if(prevSkin != null){
+            prevSkin.dispose();
+        }
         FieldPatches.Player.skin.set(AbstractDungeon.player, skin);
     }
     public static PlayerSkin getActivePlayerSkin(){
