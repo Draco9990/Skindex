@@ -4,10 +4,15 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.MenuButton;
 import dLib.ui.screens.ScreenManager;
 import dLib.util.Reflection;
+import skindex.registering.SkindexRegistry;
+import skindex.screens.preview.AbstractItemPreviewScreen;
+import skindex.screens.preview.playerskins.CharacterPreviewSelectScreen;
+import skindex.skins.player.PlayerSkin;
 
 import java.util.ArrayList;
 
@@ -21,7 +26,7 @@ public class MainMenuButtonPatches {
             int indx = 0;
             for(MenuButton b : buttons){
                 if(b.result == MenuButton.ClickResult.INFO){
-                    //__instance.buttons.add(new MenuButton(Enums.SKINDEX, indx++));
+                    __instance.buttons.add(new MenuButton(Enums.SKINDEX, indx++));
                 }
                 __instance.buttons.add(new MenuButton(b.result, indx++));
             }
@@ -40,7 +45,7 @@ public class MainMenuButtonPatches {
     public static class EffectPatcher{
         public static SpireReturn Prefix(MenuButton __instance){
             if(__instance.result == Enums.SKINDEX){
-                // TODO - EFFECT
+                ScreenManager.openScreen(new CharacterPreviewSelectScreen());
                 return SpireReturn.Return();
             }
             return SpireReturn.Continue();

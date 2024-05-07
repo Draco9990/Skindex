@@ -27,6 +27,8 @@ public class PlayerSkin extends OwnableItem {
     /** Variables */
     public AbstractPlayer.PlayerClass playerClass;
 
+    protected String resourceDirectory;
+
     public Texture shoulderIMG;
     public Texture shoulder2IMG;
     public Texture corpseIMG;

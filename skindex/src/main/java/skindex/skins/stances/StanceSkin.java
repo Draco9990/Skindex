@@ -18,8 +18,8 @@ public class StanceSkin extends CustomizableItem {
     private ArrayList<Timer> effectTimers = new ArrayList<>();
 
     /** Constructors */
-    public StanceSkin(String id, String name){
-        super(id, name);
+    public StanceSkin(CustomizableItemData itemData){
+        super(itemData);
     }
 
     /** Getters and Setters */

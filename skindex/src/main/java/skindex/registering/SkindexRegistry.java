@@ -182,7 +182,7 @@ public class SkindexRegistry {
     private static void registerOrbSkin(OrbSkin orbSkin){
         if(orbSkin == null) return;
 
-        orbSkins.put(orbSkin.id, orbSkin);
+        orbSkins.put(orbSkin.getId(), orbSkin);
     }
     public static OrbSkin getOrbSkinById(String id, boolean makeCopy){
         if(id == null) return null;
@@ -199,7 +199,7 @@ public class SkindexRegistry {
     private static void registerStanceSkin(StanceSkin stanceSkin){
         if(stanceSkin == null) return;
 
-        stanceSkins.put(stanceSkin.id, stanceSkin);
+        stanceSkins.put(stanceSkin.getId(), stanceSkin);
     }
     public static StanceSkin getStanceSkinById(String id, boolean makeCopy){
         if(id == null) return null;
@@ -216,7 +216,7 @@ public class SkindexRegistry {
     private static void registerCardSkin(CardSkin cardSkin){
         if(cardSkin == null) return;
 
-        cardSkins.put(cardSkin.id, cardSkin);
+        cardSkins.put(cardSkin.getId(), cardSkin);
     }
     public static CardSkin getCardSkinById(String id, boolean makeCopy){
         if(id == null) return null;
@@ -237,7 +237,7 @@ public class SkindexRegistry {
             playerSkins.put(playerSkin.playerClass, new LinkedHashMap<>());
         }
 
-        playerSkins.get(playerSkin.playerClass).put(playerSkin.id, playerSkin);
+        playerSkins.get(playerSkin.playerClass).put(playerSkin.getId(), playerSkin);
     }
     public static PlayerSkin getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass playerClass, String id, boolean makeCopy){
         if(playerClass == null || id == null) return null;
@@ -346,5 +346,11 @@ public class SkindexRegistry {
     }
     public static PlayerSkin getDefaultPlayerSkinByClass(AbstractPlayer.PlayerClass playerClass){
         return getDefaultPlayerSkinByClass(playerClass, false);
+    }
+
+    public static ArrayList<AbstractPlayer.PlayerClass> getRegisteredPlayerClasses(){
+        ArrayList<AbstractPlayer.PlayerClass> playerClasses = new ArrayList<>();
+        playerClasses.addAll(defaultPlayerSkins.keySet());
+        return playerClasses;
     }
 }

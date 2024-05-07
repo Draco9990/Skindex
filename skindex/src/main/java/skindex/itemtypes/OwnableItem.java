@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public abstract class OwnableItem extends CustomizableItem{
-    /** Variables */
+    //region Variables
     public UnlockMethod unlockMethod;
 
     public ArrayList<Bundle> bundles;
@@ -21,8 +21,9 @@ public abstract class OwnableItem extends CustomizableItem{
     private String unlockDescription;
 
     protected String trackerId;
+    //endregion
 
-    /** Constructors */
+    //region Constructors
     public OwnableItem(OwnableItemData itemData){
         super(itemData);
 
@@ -31,44 +32,10 @@ public abstract class OwnableItem extends CustomizableItem{
 
         trackerId = itemData.tracker;
     }
+    //endregion
 
-    /** Getters and Setters */
-    public OwnableItem setUnlockDescription(String unlockDescription){
-        this.unlockDescription = unlockDescription;
-        return this;
-    }
-    public String getUnlockDescription() {
-        if(canUse()) return "Unlocked!";
-
-        if(unlockDescription != null) return unlockDescription;
-
-        if(!bundles.isEmpty()){
-            return bundles.get(0).getItemUnlockDescription();
-        }
-
-        if(unlockMethod != null) return unlockMethod.getItemUnlockDescription();
-
-        return "";
-    }
-
-    public CustomizableItem setBundles(Bundle... keywords){
-        this.bundles = new ArrayList<>(Arrays.asList(keywords));
-        return this;
-    }
-    public boolean hasBundle(String bundleId){
-        return bundles.contains(SkindexRegistry.getBundleById(bundleId));
-    }
-    public boolean hasBundle(Bundle bundle){
-        return bundles.contains(bundle);
-    }
-
-    public SkindexTracker getTracker(){
-        if(trackerId == null) return null;
-
-        return SkindexRegistry.getTrackerById(trackerId);
-    }
-
-    /** Methods */
+    //region Class Methods
+    //region Unlock
     public boolean canUse(){
         if(SkindexDev.unlockAll) return true;
 
@@ -89,4 +56,57 @@ public abstract class OwnableItem extends CustomizableItem{
 
         return false;
     }
+    //endregion
+
+    //region Unlock Description
+    public OwnableItem setUnlockDescription(String unlockDescription){
+        this.unlockDescription = unlockDescription;
+        return this;
+    }
+    public String getUnlockDescription() {
+        if(canUse()) return "Unlocked!";
+
+        if(unlockDescription != null) return unlockDescription;
+
+        if(!bundles.isEmpty()){
+            return bundles.get(0).getItemUnlockDescription();
+        }
+
+        if(unlockMethod != null) return unlockMethod.getItemUnlockDescription();
+
+        return "";
+    }
+    //endregion
+
+    //region Bundles
+    public CustomizableItem setBundles(Bundle... keywords){
+        this.bundles = new ArrayList<>(Arrays.asList(keywords));
+        return this;
+    }
+    public boolean hasBundle(String bundleId){
+        return bundles.contains(SkindexRegistry.getBundleById(bundleId));
+    }
+    public boolean hasBundle(Bundle bundle){
+        return bundles.contains(bundle);
+    }
+    //endregion
+
+    //region Tracker
+    public SkindexTracker getTracker(){
+        if(trackerId == null) return null;
+
+        return SkindexRegistry.getTrackerById(trackerId);
+    }
+    //endregion
+
+    //endregion
+    /** Variables */
+
+    /** Constructors */
+
+    /** Getters and Setters */
+
+
+
+    /** Methods */
 }

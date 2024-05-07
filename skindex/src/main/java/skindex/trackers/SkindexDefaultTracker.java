@@ -57,7 +57,7 @@ public class SkindexDefaultTracker extends JsonDataFile implements SkindexTracke
         if(s == null) return false;
         if(!unlockedPlayerSkins.containsKey(s.playerClass.name())) return false;
 
-        return unlockedPlayerSkins.get(s.playerClass.name()).contains(s.id);
+        return unlockedPlayerSkins.get(s.playerClass.name()).contains(s.getId());
     }
     @Override
     public boolean unlockSkin(PlayerSkin s) {
@@ -68,7 +68,7 @@ public class SkindexDefaultTracker extends JsonDataFile implements SkindexTracke
             unlockedPlayerSkins.put(s.playerClass.name(), new ArrayList<>());
         }
 
-        unlockedPlayerSkins.get(s.playerClass.name()).add(s.id);
+        unlockedPlayerSkins.get(s.playerClass.name()).add(s.getId());
         save();
         return true;
     }
