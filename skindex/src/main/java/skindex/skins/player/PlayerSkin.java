@@ -65,8 +65,11 @@ public class PlayerSkin extends OwnableItem {
 
             orbsSkinMap.put(skin.orbId, skin);
         }
-        for(Map.Entry<String, String> stanceSkin : skinData.stanceSkins.entrySet()){
-            stanceSkinMap.put(stanceSkin.getKey(), SkindexRegistry.getStanceSkinById(stanceSkin.getValue(), true));
+        for(String stanceSkin : skinData.stanceSkins){
+            StanceSkin skin = SkindexRegistry.getStanceSkinById(stanceSkin, true);
+            if(skin == null) continue;
+
+            stanceSkinMap.put(skin.stanceId, skin);
         }
 
         scale = skinData.scale;

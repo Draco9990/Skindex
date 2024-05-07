@@ -38,7 +38,7 @@ public class PlayerSkinData extends OwnableItemData implements Serializable {
     @SerializedName("orbSkins")
     public ArrayList<String> orbSkins = new ArrayList<>();
     @SerializedName("stanceSkins")
-    public HashMap<String, String> stanceSkins = new HashMap<>();
+    public ArrayList<String> stanceSkins = new ArrayList<>();
 
     /** Generate Player Skin */
     public PlayerSkin createPlayerSkin(){

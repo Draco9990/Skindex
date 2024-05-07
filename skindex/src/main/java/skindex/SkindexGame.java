@@ -11,6 +11,7 @@ import skindex.registering.SkindexRegistry;
 import skindex.skins.cards.CardSkin;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.player.PlayerSkin;
+import skindex.skins.stances.StanceSkin;
 
 import java.util.Objects;
 
@@ -75,7 +76,6 @@ public class SkindexGame {
 
         return null;
     }
-
     public static OrbSkin getActiveOrbSkin(String orbId){
         PlayerSkin currentSkin = getActivePlayerSkin();
         if(currentSkin == null){
@@ -83,5 +83,13 @@ public class SkindexGame {
         }
 
         return currentSkin.orbsSkinMap.get(orbId);
+    }
+    public static StanceSkin getActiveStanceSkin(String stanceId){
+        PlayerSkin currentSkin = getActivePlayerSkin();
+        if(currentSkin == null){
+            return null;
+        }
+
+        return currentSkin.stanceSkinMap.get(stanceId);
     }
 }
