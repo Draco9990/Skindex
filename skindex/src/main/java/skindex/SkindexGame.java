@@ -6,11 +6,12 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.cards.CardSkin;
+import skindex.skins.orb.OrbSkin;
 import skindex.skins.player.PlayerSkin;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class SkindexGame {
@@ -57,28 +58,30 @@ public class SkindexGame {
         return current;
     }
 
-    public static ArrayList<CardSkin> getActiveCardSkins(){
+    public static CardSkin getActiveCardSkin(AbstractCard.CardColor cardColor, AbstractCard.CardType cardType){
         PlayerSkin currentSkin = getActivePlayerSkin();
-        if(currentSkin != null){
-            return currentSkin.cardSkins;
-        }
-        return new ArrayList<>();
-    }
-    public static CardSkin getActiveCardSkinForColor(AbstractCard.CardColor cardColor){
-        ArrayList<CardSkin> cardSkins = getActiveCardSkins();
-
-        for(CardSkin cardSkin : cardSkins){
-            if(Objects.equals(cardSkin.cardColor, cardColor)){
-                return cardSkin;
-            }
+        if(currentSkin == null){
+            return null;
         }
 
-        for(CardSkin cardSkin : cardSkins){
-            if(cardSkin.cardColor == null){
+        for(String cardSkinId : currentSkin.cardSkins){
+            CardSkin cardSkin = SkindexRegistry.getCardSkin(cardSkinId);
+            if(cardSkin == null) continue;
+
+            if(Objects.equals(cardSkin.cardType, cardType) && Objects.equals(cardSkin.cardColor, cardColor)){
                 return cardSkin;
             }
         }
 
         return null;
+    }
+
+    public static OrbSkin getActiveOrbSkin(String orbId){
+        PlayerSkin currentSkin = getActivePlayerSkin();
+        if(currentSkin == null){
+            return null;
+        }
+
+        return currentSkin.orbsSkinMap.get(orbId);
     }
 }

@@ -1,8 +1,10 @@
 package skindex.modcompat.skulHeroSlayer.skins.player;
 
-import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneLittleHelperCardSkin;
+import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneLittleHelperCardSkinSet;
 import skindex.unlockmethods.FreeUnlockMethod;
 import skulmod.character.LittleBone;
+
+import java.util.ArrayList;
 
 public class LittleBoneLittleHelperSkin extends LittleBoneAtlasSkin {
     /** Constructors */
@@ -20,7 +22,7 @@ public class LittleBoneLittleHelperSkin extends LittleBoneAtlasSkin {
             skeletonDirectoryUrl = "skulmod/character/animation/";
             resourceDirectoryUrl = "skindexResources/images/skins/player/littlebone/littlehelper/";
 
-            cardSkins.add(LittleBoneLittleHelperCardSkin.SkinData.ID);
+            cardSkins = new ArrayList<>(LittleBoneLittleHelperCardSkinSet.collectCardSkinIds());
 
             id = ID;
             name = "Little Helper";

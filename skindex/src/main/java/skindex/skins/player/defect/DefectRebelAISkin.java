@@ -12,14 +12,13 @@ import com.megacrit.cardcrawl.orbs.Frost;
 import com.megacrit.cardcrawl.orbs.Lightning;
 import com.megacrit.cardcrawl.orbs.Plasma;
 import skindex.registering.SkindexRegistry;
-import skindex.skins.orb.rebelai.DarkOrbRebelAISkin;
-import skindex.skins.orb.rebelai.FrostOrbRebelAISkin;
-import skindex.skins.orb.rebelai.LightningOrbRebelAISkin;
-import skindex.skins.orb.rebelai.PlasmaOrbRebelAISkin;
+import skindex.skins.orb.rebelai.*;
 import skindex.skins.player.PlayerAtlasSkin;
 import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.trackers.SkindexDefaultTracker;
 import skindex.unlockmethods.AchievementUnlockMethod;
+
+import java.util.ArrayList;
 
 public class DefectRebelAISkin extends PlayerAtlasSkin {
     /** Constructors */
@@ -38,10 +37,7 @@ public class DefectRebelAISkin extends PlayerAtlasSkin {
             id = ID;
             name = "Rebel AI";
 
-            orbSkins.put(Lightning.ORB_ID, LightningOrbRebelAISkin.SkinData.skinID);
-            orbSkins.put(Frost.ORB_ID, FrostOrbRebelAISkin.SkinData.skinID);
-            orbSkins.put(Dark.ORB_ID, DarkOrbRebelAISkin.SkinData.skinID);
-            orbSkins.put(Plasma.ORB_ID, PlasmaOrbRebelAISkin.SkinData.skinID);
+            orbSkins.addAll(DefectRebelAIOrbSkinSet.collectOrbSkinIds());
 
             unlockMethod = AchievementUnlockMethod.methodId;
             tracker = SkindexDefaultTracker.get().getId();

@@ -7,13 +7,13 @@ import skindex.modcompat.packmaster.skins.player.PackmasterBuilderSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterHipsterSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterPackmistressSkin;
 import skindex.modcompat.skins.player.theUnchained.UnchainedBirthdaySkin;
-import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneElMuerteCardSkin;
-import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneLittleHelperCardSkin;
-import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneRoyalGuardCardSkin;
+import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneElMuerteCardSkinSet;
+import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneLittleHelperCardSkinSet;
+import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneRoyalGuardCardSkinSet;
 import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneElMuerteSkin;
 import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneLittleHelperSkin;
 import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneRoyalGuardSkin;
-import skindex.modcompat.unchained.skins.card.UnchainedPixelCardSkin;
+import skindex.modcompat.unchained.skins.card.UnchainedPixelCardSkinSet;
 import skindex.modcompat.unchained.skins.player.UnchainedPixelSkin;
 import skindex.registering.SkindexCardSkinRegistrant;
 import skindex.registering.SkindexPlayerSkinRegistrant;
@@ -173,14 +173,14 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCar
     }
 
     private static List<CardSkin> getTheUnchainedCardSkinsToRegister(){
-        return Arrays.asList(new UnchainedPixelCardSkin());
+        return UnchainedPixelCardSkinSet.collectCardSkins();
     }
 
     private static List<CardSkin> getSkulheroSlayerCardSkinsToRegister(){
-        return Arrays.asList(
-            new LittleBoneElMuerteCardSkin(),
-            new LittleBoneLittleHelperCardSkin(),
-            new LittleBoneRoyalGuardCardSkin()
-        );
+        List<CardSkin> cardSkins = new ArrayList<>();
+        cardSkins.addAll(LittleBoneElMuerteCardSkinSet.collectCardSkins());
+        cardSkins.addAll(LittleBoneLittleHelperCardSkinSet.collectCardSkins());
+        cardSkins.addAll(LittleBoneRoyalGuardCardSkinSet.collectCardSkins());
+        return cardSkins;
     }
 }

@@ -1,8 +1,10 @@
 package skindex.modcompat.skulHeroSlayer.skins.player;
 
-import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneElMuerteCardSkin;
+import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneElMuerteCardSkinSet;
 import skindex.unlockmethods.FreeUnlockMethod;
 import skulmod.character.LittleBone;
+
+import java.util.ArrayList;
 
 public class LittleBoneElMuerteSkin extends LittleBoneAtlasSkin {
     /** Constructors */
@@ -20,7 +22,7 @@ public class LittleBoneElMuerteSkin extends LittleBoneAtlasSkin {
             skeletonDirectoryUrl = "skulmod/character/animation/";
             resourceDirectoryUrl = "skindexResources/images/skins/player/littlebone/elmuerte/";
 
-            cardSkins.add(LittleBoneElMuerteCardSkin.SkinData.ID);
+            cardSkins = new ArrayList<>(LittleBoneElMuerteCardSkinSet.collectCardSkinIds());
 
             id = ID;
             name = "El Muerte";

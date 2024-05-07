@@ -13,7 +13,6 @@ import skindex.itemtypes.OwnableItem;
 import skindex.registering.SkindexRegistry;
 import skindex.effects.AbstractCreatureEffect;
 import skindex.entities.player.SkindexPlayerEntity;
-import skindex.skins.cards.CardSkin;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.stances.StanceSkin;
 import skindex.util.SkindexLogger;
@@ -35,7 +34,7 @@ public class PlayerSkin extends OwnableItem {
 
     public Color renderColor = Color.WHITE.cpy();
 
-    public ArrayList<CardSkin> cardSkins = new ArrayList<>();
+    public ArrayList<String> cardSkins;
     public ArrayList<Color> cardTrailColors = new ArrayList<>();
 
     public HashMap<String, OrbSkin> orbsSkinMap = new HashMap<>();
@@ -55,18 +54,16 @@ public class PlayerSkin extends OwnableItem {
         shoulder2IMG = loadImageIfExists(skinData.shoulder2IMG);
         corpseIMG = loadImageIfExists(skinData.corpseIMG);
 
-        for(String cardSkinId : skinData.cardSkins){
-            CardSkin cardSkin = SkindexRegistry.getCardSkinById(cardSkinId, true);
-            if(cardSkin != null){
-                cardSkins.add(cardSkin);
-            }
-        }
+        cardSkins = skinData.cardSkins;
         for(String cardTrailColor : skinData.cardTrailColors){
             cardTrailColors.add(Color.valueOf(cardTrailColor));
         }
 
-        for(Map.Entry<String, String> orbSkin : skinData.orbSkins.entrySet()){
-            orbsSkinMap.put(orbSkin.getKey(), SkindexRegistry.getOrbSkinById(orbSkin.getValue(), true));
+        for(String orbSkin : skinData.orbSkins){
+            OrbSkin skin = SkindexRegistry.getOrbSkinById(orbSkin, true);
+            if(skin == null) continue;
+
+            orbsSkinMap.put(skin.orbId, skin);
         }
         for(Map.Entry<String, String> stanceSkin : skinData.stanceSkins.entrySet()){
             stanceSkinMap.put(stanceSkin.getKey(), SkindexRegistry.getStanceSkinById(stanceSkin.getValue(), true));
@@ -179,7 +176,15 @@ public class PlayerSkin extends OwnableItem {
         }
     }
 
+    @Override
+    public void dispose() {
+        for(OrbSkin skin : orbsSkinMap.values()){
+            skin.dispose();
+        }
+    }
+
     /** System Methods */
+
     @Override
     public Integer getUUID(){
         return 10000 + new Random((id + playerClass.toString()).hashCode()).nextInt(90000);

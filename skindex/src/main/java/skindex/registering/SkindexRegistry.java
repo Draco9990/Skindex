@@ -213,12 +213,12 @@ public class SkindexRegistry {
         return getStanceSkinById(id, false);
     }
 
-    private static void registerCardSkin(CardSkin cardSkin){
-        if(cardSkin == null) return;
+    private static void registerCardSkin(CardSkin cardSkinSet){
+        if(cardSkinSet == null) return;
 
-        cardSkins.put(cardSkin.getId(), cardSkin);
+        cardSkins.put(cardSkinSet.getId(), cardSkinSet);
     }
-    public static CardSkin getCardSkinById(String id, boolean makeCopy){
+    public static CardSkin getCardSkin(String id, boolean makeCopy){
         if(id == null) return null;
 
         CardSkin cardSkin = cardSkins.get(id);
@@ -226,8 +226,8 @@ public class SkindexRegistry {
 
         return (CardSkin) cardSkin.makeCopy();
     }
-    public static CardSkin getCardSkinById(String id){
-        return getCardSkinById(id, false);
+    public static CardSkin getCardSkin(String id){
+        return getCardSkin(id, false);
     }
 
     private static void registerPlayerSkin(PlayerSkin playerSkin){

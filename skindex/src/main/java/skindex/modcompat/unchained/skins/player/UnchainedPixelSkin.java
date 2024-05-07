@@ -1,13 +1,12 @@
 package skindex.modcompat.unchained.skins.player;
 
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import skindex.modcompat.unchained.skins.card.UnchainedPixelCardSkin;
+import skindex.modcompat.unchained.skins.card.UnchainedPixelCardSkinSet;
 import skindex.skins.player.PlayerGifSkin;
 import skindex.skins.player.PlayerGifSkinData;
-import skindex.skins.player.PlayerImageSkin;
-import skindex.skins.player.PlayerImageSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 import theUnchainedMod.characters.TheUnchained;
+
+import java.util.ArrayList;
 
 public class UnchainedPixelSkin extends PlayerGifSkin {
     /** Constructors */
@@ -22,7 +21,7 @@ public class UnchainedPixelSkin extends PlayerGifSkin {
         public SkinData(){
             gifUrl = "skindexResources/images/skins/player/unchained/pixel/model.gif";
 
-            cardSkins.add(UnchainedPixelCardSkin.SkinData.ID);
+            cardSkins = new ArrayList<>(UnchainedPixelCardSkinSet.collectCardSkinIds());
 
             id = ID;
             name = "Pixel";

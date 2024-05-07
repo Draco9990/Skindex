@@ -1,10 +1,7 @@
 package skindex.registering;
 
 import skindex.skins.orb.OrbSkin;
-import skindex.skins.orb.rebelai.DarkOrbRebelAISkin;
-import skindex.skins.orb.rebelai.FrostOrbRebelAISkin;
-import skindex.skins.orb.rebelai.LightningOrbRebelAISkin;
-import skindex.skins.orb.rebelai.PlasmaOrbRebelAISkin;
+import skindex.skins.orb.rebelai.*;
 import skindex.skins.player.PlayerSkin;
 import skindex.skins.player.defect.*;
 import skindex.skins.player.ironclad.*;
@@ -17,6 +14,7 @@ import skindex.unlockmethods.FreeUnlockMethod;
 import skindex.unlockmethods.NonUnlockableUnlockMethod;
 import skindex.unlockmethods.UnlockMethod;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,12 +38,9 @@ public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, Skind
 
     @Override
     public List<OrbSkin> getOrbSkinsToRegister() {
-        return Arrays.asList(
-                new LightningOrbRebelAISkin(),
-                new FrostOrbRebelAISkin(),
-                new DarkOrbRebelAISkin(),
-                new PlasmaOrbRebelAISkin()
-        );
+        List<OrbSkin> orbSkins = new ArrayList<>();
+        orbSkins.addAll(DefectRebelAIOrbSkinSet.collectOrbSkins());
+        return orbSkins;
     }
 
     @Override
