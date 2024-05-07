@@ -28,7 +28,7 @@ public final class CardSkin extends CustomizableItem {
         if(data.cardType != null) cardType = AbstractCard.CardType.valueOf(data.cardType);
         if(data.cardColor != null) cardColor = AbstractCard.CardColor.valueOf(data.cardColor);
 
-        cardBg = makeAtlasRegionFromTexture(loadImageIfExists(data.cardBg));
+        cardBg = makeAtlasRegionFromTexture(loadImageIfExists(data.cardBg, false));
     }
     //endregion Constructors
 

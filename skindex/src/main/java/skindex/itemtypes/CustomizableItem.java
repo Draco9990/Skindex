@@ -85,10 +85,13 @@ public abstract class CustomizableItem {
 
     //region Utility
     public Texture loadImageIfExists(String assetName){
+        return loadImageIfExists(assetName, true);
+    }
+    public Texture loadImageIfExists(String assetName, boolean managed){
         if(assetName == null) return null;
 
         String imageName = assetName.contains(".") ? assetName : assetName + ".png";
-        return TextureManager.getTexture(imageName);
+        return managed ? TextureManager.getTexture(imageName) : ImageMaster.loadImage(imageName);
     }
 
     public TextureAtlas.AtlasRegion makeAtlasRegionFromTexture(Texture texture){

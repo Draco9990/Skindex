@@ -63,13 +63,15 @@ public class NeowWardrobePatches {
             protected void onLeftClick() {
                 super.onLeftClick();
 
-                PlayerSkin playerSkin = SkindexGame.getActivePlayerSkin();
-                playerSkin = SkindexRegistry.getPreviousSkin(playerSkin, true, true);
+                PlayerSkin previousSkin = SkindexGame.getActivePlayerSkin();
+                PlayerSkin playerSkin = SkindexRegistry.getPreviousSkin(previousSkin, true, true);
+                if(previousSkin != null){
+                    previousSkin.dispose();
+                }
                 if(playerSkin != null) {
                     playerSkin.loadOnPlayer();
                     textBox.setText(playerSkin.getName());
                 }
-
             }
         });
         skinController.addChildCS(new Interactable(UIThemeManager.getDefaultTheme().arrow_right, 334, 0, 55, 56){
@@ -82,8 +84,11 @@ public class NeowWardrobePatches {
             protected void onLeftClick() {
                 super.onLeftClick();
 
-                PlayerSkin playerSkin = SkindexGame.getActivePlayerSkin();
-                playerSkin = SkindexRegistry.getNextSkin(playerSkin, true, true);
+                PlayerSkin previousSkin = SkindexGame.getActivePlayerSkin();
+                PlayerSkin playerSkin = SkindexRegistry.getNextSkin(previousSkin, true, true);
+                if(previousSkin != null) {
+                    previousSkin.dispose();
+                }
                 if(playerSkin != null){
                     playerSkin.loadOnPlayer();
                     textBox.setText(playerSkin.getName());

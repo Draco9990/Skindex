@@ -33,7 +33,7 @@ public class OrbSkin extends CustomizableItem {
 
         orbId = orbSkinData.orbId;
 
-        orbImage = loadImageIfExists(orbSkinData.orbImageUrl);
+        orbImage = loadImageIfExists(orbSkinData.orbImageUrl, false);
         overlay = orbSkinData.overlay;
     }
     //endregion Constructors

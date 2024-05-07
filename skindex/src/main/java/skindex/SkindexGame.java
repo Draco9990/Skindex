@@ -2,8 +2,11 @@ package skindex;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
@@ -24,6 +27,17 @@ public class SkindexGame {
         @SpirePatch(clz = AbstractPlayer.class, method = "<class>")
         public static class Player {
             public static SpireField<PlayerSkin> skin = new SpireField<>(() -> null);
+        }
+
+        @SpirePatch2(clz = AbstractPlayer.class, method = "dispose")
+        public static class FieldDisposer{
+            @SpirePostfixPatch
+            public static void dispose(AbstractPlayer __instance){
+                PlayerSkin skin = Player.skin.get(__instance);
+                if(skin != null){
+                    skin.dispose();
+                }
+            }
         }
     }
 
@@ -92,4 +106,16 @@ public class SkindexGame {
 
         return currentSkin.stanceSkinMap.get(stanceId);
     }
+
+    //region Stance Override
+    private static AbstractCreature stanceOverrideRenderCreature = null;
+
+    public static AbstractCreature getStanceOverrideRenderCreature(){
+        return stanceOverrideRenderCreature;
+    }
+
+    public static void setStanceOverrideRenderCreature(AbstractCreature creature){
+        stanceOverrideRenderCreature = creature;
+    }
+    //endregion Stance Override
 }

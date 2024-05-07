@@ -300,7 +300,7 @@ public class SkindexRegistry {
     public static PlayerSkin getNextSkin(PlayerSkin current, boolean onlyOwned, boolean makeCopy){
         if(current == null) return null;
 
-        ArrayList<PlayerSkin> skins = getSkinsForClass(current.playerClass, onlyOwned, makeCopy);
+        ArrayList<PlayerSkin> skins = getSkinsForClass(current.playerClass, onlyOwned, false);
         if(skins.isEmpty()) return null;
 
         int indexOf = skins.indexOf(current);
