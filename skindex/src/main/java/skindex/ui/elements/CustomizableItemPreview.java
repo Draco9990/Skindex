@@ -3,10 +3,8 @@ package skindex.ui.elements;
 import com.badlogic.gdx.graphics.Texture;
 import dLib.ui.elements.UIElement;
 import dLib.ui.elements.prefabs.Image;
-import skindex.Skindex;
 import skindex.itemtypes.CustomizableItem;
 import skindex.itemtypes.OwnableItem;
-import skindex.unlockmethods.FreeUnlockMethod;
 import skindex.util.SkindexUI;
 
 public class CustomizableItemPreview<Item extends CustomizableItem> extends UIElement {
@@ -32,7 +30,7 @@ public class CustomizableItemPreview<Item extends CustomizableItem> extends UIEl
     //region Class Methods
     //region Preview Icon
     private void loadPreviewIcon(){
-        Texture previewTexture = previewItem.makePreviewIcon();
+        Texture previewTexture = previewItem.getPreviewIcon();
         addChildNCS(new Image(previewTexture, 11, 25, 140, 140));
 
         if(previewItem instanceof OwnableItem && !((OwnableItem) previewItem).canUse()){

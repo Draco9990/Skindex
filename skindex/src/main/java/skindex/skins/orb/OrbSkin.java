@@ -33,7 +33,7 @@ public class OrbSkin extends CustomizableItem {
 
         orbId = orbSkinData.orbId;
 
-        orbImage = loadImageIfExists(orbSkinData.orbImageUrl, false);
+        orbImage = loadImageIfExists(orbSkinData.orbImageUrl);
         overlay = orbSkinData.overlay;
     }
     //endregion Constructors
@@ -58,13 +58,6 @@ public class OrbSkin extends CustomizableItem {
 
     public Sfx getChannelSound(){ return null; }
     public Sfx getEvokeSound(){ return null; }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-
-        orbImage.dispose();
-    }
 
     //endregion Class Methods
 

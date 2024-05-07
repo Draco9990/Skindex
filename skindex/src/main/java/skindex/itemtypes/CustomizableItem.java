@@ -1,21 +1,13 @@
 package skindex.itemtypes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import dLib.util.TextureManager;
-import skindex.SkindexDev;
-import skindex.registering.SkindexRegistry;
-import skindex.bundles.Bundle;
-import skindex.trackers.SkindexTracker;
-import skindex.unlockmethods.FreeUnlockMethod;
-import skindex.unlockmethods.UnlockMethod;
 import skindex.util.SkindexLogger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Random;
 
 public abstract class CustomizableItem {
@@ -62,8 +54,8 @@ public abstract class CustomizableItem {
     //endregion
 
     //region Preview Icon
-    public Texture makePreviewIcon(){
-        return ImageMaster.loadImage(previewIconPath);
+    public Texture getPreviewIcon(){
+        return TextureManager.getTexture(previewIconPath);
     }
     //endregion
 
@@ -85,13 +77,10 @@ public abstract class CustomizableItem {
 
     //region Utility
     public Texture loadImageIfExists(String assetName){
-        return loadImageIfExists(assetName, true);
-    }
-    public Texture loadImageIfExists(String assetName, boolean managed){
         if(assetName == null) return null;
 
         String imageName = assetName.contains(".") ? assetName : assetName + ".png";
-        return managed ? TextureManager.getTexture(imageName) : ImageMaster.loadImage(imageName);
+        return TextureManager.getTexture(imageName);
     }
 
     public TextureAtlas.AtlasRegion makeAtlasRegionFromTexture(Texture texture){
@@ -121,7 +110,5 @@ public abstract class CustomizableItem {
         return this;
     }
     //endregion
-
-    public void dispose(){}
     //endregion Class Methods
 }

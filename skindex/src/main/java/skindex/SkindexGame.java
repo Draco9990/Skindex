@@ -28,17 +28,6 @@ public class SkindexGame {
         public static class Player {
             public static SpireField<PlayerSkin> skin = new SpireField<>(() -> null);
         }
-
-        @SpirePatch2(clz = AbstractPlayer.class, method = "dispose")
-        public static class FieldDisposer{
-            @SpirePostfixPatch
-            public static void dispose(AbstractPlayer __instance){
-                PlayerSkin skin = Player.skin.get(__instance);
-                if(skin != null){
-                    skin.dispose();
-                }
-            }
-        }
     }
 
     /** Getters and Setters */
@@ -58,10 +47,6 @@ public class SkindexGame {
     public static void setActivePlayerSkin(PlayerSkin skin){
         if(!CardCrawlGame.isInARun()) return;
 
-        PlayerSkin prevSkin = FieldPatches.Player.skin.get(AbstractDungeon.player);
-        if(prevSkin != null){
-            prevSkin.dispose();
-        }
         FieldPatches.Player.skin.set(AbstractDungeon.player, skin);
     }
     public static PlayerSkin getActivePlayerSkin(){
