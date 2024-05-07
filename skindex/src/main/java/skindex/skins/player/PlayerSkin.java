@@ -108,6 +108,10 @@ public class PlayerSkin extends OwnableItem {
             return false;
         }
 
+        PlayerSkin previousSkin = entity.getPlayerSkin();
+        if(previousSkin != null){
+            previousSkin.dispose();
+        }
         entity.setPlayerSkin(this);
         return true;
     }
