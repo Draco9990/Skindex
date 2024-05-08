@@ -2,6 +2,7 @@ package skindex.screens.preview;
 
 import com.badlogic.gdx.graphics.Color;
 import dLib.DLib;
+import dLib.ui.Alignment;
 import dLib.ui.elements.UIElement;
 import dLib.ui.elements.prefabs.Button;
 import dLib.ui.elements.prefabs.Image;
@@ -14,6 +15,7 @@ import dLib.ui.themes.UIThemeManager;
 import skindex.itemtypes.CustomizableItem;
 import skindex.itemtypes.OwnableItem;
 import skindex.ui.elements.CustomizableItemPreview;
+import skindex.unlockmethods.UnlockMethod;
 import skindex.util.SkindexUI;
 
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
     TextBox itemNameTextBox;
     TextBox itemCreditsTextBox;
     TextBox itemUnlockDescriptionTextBox;
+
+    UIElement unlockButton;
     //endregion
 
     //region Constructors
@@ -82,8 +86,10 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         itemNameTextBox = new TextBox("", 1145, 1080-136, 570, 104);
         addChildNCS(itemNameTextBox);
 
-        itemCreditsTextBox = new TextBox("", 921, 1080-753, 350, 705);
-        itemCreditsTextBox.setRenderColor(Color.WHITE.cpy());
+        itemCreditsTextBox = new TextBox("", 921, 1080-753, 130, 705);
+        itemCreditsTextBox.setTextRenderColor(Color.WHITE.cpy());
+        itemCreditsTextBox.setAlignment(Alignment.HorizontalAlignment.LEFT, Alignment.VerticalAlignment.TOP);
+        itemCreditsTextBox.setMarginPercY(0.01f);
         addChildNCS(itemCreditsTextBox);
     }
 
@@ -126,6 +132,24 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         }
         else{
             itemCreditsTextBox.setText("");
+        }
+
+        loadUnlockButton(item);
+    }
+
+    private void loadUnlockButton(Item item){
+        if(unlockButton != null){
+            removeChild(unlockButton);
+        }
+
+        if(item instanceof OwnableItem){
+            UnlockMethod unlockMethod = ((OwnableItem) item).unlockMethod;
+
+            UIElement unlockMethodButton = unlockMethod.makeUnlockButton(1232, 1080-1022, 374, 75);
+            if(unlockMethodButton != null){
+                unlockButton = unlockMethodButton;
+                addChildNCS(unlockButton);
+            }
         }
     }
     //endregion
