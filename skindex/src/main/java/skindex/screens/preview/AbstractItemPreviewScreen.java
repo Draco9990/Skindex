@@ -22,6 +22,7 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
     //region Variables
     VerticalGridBox<Item> itemBox;
 
+    TextBox itemNameTextBox;
     TextBox itemUnlockDescriptionTextBox;
     //endregion
 
@@ -71,6 +72,9 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         itemBox.setPadding(30, 30);
         addChildCS(itemBox);
 
+        itemNameTextBox = new TextBox("", 1145, 1080-136, 570, 104);
+        addChildNCS(itemNameTextBox);
+
         itemUnlockDescriptionTextBox = new TextBox("", 93, 1080-946, 787, 136);
         itemUnlockDescriptionTextBox.setImage(UITheme.whitePixel);
         itemUnlockDescriptionTextBox.setRenderColor(indentColor.cpy());
@@ -83,7 +87,9 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
     public void onOpen() {
         super.onOpen();
 
-        itemBox.setItems(getItems());
+        ArrayList<Item> items = getItems();
+        itemBox.setItems(items);
+        if(!items.isEmpty()) onPreviewItemChanged(items.get(0));
     }
 
     //endregion
@@ -102,6 +108,8 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         else{
             itemUnlockDescriptionTextBox.setText(((OwnableItem) item).getUnlockDescription());
         }
+
+        itemNameTextBox.setText(item.getName());
     }
     //endregion
 
