@@ -23,6 +23,7 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
     VerticalGridBox<Item> itemBox;
 
     TextBox itemNameTextBox;
+    TextBox itemCreditsTextBox;
     TextBox itemUnlockDescriptionTextBox;
     //endregion
 
@@ -40,6 +41,12 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         }.setImage(UIThemeManager.getDefaultTheme().button_small_decline));
 
         addChildNCS(new Image(SkindexUI.PreviewScreen.previewScreenBG(), 43, 1080-1058, 867, 1012));
+
+        itemUnlockDescriptionTextBox = new TextBox("", 891, 1080-1013, 1029, 252);
+        itemUnlockDescriptionTextBox.setImage(SkindexUI.PreviewScreen.previewItemUnlockDescriptionBackground());
+        itemUnlockDescriptionTextBox.setWrap(true);
+        itemUnlockDescriptionTextBox.setTextRenderColor(Color.WHITE.cpy());
+        addChildNCS(itemUnlockDescriptionTextBox);
 
         Color indentColor = Color.BLACK.cpy();
         indentColor.a = 0.4f;
@@ -75,12 +82,9 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         itemNameTextBox = new TextBox("", 1145, 1080-136, 570, 104);
         addChildNCS(itemNameTextBox);
 
-        itemUnlockDescriptionTextBox = new TextBox("", 93, 1080-946, 787, 136);
-        itemUnlockDescriptionTextBox.setImage(UITheme.whitePixel);
-        itemUnlockDescriptionTextBox.setRenderColor(indentColor.cpy());
-        itemUnlockDescriptionTextBox.setWrap(true);
-        itemUnlockDescriptionTextBox.setTextRenderColor(Color.WHITE.cpy());
-        addChildNCS(itemUnlockDescriptionTextBox);
+        itemCreditsTextBox = new TextBox("", 921, 1080-753, 350, 705);
+        itemCreditsTextBox.setRenderColor(Color.WHITE.cpy());
+        addChildNCS(itemCreditsTextBox);
     }
 
     @Override
@@ -104,12 +108,25 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
 
         if(!(item instanceof OwnableItem) || ((OwnableItem) item).canUse()){
             itemUnlockDescriptionTextBox.setText("");
+            itemUnlockDescriptionTextBox.hide();
         }
         else{
             itemUnlockDescriptionTextBox.setText(((OwnableItem) item).getUnlockDescription());
+            itemUnlockDescriptionTextBox.show();
         }
 
         itemNameTextBox.setText(item.getName());
+
+        if(!item.getCredits().isEmpty()){
+            String creditsText = "Credits:\n";
+            for(String credit : item.getCredits()){
+                creditsText += credit + "\n";
+            }
+            itemCreditsTextBox.setText(creditsText);
+        }
+        else{
+            itemCreditsTextBox.setText("");
+        }
     }
     //endregion
 

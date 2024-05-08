@@ -17,6 +17,8 @@ public class SkindexUI {
 
         public static Texture previewItemOriginalUnlockGem() { return ImageMaster.loadImage("skindexResources/images/ui/preview/previewItemOriginalUnlockGem.png"); }
         public static Texture previewItemReReleaseUnlockGem() { return ImageMaster.loadImage("skindexResources/images/ui/preview/previewItemReReleaseUnlockGem.png"); }
+
+        public static Texture previewItemUnlockDescriptionBackground() { return ImageMaster.loadImage("skindexResources/images/ui/preview/previewItemUnlockDescriptionBackground.png"); }
     }
     //endregion
 }
