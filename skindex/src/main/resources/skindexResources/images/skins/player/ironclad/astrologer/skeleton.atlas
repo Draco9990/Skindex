@@ -1,0 +1,139 @@
+
+skeleton.png
+size: 396,518
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+avatar
+  rotate: true
+  xy: 2, 2
+  size: 257, 249
+  orig: 261, 257
+  offset: 2, 6
+  index: -1
+avatar_stars
+  rotate: false
+  xy: 2, 261
+  size: 258, 218
+  orig: 258, 218
+  offset: 0, 0
+  index: -1
+boot_left
+  rotate: false
+  xy: 262, 416
+  size: 46, 63
+  orig: 47, 63
+  offset: 1, 0
+  index: -1
+boot_right
+  rotate: false
+  xy: 253, 8
+  size: 51, 67
+  orig: 51, 67
+  offset: 0, 0
+  index: -1
+eye
+  rotate: true
+  xy: 336, 365
+  size: 17, 16
+  orig: 21, 20
+  offset: 2, 2
+  index: -1
+glove_right
+  rotate: false
+  xy: 352, 125
+  size: 37, 36
+  orig: 41, 40
+  offset: 2, 2
+  index: -1
+hair
+  rotate: false
+  xy: 352, 77
+  size: 30, 46
+  orig: 31, 46
+  offset: 0, 0
+  index: -1
+hand_right
+  rotate: false
+  xy: 310, 363
+  size: 24, 19
+  orig: 24, 19
+  offset: 0, 0
+  index: -1
+helmet
+  rotate: true
+  xy: 262, 363
+  size: 51, 46
+  orig: 51, 46
+  offset: 0, 0
+  index: -1
+neck
+  rotate: false
+  xy: 361, 205
+  size: 33, 32
+  orig: 33, 33
+  offset: 0, 1
+  index: -1
+pants
+  rotate: true
+  xy: 310, 384
+  size: 132, 83
+  orig: 132, 84
+  offset: 0, 1
+  index: -1
+pants_stars
+  rotate: false
+  xy: 262, 278
+  size: 132, 83
+  orig: 132, 84
+  offset: 0, 1
+  index: -1
+pauldron_left
+  rotate: true
+  xy: 361, 239
+  size: 37, 33
+  orig: 37, 33
+  offset: 0, 0
+  index: -1
+pauldron_low_left
+  rotate: false
+  xy: 354, 366
+  size: 26, 16
+  orig: 30, 20
+  offset: 2, 2
+  index: -1
+pauldron_low_right
+  rotate: false
+  xy: 306, 65
+  size: 26, 15
+  orig: 30, 20
+  offset: 2, 3
+  index: -1
+pauldron_right
+  rotate: true
+  xy: 361, 163
+  size: 40, 31
+  orig: 40, 31
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 481
+  size: 306, 35
+  orig: 306, 35
+  offset: 0, 0
+  index: -1
+shirt
+  rotate: true
+  xy: 262, 180
+  size: 96, 97
+  orig: 96, 98
+  offset: 0, 1
+  index: -1
+shirt_stars
+  rotate: true
+  xy: 253, 82
+  size: 96, 97
+  orig: 96, 98
+  offset: 0, 1
+  index: -1

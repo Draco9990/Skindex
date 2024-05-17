@@ -32,7 +32,6 @@ public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<PlayerSki
 
     //region Class Methods
 
-
     @Override
     protected void updateChildren() {
         super.updateChildren();

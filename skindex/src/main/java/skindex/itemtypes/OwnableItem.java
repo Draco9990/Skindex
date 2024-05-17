@@ -27,6 +27,8 @@ public abstract class OwnableItem extends CustomizableItem{
     public OwnableItem(OwnableItemData itemData){
         super(itemData);
 
+        unlockDescription = itemData.unlockDescription;
+
         unlockMethod = SkindexRegistry.getUnlockMethodById(itemData.unlockMethod);
         bundles = new ArrayList<>();
 

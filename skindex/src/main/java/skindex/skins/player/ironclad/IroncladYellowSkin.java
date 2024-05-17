@@ -22,6 +22,8 @@ public class IroncladYellowSkin extends PlayerAtlasSkin {
             id = ID;
             name = "Yellow";
 
+            icon = "skindexResources/images/skins/player/ironclad/yellow/icon.png";
+
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.IRONCLAD.name();
         }

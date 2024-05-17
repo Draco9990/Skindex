@@ -22,6 +22,8 @@ public class IroncladPaperSkin extends PlayerImageSkin {
             id = ID;
             name = "Paper-thin";
 
+            icon = "skindexResources/images/skins/player/ironclad/paper/icon.png";
+
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.IRONCLAD.name();
         }

@@ -37,9 +37,11 @@ public class LittleBoneAtlasSkin extends PlayerSkin {
     @Override
     public boolean loadOnEntity(SkindexPlayerEntity entity) {
         if(!super.loadOnEntity(entity)) return false;
-        if(!(entity instanceof SkindexLittleBoneAtlasEntity)) return false;
 
-        String currentSkul = ((SkindexLittleBoneAtlasEntity) entity).getCurrentSkull();
+        String currentSkul = null;
+        if(entity instanceof SkindexLittleBoneAtlasEntity){
+            currentSkul = ((SkindexLittleBoneAtlasEntity) entity).getCurrentSkull();
+        }
         if(currentSkul == null || currentSkul.equals("None")) currentSkul = "LittleBone";
         ((SkindexPlayerAtlasEntity) entity).loadAnimation(getAtlasUrl(currentSkul), getJsonUrl(currentSkul), resourceDirectory, 1 / scale);
         ((SkindexPlayerAtlasEntity) entity).getState().setAnimation(0, defaultAnimName, true);
