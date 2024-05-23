@@ -29,7 +29,8 @@ public class CharacterPreviewSelectScreen extends AbstractScreen {
             protected void onLeftClick() {
                 super.onLeftClick();
 
-                ScreenManager.openPreviousScreen();
+                //ScreenManager.openPreviousScreen();
+                ScreenManager.closeScreen();
             }
         }.setImage(UIThemeManager.getDefaultTheme().button_small_decline));
 

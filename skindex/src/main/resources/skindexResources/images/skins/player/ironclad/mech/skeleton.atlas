@@ -1,0 +1,125 @@
+
+skeleton.png
+size: 804,111
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boot_left
+  rotate: true
+  xy: 357, 38
+  size: 46, 63
+  orig: 47, 63
+  offset: 1, 0
+  index: -1
+boot_right
+  rotate: false
+  xy: 422, 42
+  size: 51, 67
+  orig: 51, 67
+  offset: 0, 0
+  index: -1
+glove_right
+  rotate: false
+  xy: 243, 36
+  size: 37, 36
+  orig: 41, 40
+  offset: 2, 2
+  index: -1
+hand_left
+  rotate: false
+  xy: 352, 86
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+hand_right
+  rotate: false
+  xy: 377, 90
+  size: 24, 19
+  orig: 24, 19
+  offset: 0, 0
+  index: -1
+helmet
+  rotate: false
+  xy: 758, 63
+  size: 44, 46
+  orig: 63, 63
+  offset: 11, 11
+  index: -1
+helmet_overlay
+  rotate: false
+  xy: 707, 60
+  size: 49, 49
+  orig: 63, 63
+  offset: 8, 9
+  index: -1
+helmet_red
+  rotate: false
+  xy: 707, 9
+  size: 49, 49
+  orig: 63, 63
+  offset: 8, 9
+  index: -1
+pants
+  rotate: false
+  xy: 475, 26
+  size: 132, 83
+  orig: 132, 84
+  offset: 0, 1
+  index: -1
+pauldron_glow
+  rotate: false
+  xy: 282, 41
+  size: 40, 31
+  orig: 40, 31
+  offset: 0, 0
+  index: -1
+pauldron_glow_red
+  rotate: false
+  xy: 310, 78
+  size: 40, 31
+  orig: 40, 31
+  offset: 0, 0
+  index: -1
+pauldron_right
+  rotate: true
+  xy: 324, 36
+  size: 40, 31
+  orig: 40, 31
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 74
+  size: 306, 35
+  orig: 306, 35
+  offset: 0, 0
+  index: -1
+shirt
+  rotate: false
+  xy: 609, 12
+  size: 96, 97
+  orig: 96, 98
+  offset: 0, 1
+  index: -1
+sword
+  rotate: false
+  xy: 2, 36
+  size: 239, 36
+  orig: 242, 60
+  offset: 1, 11
+  index: -1
+sword_glow
+  rotate: false
+  xy: 2, 2
+  size: 221, 32
+  orig: 242, 60
+  offset: 3, 12
+  index: -1
+sword_glow_red
+  rotate: false
+  xy: 225, 2
+  size: 221, 32
+  orig: 242, 60
+  offset: 3, 12
+  index: -1
