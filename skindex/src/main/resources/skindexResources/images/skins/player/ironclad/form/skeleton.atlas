@@ -1,0 +1,118 @@
+
+skeleton.png
+size: 639,261
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boot_left
+  rotate: true
+  xy: 410, 40
+  size: 46, 63
+  orig: 47, 63
+  offset: 1, 0
+  index: -1
+boot_right
+  rotate: false
+  xy: 553, 58
+  size: 51, 67
+  orig: 51, 67
+  offset: 0, 0
+  index: -1
+eye
+  rotate: true
+  xy: 462, 144
+  size: 17, 16
+  orig: 21, 20
+  offset: 2, 2
+  index: -1
+glove_left
+  rotate: false
+  xy: 436, 146
+  size: 24, 15
+  orig: 28, 19
+  offset: 2, 2
+  index: -1
+glove_right
+  rotate: false
+  xy: 509, 223
+  size: 41, 36
+  orig: 41, 40
+  offset: 0, 4
+  index: -1
+hair
+  rotate: false
+  xy: 509, 175
+  size: 30, 46
+  orig: 31, 46
+  offset: 0, 0
+  index: -1
+hand_left
+  rotate: false
+  xy: 528, 63
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+hand_right
+  rotate: false
+  xy: 410, 142
+  size: 24, 19
+  orig: 24, 19
+  offset: 0, 0
+  index: -1
+helmet
+  rotate: false
+  xy: 475, 40
+  size: 51, 46
+  orig: 51, 46
+  offset: 0, 0
+  index: -1
+horn
+  rotate: true
+  xy: 410, 88
+  size: 51, 137
+  orig: 58, 140
+  offset: 0, 3
+  index: -1
+neck
+  rotate: false
+  xy: 509, 141
+  size: 33, 32
+  orig: 33, 33
+  offset: 0, 1
+  index: -1
+pants
+  rotate: true
+  xy: 554, 127
+  size: 132, 83
+  orig: 132, 84
+  offset: 0, 1
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 2
+  size: 306, 35
+  orig: 306, 35
+  offset: 0, 0
+  index: -1
+shirt
+  rotate: true
+  xy: 410, 163
+  size: 96, 97
+  orig: 96, 98
+  offset: 0, 1
+  index: -1
+sword
+  rotate: false
+  xy: 310, 8
+  size: 242, 29
+  orig: 242, 29
+  offset: 0, 0
+  index: -1
+wing
+  rotate: true
+  xy: 2, 39
+  size: 220, 406
+  orig: 230, 406
+  offset: 0, 0
+  index: -1

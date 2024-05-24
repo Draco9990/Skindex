@@ -63,6 +63,7 @@ public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, Skind
                 new IroncladSlaverRedSkin(),
                 new IroncladCyberSkin(),
                 new IroncladAstrologerSkin(),
+                new IroncladFormSkin(),
 
                 new SilentRedSkin(),
                 new SilentBlueSkin(),
