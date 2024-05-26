@@ -28,7 +28,7 @@ public class IroncladFormSkin extends PlayerAtlasSkin {
             resourceDirectoryUrl = "skindexResources/images/skins/player/ironclad/form/";
 
             id = ID;
-            name = "Demon Form";
+            name = "One True Form";
 
             icon = "skindexResources/images/skins/player/ironclad/form/icon.png";
 

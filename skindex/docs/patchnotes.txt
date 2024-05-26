@@ -1,0 +1,10 @@
+Changes in v0.1.0:
+- Initial release of Skindex for Patrons!
+- Features a completely new, WIP, skin preview screen
+- Features 5 new Ironclad Skins, all unlockable by completing certain achievements:
+    - Casal Slaver
+    - Velvet Slaver
+    - Cyber-ops
+    - Spirit of the Goat
+    - One True Form
+- The mod is now completely independent from Together in Spire
