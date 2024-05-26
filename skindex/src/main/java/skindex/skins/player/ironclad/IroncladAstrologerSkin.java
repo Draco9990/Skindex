@@ -19,7 +19,7 @@ import skindex.unlockmethods.AchievementUnlockMethod;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class IroncladAstrologerSkin extends PlayerAtlasSkin {
-    private static int SCORE_TRESHOLD = 9999;
+    private static int SCORE_TRESHOLD = 3500;
 
     public IroncladAstrologerSkin() {
         super(new SkinData());
@@ -52,8 +52,8 @@ public class IroncladAstrologerSkin extends PlayerAtlasSkin {
                 if(GameOverScreen.isVictory && CardCrawlGame.dungeon instanceof TheEnding){
                     int score = Reflection.getFieldValue("score", __instance);
 
-                    if(score > SCORE_TRESHOLD){ //TODO set to a reasonable value
-                        SkindexRegistry.getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass.IRONCLAD, SkinData.ID).unlock();
+                    if(score > SCORE_TRESHOLD){
+                        unlockSkin(SkinData.ID, AbstractPlayer.PlayerClass.IRONCLAD);
                     }
                 }
             }

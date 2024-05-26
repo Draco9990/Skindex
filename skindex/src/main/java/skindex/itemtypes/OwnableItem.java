@@ -3,6 +3,7 @@ package skindex.itemtypes;
 import skindex.SkindexDev;
 import skindex.bundles.Bundle;
 import skindex.registering.SkindexRegistry;
+import skindex.trackers.SkindexDefaultTracker;
 import skindex.trackers.SkindexTracker;
 import skindex.unlockmethods.FreeUnlockMethod;
 import skindex.unlockmethods.UnlockMethod;
@@ -95,7 +96,7 @@ public abstract class OwnableItem extends CustomizableItem{
 
     //region Tracker
     public SkindexTracker getTracker(){
-        if(trackerId == null) return null;
+        if(trackerId == null) return SkindexRegistry.getTrackerById(SkindexDefaultTracker.get().getId());
 
         return SkindexRegistry.getTrackerById(trackerId);
     }

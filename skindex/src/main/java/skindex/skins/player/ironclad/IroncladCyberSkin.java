@@ -2,11 +2,17 @@ package skindex.skins.player.ironclad;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
+import com.megacrit.cardcrawl.actions.unique.VampireDamageAllEnemiesAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.characters.Ironclad;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.dungeons.TheEnding;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.screens.GameOverScreen;
+import com.megacrit.cardcrawl.vfx.combat.FlyingOrbEffect;
 import dLib.util.Reflection;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.player.PlayerAtlasSkin;
@@ -31,15 +37,37 @@ public class IroncladCyberSkin extends PlayerAtlasSkin {
 
             icon = "skindexResources/images/skins/player/ironclad/mech/icon.png";
 
+            unlockDescription = "This skin is unlocked by healing back to full HP with Reaper while on 1 HP.";
             unlockMethod = AchievementUnlockMethod.methodId;
 
             playerClass = AbstractPlayer.PlayerClass.IRONCLAD.name();
         }
     }
 
-    @SpirePatch2(clz = GameOverScreen.class, method = "calculateUnlockProgress")
+    @SpirePatch2(clz = VampireDamageAllEnemiesAction.class, method = "update")
     public static class UnlockPatch{
         @SpirePostfixPatch
-        public static void checkForUnlock(GameOverScreen __instance){}
+        public static void checkForUnlock(VampireDamageAllEnemiesAction __instance){
+            if(AbstractDungeon.player instanceof Ironclad){
+                if(__instance.isDone){
+                    if(AbstractDungeon.player.currentHealth == 1){
+                        int healAmount = 0;
+
+                        for(int i = 0; i < AbstractDungeon.getCurrRoom().monsters.monsters.size(); ++i) {
+                            AbstractMonster target = AbstractDungeon.getCurrRoom().monsters.monsters.get(i);
+                            if (!target.isDying && target.currentHealth > 0 && !target.isEscaping) {
+                                if (target.lastDamageTaken > 0) {
+                                    healAmount += target.lastDamageTaken;
+                                }
+                            }
+                        }
+
+                        if(healAmount >= AbstractDungeon.player.maxHealth - 1){
+                            unlockSkin(SkinData.ID, AbstractPlayer.PlayerClass.IRONCLAD);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

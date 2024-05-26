@@ -40,7 +40,6 @@ public class DefectRebelAISkin extends PlayerAtlasSkin {
             orbSkins.addAll(DefectRebelAIOrbSkinSet.collectOrbSkinIds());
 
             unlockMethod = AchievementUnlockMethod.methodId;
-            tracker = SkindexDefaultTracker.get().getId();
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
         }
     }

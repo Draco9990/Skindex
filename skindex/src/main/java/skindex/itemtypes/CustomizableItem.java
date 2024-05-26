@@ -102,10 +102,14 @@ public abstract class CustomizableItem {
 
     public CustomizableItem makeCopy(){
         try{
-            return this.getClass().getConstructor(CustomizableItemData.class).newInstance(dataInitializer);
-        }catch (Exception e){
-            SkindexLogger.logError("Could not create an instance copy of " + id  + " since it doesn't have a data initializer constructor. Contact the developer to fix pls thank u.", SkindexLogger.ErrorType.NON_FATAL);
-        }
+            return this.getClass().getDeclaredConstructor().newInstance();
+        }catch (Exception ignored){}
+
+        try{
+            return this.getClass().getDeclaredConstructor(CustomizableItemData.class).newInstance(dataInitializer);
+        }catch (Exception ignored){}
+
+        SkindexLogger.logError("Could not create an instance copy of " + id  + " since it doesn't have a valid default or data initializer constructor.", SkindexLogger.ErrorType.NON_FATAL);
 
         return this;
     }

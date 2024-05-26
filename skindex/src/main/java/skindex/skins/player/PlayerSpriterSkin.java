@@ -75,7 +75,7 @@ public class PlayerSpriterSkin extends PlayerSkin{
 
                     try{
                         method.insertBefore("{ if(" + PlayerSpriterSkin.class.getName() + ".renderSpriterSkinModel($0, $1)){ return; }}");
-                        SkindexLogger.log("Skindex => Patched " + method.getName() + " of class " + method.getClass().getEnclosingClass().getName() + ".");
+                        SkindexLogger.log("Skindex => Patched " + method.getName() + " of class " + method.getDeclaringClass().getName() + ".");
                     }catch (Exception e){
                         SkindexLogger.logError("Skindex => Could not compile the dynamic spriter patch on method " + method.getName() + " due to: " + e.getLocalizedMessage(), SkindexLogger.ErrorType.NON_FATAL);
                     }

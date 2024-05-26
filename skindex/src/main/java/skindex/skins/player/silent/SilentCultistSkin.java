@@ -36,7 +36,6 @@ public class SilentCultistSkin extends PlayerAtlasSkin {
             name = "Cultist";
 
             unlockMethod = AchievementUnlockMethod.methodId;
-            tracker = SkindexDefaultTracker.get().getId();
 
             playerClass = AbstractPlayer.PlayerClass.THE_SILENT.name();
         }

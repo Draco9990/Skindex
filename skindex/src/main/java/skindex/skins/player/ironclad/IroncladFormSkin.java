@@ -2,7 +2,11 @@ package skindex.skins.player.ironclad;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
+import com.megacrit.cardcrawl.cards.red.LimitBreak;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.powers.DemonFormPower;
+import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.screens.GameOverScreen;
 import skindex.skins.player.PlayerAtlasSkin;
 import skindex.skins.player.PlayerAtlasSkinData;
@@ -26,15 +30,22 @@ public class IroncladFormSkin extends PlayerAtlasSkin {
 
             icon = "skindexResources/images/skins/player/ironclad/form/icon.png";
 
+            unlockDescription = "This skin is unlocked by playing Limit Break while having Demon Form applied and with more than 666 Strength.";
             unlockMethod = AchievementUnlockMethod.methodId;
 
             playerClass = AbstractPlayer.PlayerClass.IRONCLAD.name();
         }
     }
 
-    @SpirePatch2(clz = GameOverScreen.class, method = "calculateUnlockProgress")
+    @SpirePatch2(clz = LimitBreak.class, method = "use")
     public static class UnlockPatch{
         @SpirePostfixPatch
-        public static void checkForUnlock(GameOverScreen __instance){}
+        public static void checkForUnlock(LimitBreak __instance){
+            if(AbstractDungeon.player.hasPower(DemonFormPower.POWER_ID) && AbstractDungeon.player.hasPower(StrengthPower.POWER_ID)){
+                if(AbstractDungeon.player.getPower(StrengthPower.POWER_ID).amount > 666){
+                    unlockSkin(SkinData.ID, AbstractPlayer.PlayerClass.IRONCLAD);
+                }
+            }
+        }
     }
 }

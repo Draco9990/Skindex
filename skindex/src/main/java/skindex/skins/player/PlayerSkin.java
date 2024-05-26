@@ -146,6 +146,13 @@ public class PlayerSkin extends OwnableItem {
         return false;
     }
 
+    public static void unlockSkin(String skinId, AbstractPlayer.PlayerClass playerClass){
+        PlayerSkin skin = SkindexRegistry.getPlayerSkinByClassAndId(playerClass, skinId);
+        if(skin != null){
+            skin.unlock();
+        }
+    }
+
     /** Patches */
     public static class Patches{
         @SpirePatch2(clz = AbstractPlayer.class, method = "update")
