@@ -55,7 +55,7 @@ public class IroncladCyberSkin extends PlayerAtlasSkin {
 
                         for(int i = 0; i < AbstractDungeon.getCurrRoom().monsters.monsters.size(); ++i) {
                             AbstractMonster target = AbstractDungeon.getCurrRoom().monsters.monsters.get(i);
-                            if (!target.isDying && target.currentHealth > 0 && !target.isEscaping) {
+                            if (!target.isDead && !target.escaped) {
                                 if (target.lastDamageTaken > 0) {
                                     healAmount += target.lastDamageTaken;
                                 }

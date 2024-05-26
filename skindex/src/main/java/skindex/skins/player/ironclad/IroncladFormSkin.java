@@ -1,7 +1,9 @@
 package skindex.skins.player.ironclad;
 
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
+import com.megacrit.cardcrawl.actions.unique.LimitBreakAction;
 import com.megacrit.cardcrawl.cards.red.LimitBreak;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -34,15 +36,17 @@ public class IroncladFormSkin extends PlayerAtlasSkin {
             unlockMethod = AchievementUnlockMethod.methodId;
 
             playerClass = AbstractPlayer.PlayerClass.IRONCLAD.name();
+
+            credits.add("YawgmothHS");
         }
     }
 
-    @SpirePatch2(clz = LimitBreak.class, method = "use")
+    @SpirePatch2(clz = LimitBreakAction.class, method = SpirePatch.CONSTRUCTOR)
     public static class UnlockPatch{
         @SpirePostfixPatch
-        public static void checkForUnlock(LimitBreak __instance){
+        public static void checkForUnlock(){
             if(AbstractDungeon.player.hasPower(DemonFormPower.POWER_ID) && AbstractDungeon.player.hasPower(StrengthPower.POWER_ID)){
-                if(AbstractDungeon.player.getPower(StrengthPower.POWER_ID).amount > 666){
+                if(AbstractDungeon.player.getPower(StrengthPower.POWER_ID).amount >= 666){
                     unlockSkin(SkinData.ID, AbstractPlayer.PlayerClass.IRONCLAD);
                 }
             }

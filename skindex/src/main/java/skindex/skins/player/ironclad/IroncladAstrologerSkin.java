@@ -37,7 +37,7 @@ public class IroncladAstrologerSkin extends PlayerAtlasSkin {
 
             icon = "skindexResources/images/skins/player/ironclad/astrologer/icon.png";
 
-            unlockDescription = "This skin is unlocked by beating A20 with a score of " + SCORE_TRESHOLD + " or higher.";
+            unlockDescription = "This skin is unlocked by beating A20 with a score of " + SCORE_TRESHOLD + " or higher as the Ironclad.";
             unlockMethod = AchievementUnlockMethod.methodId;
 
             playerClass = AbstractPlayer.PlayerClass.IRONCLAD.name();

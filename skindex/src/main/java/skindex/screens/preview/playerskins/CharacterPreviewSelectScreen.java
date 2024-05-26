@@ -54,7 +54,8 @@ public class CharacterPreviewSelectScreen extends AbstractScreen {
         Color transparent = Color.WHITE.cpy();
         transparent.a = 0.0f;
         listBox.getBackground().setRenderColor(transparent);
-        listBox.setItems(SkindexRegistry.getRegisteredPlayerClasses());
+        listBox.addItem(AbstractPlayer.PlayerClass.IRONCLAD);
+        //listBox.setItems(SkindexRegistry.getRegisteredPlayerClasses());
         addChildNCS(listBox);
     }
     //endregion Constructors
