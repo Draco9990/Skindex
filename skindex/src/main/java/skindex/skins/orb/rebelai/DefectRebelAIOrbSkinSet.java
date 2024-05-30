@@ -4,6 +4,8 @@ import com.megacrit.cardcrawl.orbs.Dark;
 import com.megacrit.cardcrawl.orbs.Frost;
 import com.megacrit.cardcrawl.orbs.Lightning;
 import com.megacrit.cardcrawl.orbs.Plasma;
+import skindex.skins.orb.OrbImageSkin;
+import skindex.skins.orb.OrbImageSkinData;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.orb.OrbSkinData;
 
@@ -29,7 +31,7 @@ public class DefectRebelAIOrbSkinSet {
         );
     }
 
-    public static class Lightning extends OrbSkinData {
+    public static class Lightning extends OrbImageSkinData {
         public static String skinID = "LIGHTNING_REBELAI";
 
         public Lightning(){
@@ -40,7 +42,7 @@ public class DefectRebelAIOrbSkinSet {
         }
     }
 
-    public static class Frost extends OrbSkinData{
+    public static class Frost extends OrbImageSkinData{
         public static String skinID = "FROST_REBELAI";
 
         public Frost(){
@@ -51,7 +53,7 @@ public class DefectRebelAIOrbSkinSet {
         }
     }
 
-    public static class Dark extends OrbSkinData{
+    public static class Dark extends OrbImageSkinData{
         public static String skinID = "DARK_REBELAI";
 
         public Dark(){
@@ -62,7 +64,7 @@ public class DefectRebelAIOrbSkinSet {
         }
     }
 
-    public static class Plasma extends OrbSkinData{
+    public static class Plasma extends OrbImageSkinData{
         public static String skinID = "PLASMA_REBELAI";
 
         public Plasma(){
