@@ -47,6 +47,7 @@ public class OrbAtlasSkin extends OrbSkin {
         this.skeleton.updateWorldTransform();
         this.skeleton.update(Gdx.graphics.getDeltaTime());
         this.state.update(Gdx.graphics.getDeltaTime());
+        this.state.apply(this.skeleton);
     }
 
     @Override
@@ -63,12 +64,15 @@ public class OrbAtlasSkin extends OrbSkin {
     protected void loadAnimation(OrbAtlasSkinData orbSkinData) {
         this.atlas = new TextureAtlas(Gdx.files.internal(orbSkinData.atlasUrl));
         SkeletonJson json = new SkeletonJson(this.atlas);
-        json.setScale(Settings.renderScale * orbSkinData.invertedSkeletonScale);
+        json.setScale(Settings.renderScale * orbSkinData.scale);
         SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(orbSkinData.skeletonUrl));
         this.skeleton = new Skeleton(skeletonData);
         this.skeleton.setColor(Color.WHITE);
         this.stateData = new AnimationStateData(skeletonData);
         this.state = new AnimationState(this.stateData);
+
+        state.setAnimation(0, orbSkinData.defaultAnimName, true);
+        state.setTimeScale(orbSkinData.defaultTimeScale);
     }
 
     //endregion Methods

@@ -75,7 +75,7 @@ public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, Skind
                 new DefectGreenSkin(),
                 new DefectYellowSkin(),
                 new DefectPaperSkin(),
-                //new DefectRebelAISkin(),
+                new DefectRebelAISkin(),
 
                 new WatcherRedSkin(),
                 new WatcherGreenSkin(),

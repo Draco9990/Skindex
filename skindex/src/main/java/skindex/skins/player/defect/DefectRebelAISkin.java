@@ -17,6 +17,7 @@ import skindex.skins.player.PlayerAtlasSkin;
 import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.trackers.SkindexDefaultTracker;
 import skindex.unlockmethods.AchievementUnlockMethod;
+import skindex.unlockmethods.FreeUnlockMethod;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class DefectRebelAISkin extends PlayerAtlasSkin {
 
             orbSkins.addAll(DefectRebelAIOrbSkinSet.collectOrbSkinIds());
 
-            unlockMethod = AchievementUnlockMethod.methodId;
+            unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
         }
     }

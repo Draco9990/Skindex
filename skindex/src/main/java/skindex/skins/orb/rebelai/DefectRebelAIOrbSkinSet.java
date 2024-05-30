@@ -4,10 +4,8 @@ import com.megacrit.cardcrawl.orbs.Dark;
 import com.megacrit.cardcrawl.orbs.Frost;
 import com.megacrit.cardcrawl.orbs.Lightning;
 import com.megacrit.cardcrawl.orbs.Plasma;
-import skindex.skins.orb.OrbImageSkin;
-import skindex.skins.orb.OrbImageSkinData;
-import skindex.skins.orb.OrbSkin;
-import skindex.skins.orb.OrbSkinData;
+import skindex.skins.orb.*;
+import skindex.skins.orb.monsterhunter.MonsterHunterOrbSkinSet;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,16 +13,16 @@ import java.util.List;
 public class DefectRebelAIOrbSkinSet {
     public static List<OrbSkin> collectOrbSkins(){
         return Arrays.asList(
-                new OrbSkin(new Lightning()),
-                new OrbSkin(new Frost()),
-                new OrbSkin(new Dark()),
-                new OrbSkin(new Plasma())
+                new OrbAtlasSkin(new MonsterHunterOrbSkinSet.Lightning()),
+                new OrbImageSkin(new Frost()),
+                new OrbImageSkin(new Dark()),
+                new OrbImageSkin(new Plasma())
         );
     }
 
     public static List<String> collectOrbSkinIds(){
         return Arrays.asList(
-                Lightning.skinID,
+                MonsterHunterOrbSkinSet.Lightning.skinID,
                 Frost.skinID,
                 Dark.skinID,
                 Plasma.skinID

@@ -29,14 +29,20 @@ public class MonsterHunterOrbSkinSet {
         );
     }*/
 
-    private static class Lightning extends OrbAtlasSkinData{
-        public static String skinID = "LIGHTNING_REBELAI";
+    public static class Lightning extends OrbAtlasSkinData{
+        public static String skinID = "LIGHTNING_MONSTERHUNTER";
 
         public Lightning(){
             this.id = skinID;
 
             this.atlasUrl = "skindexResources/images/skins/player/defect/monsterhunter/orbs/lightning/skeleton.atlas";
             this.skeletonUrl = "skindexResources/images/skins/player/defect/monsterhunter/orbs/lightning/skeleton.json";
+            this.scale = 0.3f;
+
+            idleAnimVariants.add("Idle1");
+            idleAnimVariants.add("Idle2");
+            idleAnimVariants.add("Idle3");
+            idleAnimVariants.add("Idle4");
 
             this.orbId = com.megacrit.cardcrawl.orbs.Lightning.ORB_ID;
         }
