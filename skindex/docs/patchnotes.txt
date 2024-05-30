@@ -7,4 +7,5 @@ Changes in v0.1.0:
     - Cyber-ops
     - Spirit of the Goat
     - One True Form
-- The mod is now completely independent from Together in Spire
+- The mod is now completely independent from Together in Spire! Changes from the internal version of TiS are as follows:
+    - Skin unlocks are now save-specific instead of global across all saves

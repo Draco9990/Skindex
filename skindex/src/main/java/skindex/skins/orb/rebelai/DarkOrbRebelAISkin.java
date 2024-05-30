@@ -1,17 +1,19 @@
 package skindex.skins.orb.rebelai;
 
 import com.megacrit.cardcrawl.orbs.Dark;
+import skindex.skins.orb.ImageOrbSkin;
+import skindex.skins.orb.ImageOrbSkinData;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.orb.OrbSkinData;
 
-public class DarkOrbRebelAISkin extends OrbSkin {
+public class DarkOrbRebelAISkin extends ImageOrbSkin {
     /** Constructors */
     public DarkOrbRebelAISkin() {
         super(new SkinData());
     }
 
     /** Patches */
-    public static class SkinData extends OrbSkinData{
+    public static class SkinData extends ImageOrbSkinData {
         public static String skinID = "DARK_REBELAI";
 
         public SkinData(){

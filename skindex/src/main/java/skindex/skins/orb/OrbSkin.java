@@ -23,7 +23,7 @@ public class OrbSkin extends CustomizableItem {
     //region Variables
     public String orbId;
 
-    public Texture orbImage;
+
     public boolean overlay;
     //endregion Variables
 
@@ -33,7 +33,6 @@ public class OrbSkin extends CustomizableItem {
 
         orbId = orbSkinData.orbId;
 
-        orbImage = loadImageIfExists(orbSkinData.orbImageUrl);
         overlay = orbSkinData.overlay;
     }
     //endregion Constructors
@@ -49,13 +48,7 @@ public class OrbSkin extends CustomizableItem {
     }
 
     public void render(AbstractOrb instance, SpriteBatch sb, BobEffect bobEffect, float angle, float scale){
-        sb.setColor(Color.WHITE);
-        sb.draw(getTexture(), instance.cX - 48.0F, instance.cY - 48.0F + bobEffect.y, 48.0F, 48.0F, 96.0F, 96.0F, scale * 1.2f, scale * 1.2f, 0, 0, 0, 96, 96, false, false);
     }
-    public Texture getTexture(){
-        return orbImage;
-    }
-
     public Sfx getChannelSound(){ return null; }
     public Sfx getEvokeSound(){ return null; }
 
