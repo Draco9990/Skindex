@@ -39,6 +39,7 @@ public class MonsterHunterOrbSkinSet {
             this.skeletonUrl = "skindexResources/images/skins/player/defect/monsterhunter/orbs/lightning/skeleton.json";
             this.scale = 0.3f;
 
+            idleAnimVariants.add("Idle");
             idleAnimVariants.add("Idle1");
             idleAnimVariants.add("Idle2");
             idleAnimVariants.add("Idle3");

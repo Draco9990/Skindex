@@ -13,6 +13,9 @@ import com.megacrit.cardcrawl.helpers.ModHelper;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.vfx.BobEffect;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class OrbAtlasSkin extends OrbSkin {
     //region Variables
 
@@ -21,7 +24,12 @@ public class OrbAtlasSkin extends OrbSkin {
     protected AnimationState state;
     protected AnimationStateData stateData;
 
+    protected ArrayList<String> idleAnimVariants = new ArrayList<>();
+    protected ArrayList<String> evokeAnimVariants = new ArrayList<>();
+
     protected SkeletonMeshRenderer sr;
+
+    protected String defaultAnimation;
 
     //endregion Variables
 
@@ -30,6 +38,11 @@ public class OrbAtlasSkin extends OrbSkin {
 
         sr = new SkeletonMeshRenderer();
         sr.setPremultipliedAlpha(true);
+
+        this.idleAnimVariants = orbSkinData.idleAnimVariants;
+        this.idleAnimVariants.add(orbSkinData.defaultAnimName);
+
+        this.evokeAnimVariants = orbSkinData.evokeAnimVariants;
 
         loadAnimation(orbSkinData);
     }
@@ -73,6 +86,35 @@ public class OrbAtlasSkin extends OrbSkin {
 
         state.setAnimation(0, orbSkinData.defaultAnimName, true);
         state.setTimeScale(orbSkinData.defaultTimeScale);
+
+        if(idleAnimVariants.size() > 1){
+            state.addListener(new AnimationState.AnimationStateListener() {
+                @Override
+                public void event(int i, Event event) {
+
+                }
+
+                @Override
+                public void complete(int i, int i1) {
+                    state.setAnimation(0, pickRandomAnimation(), true);
+                }
+
+                @Override
+                public void start(int i) {
+
+                }
+
+                @Override
+                public void end(int i) {
+
+                }
+            });
+        }
+    }
+
+    protected String pickRandomAnimation(){
+        Random newAnimationRand = new Random();
+        return idleAnimVariants.get(newAnimationRand.nextInt(idleAnimVariants.size()));
     }
 
     //endregion Methods
