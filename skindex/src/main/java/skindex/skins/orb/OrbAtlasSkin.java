@@ -117,5 +117,18 @@ public class OrbAtlasSkin extends OrbSkin {
         return idleAnimVariants.get(newAnimationRand.nextInt(idleAnimVariants.size()));
     }
 
+    protected String pickRandomEvokeAnimation(){
+        Random newAnimationRand = new Random();
+        return evokeAnimVariants.get(newAnimationRand.nextInt(evokeAnimVariants.size()));
+    }
+
+    @Override
+    protected void onEvoke(AbstractOrb instance) {
+        super.onEvoke(instance);
+        if(!evokeAnimVariants.isEmpty()){
+            state.setAnimation(0, pickRandomEvokeAnimation(), false);
+        }
+    }
+
     //endregion Methods
 }

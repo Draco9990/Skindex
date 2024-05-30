@@ -51,6 +51,10 @@ public class OrbSkin extends CustomizableItem {
     public Sfx getChannelSound(){ return null; }
     public Sfx getEvokeSound(){ return null; }
 
+    protected void onEvoke(AbstractOrb instance){
+
+    }
+
     //endregion Class Methods
 
     //region Patches
@@ -172,6 +176,48 @@ public class OrbSkin extends CustomizableItem {
                     }
 
                     return SpireReturn.Continue();
+                }
+            }
+        }
+
+        public static class EvokePatches{
+            @SpirePatch2(clz = Lightning.class, method = "onEvoke")
+            public static class LightningOrbPatch{
+                public static void Prefix(Lightning __instance){
+                    OrbSkin orbSkin = SkindexGame.getActiveOrbSkin(__instance.ID);
+                    if(orbSkin != null && !orbSkin.overlay){
+                        orbSkin.onEvoke(__instance);
+                    }
+                }
+            }
+
+            @SpirePatch2(clz = Frost.class, method = "onEvoke")
+            public static class FrostOrbPatch{
+                public static void Prefix(Frost __instance){
+                    OrbSkin orbSkin = SkindexGame.getActiveOrbSkin(__instance.ID);
+                    if(orbSkin != null && !orbSkin.overlay){
+                        orbSkin.onEvoke(__instance);
+                    }
+                }
+            }
+
+            @SpirePatch2(clz = Dark.class, method = "onEvoke")
+            public static class DarkOrbPatch{
+                public static void Prefix(Dark __instance){
+                    OrbSkin orbSkin = SkindexGame.getActiveOrbSkin(__instance.ID);
+                    if(orbSkin != null && !orbSkin.overlay){
+                        orbSkin.onEvoke(__instance);
+                    }
+                }
+            }
+
+            @SpirePatch2(clz = Plasma.class, method = "onEvoke")
+            public static class PlasmaOrbPatch{
+                public static void Prefix(Plasma __instance){
+                    OrbSkin orbSkin = SkindexGame.getActiveOrbSkin(__instance.ID);
+                    if(orbSkin != null && !orbSkin.overlay){
+                        orbSkin.onEvoke(__instance);
+                    }
                 }
             }
         }

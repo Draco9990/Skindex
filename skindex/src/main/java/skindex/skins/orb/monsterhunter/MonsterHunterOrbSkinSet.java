@@ -45,6 +45,8 @@ public class MonsterHunterOrbSkinSet {
             idleAnimVariants.add("Idle3");
             idleAnimVariants.add("Idle4");
 
+            evokeAnimVariants.add("Evoke");
+
             this.orbId = com.megacrit.cardcrawl.orbs.Lightning.ORB_ID;
         }
     }
