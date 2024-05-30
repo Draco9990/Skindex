@@ -6,14 +6,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.vfx.BobEffect;
 
-public class ImageOrbSkin extends OrbSkin {
+public class OrbImageSkin extends OrbSkin {
     //region Variables
 
     public Texture orbImage;
 
     //endregion Variables
 
-    public ImageOrbSkin(ImageOrbSkinData orbSkinData){
+    public OrbImageSkin(OrbImageSkinData orbSkinData){
         super(orbSkinData);
 
         orbImage = loadImageIfExists(orbSkinData.orbImageUrl);

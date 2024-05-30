@@ -23,7 +23,6 @@ public class OrbSkin extends CustomizableItem {
     //region Variables
     public String orbId;
 
-
     public boolean overlay;
     //endregion Variables
 
