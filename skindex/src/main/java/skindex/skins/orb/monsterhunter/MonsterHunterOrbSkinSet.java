@@ -50,4 +50,71 @@ public class MonsterHunterOrbSkinSet {
             this.orbId = com.megacrit.cardcrawl.orbs.Lightning.ORB_ID;
         }
     }
+
+    public static class Frost extends OrbAtlasSkinData{
+        public static String skinID = "FROST_MONSTERHUNTER";
+
+        public Frost(){
+            this.id = skinID;
+
+            this.atlasUrl = "skindexResources/images/skins/player/defect/monsterhunter/orbs/frost/skeleton.atlas";
+            this.skeletonUrl = "skindexResources/images/skins/player/defect/monsterhunter/orbs/frost/skeleton.json";
+            this.scale = 0.3f;
+
+            idleAnimVariants.add("Idle");
+            idleAnimVariants.add("Idle1");
+            idleAnimVariants.add("Idle2");
+            idleAnimVariants.add("Idle3");
+            idleAnimVariants.add("Idle4");
+            idleAnimVariants.add("Idle5");
+
+            evokeAnimVariants.add("Evoke");
+
+            this.orbId = com.megacrit.cardcrawl.orbs.Frost.ORB_ID;
+        }
+    }
+
+    public static class Dark extends OrbAtlasSkinData{
+        public static String skinID = "DARK_MONSTERHUNTER";
+
+        public Dark(){
+            this.id = skinID;
+
+            this.atlasUrl = "skindexResources/images/skins/player/defect/monsterhunter/orbs/dark/skeleton.atlas";
+            this.skeletonUrl = "skindexResources/images/skins/player/defect/monsterhunter/orbs/dark/skeleton.json";
+            this.scale = 0.3f;
+
+            idleAnimVariants.add("Idle");
+            idleAnimVariants.add("Idle1");
+            idleAnimVariants.add("Idle2");
+            idleAnimVariants.add("Idle3");
+            idleAnimVariants.add("Idle4");
+
+            evokeAnimVariants.add("Evoke");
+
+            this.orbId = com.megacrit.cardcrawl.orbs.Dark.ORB_ID;
+        }
+    }
+
+    public static class Plasma extends OrbAtlasSkinData{
+        public static String skinID = "PLASMA_MONSTERHUNTER";
+
+        public Plasma(){
+            this.id = skinID;
+
+            this.atlasUrl = "skindexResources/images/skins/player/defect/monsterhunter/orbs/plasma/skeleton.atlas";
+            this.skeletonUrl = "skindexResources/images/skins/player/defect/monsterhunter/orbs/plasma/skeleton.json";
+            this.scale = 0.3f;
+
+            idleAnimVariants.add("Idle");
+            idleAnimVariants.add("Idle1");
+            idleAnimVariants.add("Idle2");
+            idleAnimVariants.add("Idle3");
+            idleAnimVariants.add("Idle4");
+
+            evokeAnimVariants.add("Evoke");
+
+            this.orbId = com.megacrit.cardcrawl.orbs.Plasma.ORB_ID;
+        }
+    }
 }

@@ -33,7 +33,7 @@ public class IroncladSlaverRedSkin extends PlayerAtlasSkin {
 
             icon = "skindexResources/images/skins/player/ironclad/slaver_red/icon.png";
 
-            unlockDescription = "This skin is unlocked by playing Disarm with Slaver's Collar on a Blue Slaver after killing the Blue Slaver and the Taskmaster";
+            unlockDescription = "This skin is unlocked by playing Disarm with Slaver's Collar on a Red Slaver after killing the Blue Slaver and the Taskmaster";
             unlockMethod = AchievementUnlockMethod.methodId;
 
             playerClass = AbstractPlayer.PlayerClass.IRONCLAD.name();

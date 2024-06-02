@@ -1,0 +1,41 @@
+
+skeleton.png
+size: 440,199
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+base
+  rotate: true
+  xy: 2, 2
+  size: 195, 189
+  orig: 200, 200
+  offset: 2, 5
+  index: -1
+eye_base
+  rotate: false
+  xy: 365, 124
+  size: 73, 73
+  orig: 200, 200
+  offset: 68, 65
+  index: -1
+eyebrow
+  rotate: true
+  xy: 365, 35
+  size: 87, 16
+  orig: 200, 200
+  offset: 59, 148
+  index: -1
+fur
+  rotate: true
+  xy: 193, 12
+  size: 185, 170
+  orig: 200, 200
+  offset: 5, 9
+  index: -1
+pupil
+  rotate: false
+  xy: 365, 3
+  size: 30, 30
+  orig: 200, 200
+  offset: 89, 84
+  index: -1

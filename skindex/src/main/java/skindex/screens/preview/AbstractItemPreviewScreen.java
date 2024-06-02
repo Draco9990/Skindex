@@ -62,11 +62,6 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
             }
 
             @Override
-            public void postMakeWrapperForItem(Item item, UIElement itemUI) {
-                super.postMakeWrapperForItem(item, itemUI);
-            }
-
-            @Override
             public void onItemSelectionChanged(ArrayList<Item> item) {
                 super.onItemSelectionChanged(item);
 
