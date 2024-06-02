@@ -59,7 +59,7 @@ public class PlayerSkin extends OwnableItem {
         }
 
         for(String orbSkin : skinData.orbSkins){
-            OrbSkin skin = SkindexRegistry.getOrbSkinById(orbSkin, true);
+            OrbSkin skin = SkindexRegistry.getOrbSkinById(orbSkin, false);
             if(skin == null) continue;
 
             orbsSkinMap.put(skin.orbId, orbSkin);

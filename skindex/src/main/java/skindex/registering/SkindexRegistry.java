@@ -188,7 +188,11 @@ public class SkindexRegistry {
         if(id == null) return null;
 
         OrbSkin orbSkin = orbSkins.get(id);
-        if(orbSkin == null || !makeCopy) return orbSkin;
+        if(orbSkin == null){
+            return null;
+        }
+
+        if(!makeCopy) return orbSkin;
 
         return (OrbSkin) orbSkin.makeCopy();
     }

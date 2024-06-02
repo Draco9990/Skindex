@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import dLib.util.TextureManager;
 import skindex.util.SkindexLogger;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -102,12 +103,15 @@ public abstract class CustomizableItem {
 
     public CustomizableItem makeCopy(){
         try{
-            return this.getClass().getDeclaredConstructor().newInstance();
-        }catch (Exception ignored){}
+            return getClass().getConstructor().newInstance();
+        }catch (Exception ignored){
+        }
 
-        try{
-            return this.getClass().getDeclaredConstructor(CustomizableItemData.class).newInstance(dataInitializer);
-        }catch (Exception ignored){}
+        for(Constructor<?> constructor: getClass().getDeclaredConstructors()){
+            try{
+                return (CustomizableItem) constructor.newInstance(dataInitializer);
+            }catch (Exception ignored){}
+        }
 
         SkindexLogger.logError("Could not create an instance copy of " + id  + " since it doesn't have a valid default or data initializer constructor.", SkindexLogger.ErrorType.NON_FATAL);
 
