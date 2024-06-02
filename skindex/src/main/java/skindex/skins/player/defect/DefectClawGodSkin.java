@@ -29,6 +29,8 @@ public class DefectClawGodSkin extends PlayerAtlasSkin {
             id = ID;
             name = "Claw God";
 
+            icon = "skindexResources/images/skins/player/defect/clawgod/icon.png";
+
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
         }

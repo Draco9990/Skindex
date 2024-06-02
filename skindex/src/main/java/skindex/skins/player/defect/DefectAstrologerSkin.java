@@ -29,6 +29,8 @@ public class DefectAstrologerSkin extends PlayerAtlasSkin {
             id = ID;
             name = "Spirit of the Rat";
 
+            icon = "skindexResources/images/skins/player/defect/astrologer/icon.png";
+
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
         }

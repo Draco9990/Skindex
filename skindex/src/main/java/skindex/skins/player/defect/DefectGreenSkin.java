@@ -22,6 +22,8 @@ public class DefectGreenSkin extends PlayerAtlasSkin {
             id = ID;
             name = "Green";
 
+            icon = "skindexResources/images/skins/player/defect/green/icon.png";
+
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
         }

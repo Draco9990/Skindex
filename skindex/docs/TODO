@@ -11,7 +11,7 @@ rework trackers
 --> create orb skins per orb
 -- change closet sprite
 -- update defect skin icons
---
+-- unlcoks & mem leak
 
 
 add credits display

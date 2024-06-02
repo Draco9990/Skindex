@@ -30,6 +30,8 @@ public class DefectMonsterHunterSkin extends PlayerAtlasSkin {
             id = ID;
             name = "Monster Hunter";
 
+            icon = "skindexResources/images/skins/player/defect/monsterhunter/icon.png";
+
             orbSkins.addAll(MonsterHunterOrbSkinSet.collectOrbSkinIds());
 
             unlockMethod = FreeUnlockMethod.methodId;

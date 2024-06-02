@@ -30,6 +30,8 @@ public class DefectFormSkin extends PlayerAtlasSkin {
             id = ID;
             name = "One True Form";
 
+            icon = "skindexResources/images/skins/player/defect/form/icon.png";
+
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
         }

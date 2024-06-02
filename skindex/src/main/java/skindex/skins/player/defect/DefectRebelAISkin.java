@@ -30,6 +30,8 @@ public class DefectRebelAISkin extends PlayerAtlasSkin {
             id = ID;
             name = "Rebel AI";
 
+            icon = "skindexResources/images/skins/player/defect/rebel_ai/icon.png";
+
             orbSkins.addAll(RebelAIOrbSkinSet.collectOrbSkinIds());
 
             unlockMethod = FreeUnlockMethod.methodId;
