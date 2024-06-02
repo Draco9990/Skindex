@@ -65,8 +65,41 @@ public class OrbSkin extends CustomizableItem {
                 public static SpireField<OrbSkin> orbSkin = new SpireField<>(() -> null);
             }
 
-            @SpirePatch2(clz = AbstractOrb.class, method = SpirePatch.CONSTRUCTOR)
-            public static class ConstructorPatch{
+            @SpirePatch2(clz = Lightning.class, method = SpirePatch.CONSTRUCTOR)
+            public static class ConstructorPatchLightning{
+                @SpirePostfixPatch
+                public static void loadSkinPatch(AbstractOrb __instance){
+                    OrbSkin orbSkin = SkindexGame.makeOrbSkinForOrb(__instance.ID);
+                    if(orbSkin != null){
+                        setSkin(__instance, orbSkin);
+                    }
+                }
+            }
+
+            @SpirePatch2(clz = Dark.class, method = SpirePatch.CONSTRUCTOR)
+            public static class ConstructorPatchDark{
+                @SpirePostfixPatch
+                public static void loadSkinPatch(AbstractOrb __instance){
+                    OrbSkin orbSkin = SkindexGame.makeOrbSkinForOrb(__instance.ID);
+                    if(orbSkin != null){
+                        setSkin(__instance, orbSkin);
+                    }
+                }
+            }
+
+            @SpirePatch2(clz = Frost.class, method = SpirePatch.CONSTRUCTOR)
+            public static class ConstructorPatchFrost{
+                @SpirePostfixPatch
+                public static void loadSkinPatch(AbstractOrb __instance){
+                    OrbSkin orbSkin = SkindexGame.makeOrbSkinForOrb(__instance.ID);
+                    if(orbSkin != null){
+                        setSkin(__instance, orbSkin);
+                    }
+                }
+            }
+
+            @SpirePatch2(clz = Plasma.class, method = SpirePatch.CONSTRUCTOR)
+            public static class ConstructorPatchPlasma{
                 @SpirePostfixPatch
                 public static void loadSkinPatch(AbstractOrb __instance){
                     OrbSkin orbSkin = SkindexGame.makeOrbSkinForOrb(__instance.ID);
