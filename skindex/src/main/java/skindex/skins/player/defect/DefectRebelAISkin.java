@@ -11,6 +11,7 @@ import skindex.registering.SkindexRegistry;
 import skindex.skins.orb.rebelai.*;
 import skindex.skins.player.PlayerAtlasSkin;
 import skindex.skins.player.PlayerAtlasSkinData;
+import skindex.unlockmethods.AchievementUnlockMethod;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class DefectRebelAISkin extends PlayerAtlasSkin {
@@ -34,7 +35,9 @@ public class DefectRebelAISkin extends PlayerAtlasSkin {
 
             orbSkins.addAll(RebelAIOrbSkinSet.collectOrbSkinIds());
 
-            unlockMethod = FreeUnlockMethod.methodId;
+            this.unlockDescription = "This skin is unlocked by one-shotting a Spheric Guardian with a Melter.";
+
+            unlockMethod = AchievementUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
         }
     }

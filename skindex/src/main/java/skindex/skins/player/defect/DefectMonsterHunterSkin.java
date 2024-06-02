@@ -3,14 +3,19 @@ package skindex.skins.player.defect;
 import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.blue.Chaos;
+import com.megacrit.cardcrawl.cards.blue.EchoForm;
 import com.megacrit.cardcrawl.cards.blue.Melter;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.city.SphericGuardian;
+import com.megacrit.cardcrawl.powers.DuplicationPower;
+import com.megacrit.cardcrawl.powers.EchoPower;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.orb.monsterhunter.MonsterHunterOrbSkinSet;
 import skindex.skins.player.PlayerAtlasSkin;
 import skindex.skins.player.PlayerAtlasSkinData;
+import skindex.unlockmethods.AchievementUnlockMethod;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class DefectMonsterHunterSkin extends PlayerAtlasSkin {
@@ -34,7 +39,7 @@ public class DefectMonsterHunterSkin extends PlayerAtlasSkin {
 
             orbSkins.addAll(MonsterHunterOrbSkinSet.collectOrbSkinIds());
 
-            unlockMethod = FreeUnlockMethod.methodId;
+            unlockMethod = AchievementUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
         }
     }
@@ -42,24 +47,13 @@ public class DefectMonsterHunterSkin extends PlayerAtlasSkin {
     /** Patches */
     public static class Patches{
         public static class UnlockPatches{
-            @SpirePatch2(clz = SphericGuardian.class, method = "<class>")
-            public static class SphericGuardianDamagedTracker{
-                public static SpireField<Boolean> wasDamaged = new SpireField<>(() -> false);
-            }
-
-            @SpirePatch2(clz = SphericGuardian.class, method = "damage")
+            @SpirePatch2(clz = AbstractPlayer.class, method = "useCard")
             public static class UnlockSkinAchievement{
-                public static void Postfix(SphericGuardian __instance){
-                    if(__instance.isDying && !SphericGuardianDamagedTracker.wasDamaged.get(__instance)){
-                        if(!AbstractDungeon.actionManager.cardsPlayedThisCombat.isEmpty()){
-                            AbstractCard lastCardUsed = AbstractDungeon.actionManager.cardsPlayedThisCombat.get(AbstractDungeon.actionManager.cardsPlayedThisCombat.size() - 1);
-                            if(lastCardUsed instanceof Melter){
-                                SkindexRegistry.getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass.DEFECT, SkinData.ID).unlock();
-                            }
+                public static void Postfix(AbstractCard c){
+                    if(c instanceof Chaos){
+                        if(AbstractDungeon.player.masterMaxOrbs == 0){
+                            SkindexRegistry.getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass.DEFECT, SkinData.ID).unlock();
                         }
-                    }
-                    else{
-                        SphericGuardianDamagedTracker.wasDamaged.set(__instance, true);
                     }
                 }
             }

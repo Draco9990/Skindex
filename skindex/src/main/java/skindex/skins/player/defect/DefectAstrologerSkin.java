@@ -2,17 +2,26 @@ package skindex.skins.player.defect;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.blue.Melter;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.dungeons.TheEnding;
 import com.megacrit.cardcrawl.monsters.city.SphericGuardian;
+import com.megacrit.cardcrawl.screens.GameOverScreen;
+import dLib.util.Reflection;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.player.PlayerAtlasSkin;
 import skindex.skins.player.PlayerAtlasSkinData;
+import skindex.skins.player.ironclad.IroncladAstrologerSkin;
+import skindex.unlockmethods.AchievementUnlockMethod;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class DefectAstrologerSkin extends PlayerAtlasSkin {
+    private static int SCORE_TRESHOLD = 3500;
+
     /** Constructors */
     public DefectAstrologerSkin() {
         super(new SkinData());
@@ -31,32 +40,23 @@ public class DefectAstrologerSkin extends PlayerAtlasSkin {
 
             icon = "skindexResources/images/skins/player/defect/astrologer/icon.png";
 
-            unlockMethod = FreeUnlockMethod.methodId;
+            unlockDescription = "This skin is unlocked by beating A20 with a score of " + SCORE_TRESHOLD + " or higher as the Defect.";
+
+            unlockMethod = AchievementUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
         }
     }
 
-    /** Patches */
-    public static class Patches{
-        public static class UnlockPatches{
-            @SpirePatch2(clz = SphericGuardian.class, method = "<class>")
-            public static class SphericGuardianDamagedTracker{
-                public static SpireField<Boolean> wasDamaged = new SpireField<>(() -> false);
-            }
+    @SpirePatch2(clz = GameOverScreen.class, method = "calculateUnlockProgress")
+    public static class UnlockPatch{
+        @SpirePostfixPatch
+        public static void checkForUnlock(GameOverScreen __instance){
+            if(AbstractDungeon.ascensionLevel == 20 && AbstractDungeon.player.chosenClass == AbstractPlayer.PlayerClass.DEFECT){
+                if(GameOverScreen.isVictory && CardCrawlGame.dungeon instanceof TheEnding){
+                    int score = Reflection.getFieldValue("score", __instance);
 
-            @SpirePatch2(clz = SphericGuardian.class, method = "damage")
-            public static class UnlockSkinAchievement{
-                public static void Postfix(SphericGuardian __instance){
-                    if(__instance.isDying && !SphericGuardianDamagedTracker.wasDamaged.get(__instance)){
-                        if(!AbstractDungeon.actionManager.cardsPlayedThisCombat.isEmpty()){
-                            AbstractCard lastCardUsed = AbstractDungeon.actionManager.cardsPlayedThisCombat.get(AbstractDungeon.actionManager.cardsPlayedThisCombat.size() - 1);
-                            if(lastCardUsed instanceof Melter){
-                                SkindexRegistry.getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass.DEFECT, SkinData.ID).unlock();
-                            }
-                        }
-                    }
-                    else{
-                        SphericGuardianDamagedTracker.wasDamaged.set(__instance, true);
+                    if(score > SCORE_TRESHOLD){
+                        unlockSkin(SkinData.ID, AbstractPlayer.PlayerClass.DEFECT);
                     }
                 }
             }

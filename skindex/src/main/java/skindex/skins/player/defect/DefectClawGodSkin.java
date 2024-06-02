@@ -2,7 +2,9 @@ package skindex.skins.player.defect;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
+import com.megacrit.cardcrawl.actions.defect.GashAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.blue.Claw;
 import com.megacrit.cardcrawl.cards.blue.Melter;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -10,9 +12,14 @@ import com.megacrit.cardcrawl.monsters.city.SphericGuardian;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.player.PlayerAtlasSkin;
 import skindex.skins.player.PlayerAtlasSkinData;
+import skindex.unlockmethods.AchievementUnlockMethod;
 import skindex.unlockmethods.FreeUnlockMethod;
 
+import java.util.Iterator;
+
 public class DefectClawGodSkin extends PlayerAtlasSkin {
+    private static int DAMAGE_REQUIRED = 50;
+
     /** Constructors */
     public DefectClawGodSkin() {
         super(new SkinData());
@@ -29,9 +36,10 @@ public class DefectClawGodSkin extends PlayerAtlasSkin {
             id = ID;
             name = "Claw God";
 
+            this.unlockDescription = "This skin is unlocked by reaching 50 or more damage on a Claw card.";
             icon = "skindexResources/images/skins/player/defect/clawgod/icon.png";
 
-            unlockMethod = FreeUnlockMethod.methodId;
+            unlockMethod = AchievementUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
         }
     }
@@ -39,24 +47,44 @@ public class DefectClawGodSkin extends PlayerAtlasSkin {
     /** Patches */
     public static class Patches{
         public static class UnlockPatches{
-            @SpirePatch2(clz = SphericGuardian.class, method = "<class>")
-            public static class SphericGuardianDamagedTracker{
-                public static SpireField<Boolean> wasDamaged = new SpireField<>(() -> false);
-            }
-
-            @SpirePatch2(clz = SphericGuardian.class, method = "damage")
+            @SpirePatch2(clz = GashAction.class, method = "update")
             public static class UnlockSkinAchievement{
-                public static void Postfix(SphericGuardian __instance){
-                    if(__instance.isDying && !SphericGuardianDamagedTracker.wasDamaged.get(__instance)){
-                        if(!AbstractDungeon.actionManager.cardsPlayedThisCombat.isEmpty()){
-                            AbstractCard lastCardUsed = AbstractDungeon.actionManager.cardsPlayedThisCombat.get(AbstractDungeon.actionManager.cardsPlayedThisCombat.size() - 1);
-                            if(lastCardUsed instanceof Melter){
+                public static void Postfix(GashAction __instance){
+                    Iterator var1 = AbstractDungeon.player.discardPile.group.iterator();
+
+                    AbstractCard c;
+                    while(var1.hasNext()) {
+                        c = (AbstractCard)var1.next();
+                        if (c instanceof Claw) {
+                            if(c.baseDamage >= DAMAGE_REQUIRED){
                                 SkindexRegistry.getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass.DEFECT, SkinData.ID).unlock();
+                                return;
                             }
                         }
                     }
-                    else{
-                        SphericGuardianDamagedTracker.wasDamaged.set(__instance, true);
+
+                    var1 = AbstractDungeon.player.drawPile.group.iterator();
+
+                    while(var1.hasNext()) {
+                        c = (AbstractCard)var1.next();
+                        if (c instanceof Claw) {
+                            if(c.baseDamage >= DAMAGE_REQUIRED){
+                                SkindexRegistry.getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass.DEFECT, SkinData.ID).unlock();
+                                return;
+                            }
+                        }
+                    }
+
+                    var1 = AbstractDungeon.player.hand.group.iterator();
+
+                    while(var1.hasNext()) {
+                        c = (AbstractCard)var1.next();
+                        if (c instanceof Claw) {
+                            if(c.baseDamage >= DAMAGE_REQUIRED){
+                                SkindexRegistry.getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass.DEFECT, SkinData.ID).unlock();
+                                return;
+                            }
+                        }
                     }
                 }
             }
