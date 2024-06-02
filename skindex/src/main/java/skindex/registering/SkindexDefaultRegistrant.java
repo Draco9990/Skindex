@@ -1,6 +1,7 @@
 package skindex.registering;
 
 import skindex.skins.orb.OrbSkin;
+import skindex.skins.orb.monsterhunter.MonsterHunterOrbSkinSet;
 import skindex.skins.orb.rebelai.*;
 import skindex.skins.player.PlayerSkin;
 import skindex.skins.player.defect.*;
@@ -39,8 +40,9 @@ public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, Skind
     @Override
     public List<OrbSkin> getOrbSkinsToRegister() {
         List<OrbSkin> orbSkins = new ArrayList<>();
-        orbSkins.addAll(DefectRebelAIOrbSkinSet.collectOrbSkins());
-        return orbSkins;
+        orbSkins.addAll(RebelAIOrbSkinSet.collectOrbSkins());
+        orbSkins.addAll(MonsterHunterOrbSkinSet.collectOrbSkins());
+;        return orbSkins;
     }
 
     @Override
@@ -76,6 +78,7 @@ public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, Skind
                 new DefectYellowSkin(),
                 new DefectPaperSkin(),
                 new DefectRebelAISkin(),
+                new DefectMonsterHunterSkin(),
 
                 new WatcherRedSkin(),
                 new WatcherGreenSkin(),

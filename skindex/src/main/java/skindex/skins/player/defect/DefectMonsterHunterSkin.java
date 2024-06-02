@@ -8,29 +8,29 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.city.SphericGuardian;
 import skindex.registering.SkindexRegistry;
-import skindex.skins.orb.rebelai.*;
+import skindex.skins.orb.monsterhunter.MonsterHunterOrbSkinSet;
 import skindex.skins.player.PlayerAtlasSkin;
 import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 
-public class DefectRebelAISkin extends PlayerAtlasSkin {
+public class DefectMonsterHunterSkin extends PlayerAtlasSkin {
     /** Constructors */
-    public DefectRebelAISkin() {
+    public DefectMonsterHunterSkin() {
         super(new SkinData());
     }
 
     /** Data */
     public static class SkinData extends PlayerAtlasSkinData {
-        public static String ID = "REBEL_AI";
+        public static String ID = "MONSTER_HUNTER";
         public SkinData(){
-            atlasUrl = "images/characters/defect/idle/skeleton.atlas";
-            skeletonUrl = "images/characters/defect/idle/skeleton.json";
-            resourceDirectoryUrl = "skindexResources/images/skins/player/defect/rebel_ai/";
+            atlasUrl = "skindexResources/images/skins/player/defect/monsterhunter/skeleton.atlas";
+            skeletonUrl = "skindexResources/images/skins/player/defect/monsterhunter/skeleton.json";
+            resourceDirectoryUrl = "skindexResources/images/skins/player/defect/monsterhunter/";
 
             id = ID;
-            name = "Rebel AI";
+            name = "Monster Hunter";
 
-            orbSkins.addAll(RebelAIOrbSkinSet.collectOrbSkinIds());
+            orbSkins.addAll(MonsterHunterOrbSkinSet.collectOrbSkinIds());
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();

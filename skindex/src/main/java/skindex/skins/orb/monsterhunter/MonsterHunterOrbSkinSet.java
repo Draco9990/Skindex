@@ -1,22 +1,19 @@
 package skindex.skins.orb.monsterhunter;
 
-import com.megacrit.cardcrawl.orbs.Frost;
-import com.megacrit.cardcrawl.orbs.Lightning;
 import skindex.skins.orb.OrbAtlasSkin;
 import skindex.skins.orb.OrbAtlasSkinData;
 import skindex.skins.orb.OrbSkin;
-import skindex.skins.orb.rebelai.DefectRebelAIOrbSkinSet;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MonsterHunterOrbSkinSet {
-    /*public static List<OrbSkin> collectOrbSkins(){
+    public static List<OrbSkin> collectOrbSkins(){
         return Arrays.asList(
-                new OrbSkin(new Lightning()),
-                new OrbSkin(new Frost()),
-                new OrbSkin(new Dark()),
-                new OrbSkin(new Plasma())
+                new OrbAtlasSkin(new Lightning()),
+                new OrbAtlasSkin(new Frost()),
+                new OrbAtlasSkin(new Dark()),
+                new OrbAtlasSkin(new Plasma())
         );
     }
 
@@ -27,7 +24,7 @@ public class MonsterHunterOrbSkinSet {
                 Dark.skinID,
                 Plasma.skinID
         );
-    }*/
+    }
 
     public static class Lightning extends OrbAtlasSkinData{
         public static String skinID = "LIGHTNING_MONSTERHUNTER";

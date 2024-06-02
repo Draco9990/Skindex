@@ -5,7 +5,7 @@ import skindex.skins.orb.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class DefectRebelAIOrbSkinSet {
+public class RebelAIOrbSkinSet {
     public static List<OrbSkin> collectOrbSkins(){
         return Arrays.asList(
                 new OrbImageSkin(new Lightning()),
