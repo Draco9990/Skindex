@@ -2,14 +2,11 @@ package skindex;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.cards.CardSkin;
 import skindex.skins.orb.OrbSkin;
@@ -79,13 +76,13 @@ public class SkindexGame {
 
         return null;
     }
-    public static OrbSkin getActiveOrbSkin(String orbId){
+    public static OrbSkin makeOrbSkinForOrb(String orbType){
         PlayerSkin currentSkin = getActivePlayerSkin();
         if(currentSkin == null){
             return null;
         }
 
-        return currentSkin.orbsSkinMap.get(orbId);
+        return SkindexRegistry.getOrbSkinById(currentSkin.orbsSkinMap.get(orbType), true);
     }
     public static StanceSkin getActiveStanceSkin(String stanceId){
         PlayerSkin currentSkin = getActivePlayerSkin();

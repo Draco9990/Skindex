@@ -19,7 +19,6 @@ import skindex.util.SkindexLogger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class PlayerSkin extends OwnableItem {
@@ -37,7 +36,7 @@ public class PlayerSkin extends OwnableItem {
     public ArrayList<String> cardSkins;
     public ArrayList<Color> cardTrailColors = new ArrayList<>();
 
-    public HashMap<String, OrbSkin> orbsSkinMap = new HashMap<>();
+    public HashMap<String, String> orbsSkinMap = new HashMap<>();
     public HashMap<String, StanceSkin> stanceSkinMap = new HashMap<>();
 
     private AbstractCreatureEffect effect = null;
@@ -63,7 +62,7 @@ public class PlayerSkin extends OwnableItem {
             OrbSkin skin = SkindexRegistry.getOrbSkinById(orbSkin, true);
             if(skin == null) continue;
 
-            orbsSkinMap.put(skin.orbId, skin);
+            orbsSkinMap.put(skin.orbId, orbSkin);
         }
         for(String stanceSkin : skinData.stanceSkins){
             StanceSkin skin = SkindexRegistry.getStanceSkinById(stanceSkin, true);
@@ -94,10 +93,6 @@ public class PlayerSkin extends OwnableItem {
         if(effect != null){
             effect.setTarget(updateSource);
             effect.update();
-        }
-
-        for(OrbSkin orbSkin : orbsSkinMap.values()){
-            orbSkin.update();
         }
     }
 

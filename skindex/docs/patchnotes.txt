@@ -1,6 +1,7 @@
 Changes in v0.2.0:
 - Added 3 new Defect Skins, all unlockable by completing certain achievements:
 - Updated Defect's Rebel AI to have an unlock condition and be up to standards for these new skins
+- Orb skins are now instanced per orb instead per orb type
 
 Changes in v0.1.0:
 - Initial release of Skindex for Patrons!
