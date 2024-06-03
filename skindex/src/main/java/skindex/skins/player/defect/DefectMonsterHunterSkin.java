@@ -51,7 +51,7 @@ public class DefectMonsterHunterSkin extends PlayerAtlasSkin {
             public static class UnlockSkinAchievement{
                 public static void Postfix(AbstractCard c){
                     if(c instanceof Chaos){
-                        if(AbstractDungeon.player.masterMaxOrbs == 0){
+                        if(AbstractDungeon.player.maxOrbs == 0){
                             SkindexRegistry.getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass.DEFECT, SkinData.ID).unlock();
                         }
                     }

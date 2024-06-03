@@ -29,6 +29,8 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
     TextBox itemUnlockDescriptionTextBox;
 
     UIElement unlockButton;
+
+    protected Item previewingItem = null;
     //endregion
 
     //region Constructors
@@ -106,6 +108,8 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         if(item == null){
             return;
         }
+
+        previewingItem = item;
 
         if(!(item instanceof OwnableItem) || ((OwnableItem) item).canUse()){
             itemUnlockDescriptionTextBox.setText("");

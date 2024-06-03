@@ -6,6 +6,7 @@ Changes in v0.2.0:
     - One True Form
 - Updated Defect's Rebel AI to have an unlock condition and be up to standards for the new skins
 - Orb skins are now instanced per orb instead per orb type
+- Added an indicator on the skin preview screen if a skin contains custom orb skins
 
 Changes in v0.1.0:
 - Initial release of Skindex for Patrons!

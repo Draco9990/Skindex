@@ -3,6 +3,9 @@ package skindex.screens.preview.playerskins;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.orbs.*;
+import dLib.ui.elements.prefabs.Image;
+import dLib.util.TextureManager;
 import skindex.entities.player.DummyPlayer;
 import skindex.registering.SkindexRegistry;
 import skindex.screens.preview.AbstractItemPreviewScreen;
@@ -58,5 +61,12 @@ public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<PlayerSki
         super.onPreviewItemChanged(item);
 
         item.loadOnEntity(previewEntity);
+
+        addChildNCS(new Image(TextureManager.getTexture("skindexResources/images/ui/preview/customorbskins.png"), 1596, 1080-173, 291, 27){
+            @Override
+            public boolean isVisible() {
+                return previewingItem != null && !previewingItem.orbsSkinMap.isEmpty();
+            }
+        });
     }
 }
