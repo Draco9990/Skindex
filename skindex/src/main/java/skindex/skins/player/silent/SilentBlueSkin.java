@@ -26,6 +26,8 @@ public class SilentBlueSkin extends PlayerAtlasSkin {
             id = ID;
             name = "Blue";
 
+            icon = "skindexResources/images/skins/player/silent/blue/icon.png";
+
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.THE_SILENT.name();
         }

@@ -148,6 +148,10 @@ public class PlayerSkin extends OwnableItem {
         }
     }
 
+    public static void unlockSkin(PlayerSkinData skinData){
+        unlockSkin(skinData.id, AbstractPlayer.PlayerClass.valueOf(skinData.playerClass));
+    }
+
     /** Patches */
     public static class Patches{
         @SpirePatch2(clz = AbstractPlayer.class, method = "update")

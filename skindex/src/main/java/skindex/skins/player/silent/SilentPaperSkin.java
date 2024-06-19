@@ -20,6 +20,8 @@ public class SilentPaperSkin extends PlayerImageSkin {
             id = ID;
             name = "Paper-thin";
 
+            icon = "skindexResources/images/skins/player/silent/paper/icon.png";
+
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.THE_SILENT.name();
         }

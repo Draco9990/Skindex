@@ -1,0 +1,118 @@
+
+skeleton.png
+size: 332,732
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+avatar_color
+  rotate: false
+  xy: 2, 223
+  size: 165, 378
+  orig: 165, 378
+  offset: 0, 0
+  index: -1
+avatar_stars
+  rotate: true
+  xy: 2, 603
+  size: 127, 254
+  orig: 127, 254
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 169, 480
+  size: 53, 94
+  orig: 53, 94
+  offset: 0, 0
+  index: -1
+cape_left
+  rotate: false
+  xy: 169, 313
+  size: 157, 165
+  orig: 157, 165
+  offset: 0, 0
+  index: -1
+cape_left_stars
+  rotate: false
+  xy: 169, 146
+  size: 157, 165
+  orig: 157, 165
+  offset: 0, 0
+  index: -1
+cape_right
+  rotate: true
+  xy: 2, 84
+  size: 137, 155
+  orig: 137, 155
+  offset: 0, 0
+  index: -1
+cape_right_stars
+  rotate: true
+  xy: 159, 7
+  size: 137, 155
+  orig: 137, 155
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 318, 725
+  size: 6, 5
+  orig: 10, 10
+  offset: 2, 3
+  index: -1
+face
+  rotate: false
+  xy: 224, 502
+  size: 28, 28
+  orig: 28, 28
+  offset: 0, 0
+  index: -1
+foot
+  rotate: false
+  xy: 119, 55
+  size: 37, 27
+  orig: 37, 27
+  offset: 0, 0
+  index: -1
+hair
+  rotate: true
+  xy: 169, 576
+  size: 25, 83
+  orig: 25, 83
+  offset: 0, 0
+  index: -1
+hair2
+  rotate: true
+  xy: 224, 532
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+neck_spine
+  rotate: true
+  xy: 224, 550
+  size: 24, 32
+  orig: 28, 36
+  offset: 2, 2
+  index: -1
+shadow
+  rotate: true
+  xy: 258, 480
+  size: 250, 58
+  orig: 250, 58
+  offset: 0, 0
+  index: -1
+skull
+  rotate: false
+  xy: 2, 2
+  size: 115, 80
+  orig: 115, 80
+  offset: 0, 0
+  index: -1
+tail_spine
+  rotate: true
+  xy: 316, 103
+  size: 41, 14
+  orig: 41, 14
+  offset: 0, 0
+  index: -1

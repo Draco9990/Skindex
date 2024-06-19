@@ -35,6 +35,9 @@ public class SilentCultistSkin extends PlayerAtlasSkin {
             id = ID;
             name = "Cultist";
 
+            icon = "skindexResources/images/skins/player/silent/cultist/icon.png";
+
+            this.unlockDescription = "This skin is unlocked by killing a Cultist with Ritual Dagger while having 1 or more Ritual applied to you.";
             unlockMethod = AchievementUnlockMethod.methodId;
 
             playerClass = AbstractPlayer.PlayerClass.THE_SILENT.name();

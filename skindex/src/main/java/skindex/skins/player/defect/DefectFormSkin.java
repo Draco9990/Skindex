@@ -39,6 +39,8 @@ public class DefectFormSkin extends PlayerAtlasSkin {
             this.unlockDescription = "This skin is unlocked by Echo Forming an Echo Form while under the effects of a Duplication Potion.";
             unlockMethod = AchievementUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
+
+            credits.add("YawgmothHS");
         }
     }
 

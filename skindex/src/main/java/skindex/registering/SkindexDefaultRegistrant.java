@@ -71,7 +71,10 @@ public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, Skind
                 new SilentBlueSkin(),
                 new SilentYellowSkin(),
                 new SilentPaperSkin(),
-                //new SilentCultistSkin(),
+                new SilentCultistSkin(),
+                new SilentLastDanceSkin(),
+                new SilentAstrologerSkin(),
+                new SilentFormSkin(),
 
                 new DefectRedSkin(),
                 new DefectGreenSkin(),

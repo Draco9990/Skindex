@@ -1,3 +1,11 @@
+Changes in v0.3.0:
+- Added 4 new Silent Skins, all unlockable by completing certain achievements:
+    - Cultist
+    - Last Dance
+    - Spirit of the Snake
+    - One True Form
+- Fixed missing credits for the Defect One True Form skin
+
 Changes in v0.2.0:
 - Added 4 new Defect Skins, all unlockable by completing certain achievements:
     - Claw God
