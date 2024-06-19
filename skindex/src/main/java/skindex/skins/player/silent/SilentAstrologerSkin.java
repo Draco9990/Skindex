@@ -33,7 +33,7 @@ public class SilentAstrologerSkin extends PlayerAtlasSkin {
             icon = "skindexResources/images/skins/player/silent/astrologer/icon.png";
 
             unlockDescription = "This skin is unlocked by beating A20 with a score of " + SCORE_TRESHOLD + " or higher as the Silent.";
-            unlockMethod = FreeUnlockMethod.methodId;
+            unlockMethod = AchievementUnlockMethod.methodId;
 
             playerClass = AbstractPlayer.PlayerClass.THE_SILENT.name();
         }
