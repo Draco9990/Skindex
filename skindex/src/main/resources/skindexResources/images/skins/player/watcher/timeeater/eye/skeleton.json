@@ -1,0 +1,223 @@
+{
+"skeleton": {
+	"hash": "pYs7qGL90mpARFwJ+Gwh1s/7uI8",
+	"spine": "3.7-from-3.8.75",
+	"x": -40.21,
+	"y": -123.58,
+	"width": 133.09,
+	"height": 124.37,
+	"images": "",
+	"audio": "E:/Marino/Projects/Skindex/Source/Skindex/skindex/src/main/resources/skindexResources/images/skins/player/watcher/__dev/eye"
+},
+"bones": [
+	{ "name": "root", "rotation": 335 },
+	{ "name": "Eye_base_x", "parent": "root", "x": 0.69, "y": 0.74, "color": "fff500ff" },
+	{ "name": "Eye_base_y", "parent": "Eye_base_x", "color": "fff500ff" },
+	{
+		"name": "Pupil",
+		"parent": "Eye_base_y",
+		"x": 48.45,
+		"y": -47.63,
+		"scaleX": 6,
+		"scaleY": 6,
+		"color": "72e4ffff"
+	}
+],
+"slots": [
+	{ "name": "Iris", "bone": "Pupil", "attachment": "calm" },
+	{ "name": "clock", "bone": "Eye_base_y", "attachment": "clock" }
+],
+"animations": {
+	"Calm": {
+		"bones": {
+			"Pupil": {
+				"scale": [
+					{
+						"curve": [ 0.25, 0.0, 0.75, 1.0 ],
+						"time": 0.0,
+						"x": 1.0,
+						"y": 1.0
+					},
+					{
+						"time": 0.7333,
+						"x": 0.903,
+						"y": 0.903,
+						"curve": [ 0.25, 0.0, 0.75, 1.0 ]
+					},
+					{
+						"time": 1.6667,
+						"curve": [ 0.25, 0.0, 0.75, 1.0 ],
+						"x": 1.0,
+						"y": 1.0
+					},
+					{
+						"time": 2.5333,
+						"x": 0.903,
+						"y": 0.903,
+						"curve": [ 0.25, 0.0, 0.75, 1.0 ]
+					},
+					{ "time": 3.3333, "x": 1.0, "y": 1.0 }
+				]
+			},
+			"Eye_base_x": {
+				"scale": [
+					{ "time": 0.0, "x": 1.0, "y": 1.0 },
+					{ "time": 1.8, "x": 0.95, "y": 0.95 },
+					{ "time": 3.6, "x": 1.0, "y": 1.0 }
+				]
+			}
+		}
+	},
+	"Divinity": {
+		"slots": {
+			"Iris": {
+				"attachment": [
+					{ "name": "divinity", "time": 0.0 }
+				]
+			}
+		},
+		"bones": {
+			"Pupil": {
+				"translate": [
+					{ "time": 0.0 },
+					{ "time": 0.1, "x": -6.35 },
+					{ "time": 0.2 },
+					{ "time": 0.2667, "x": 5.51, "y": -0.48, "curve": "stepped" },
+					{ "time": 0.3667, "x": 5.51, "y": -0.48 },
+					{ "time": 0.5, "x": -0.59, "y": 2.88, "curve": "stepped" },
+					{ "time": 0.6, "x": -0.59, "y": 2.88 },
+					{ "time": 0.6667, "x": -8.01, "y": -0.53, "curve": "stepped" },
+					{ "time": 0.7667, "x": -8.01, "y": -0.53 },
+					{ "time": 0.8667, "x": 6.31, "y": 0.44, "curve": "stepped" },
+					{ "time": 0.9667, "x": 6.31, "y": 0.44 },
+					{ "time": 1.1, "x": -5.65, "y": -1.73, "curve": "stepped" },
+					{ "time": 1.2333, "x": -5.65, "y": -1.73 },
+					{ "time": 1.3333 },
+					{ "time": 1.4667, "x": 5.51, "y": -0.48, "curve": "stepped" },
+					{ "time": 1.5333, "x": 5.51, "y": -0.48 },
+					{ "time": 1.6333, "x": -0.59, "y": 2.88, "curve": "stepped" },
+					{ "time": 1.7333, "x": -0.59, "y": 2.88 },
+					{ "time": 1.8333, "x": -8.01, "y": -0.53, "curve": "stepped" },
+					{ "time": 1.9, "x": -8.01, "y": -0.53 },
+					{ "time": 2, "x": 6.31, "y": 0.44, "curve": "stepped" },
+					{ "time": 2.1, "x": 6.31, "y": 0.44 },
+					{ "time": 2.2333, "x": -5.65, "y": -1.73, "curve": "stepped" },
+					{ "time": 2.3667, "x": -5.65, "y": -1.73 },
+					{ "time": 2.5333 },
+					{ "time": 2.6333, "x": 5.51, "y": -0.48, "curve": "stepped" },
+					{ "time": 2.7333, "x": 5.51, "y": -0.48 },
+					{ "time": 2.8333, "x": -0.59, "y": 2.88, "curve": "stepped" },
+					{ "time": 2.9333, "x": -0.59, "y": 2.88 },
+					{ "time": 3, "x": -8.01, "y": -0.53, "curve": "stepped" },
+					{ "time": 3.1, "x": -8.01, "y": -0.53 },
+					{ "time": 3.2, "x": 6.31, "y": 0.44, "curve": "stepped" },
+					{ "time": 3.3, "x": 6.31, "y": 0.44 },
+					{ "time": 3.4667, "x": -5.65, "y": -1.73, "curve": "stepped" },
+					{ "time": 3.6, "x": -5.65, "y": -1.73 },
+					{ "time": 3.7333 },
+					{ "time": 3.8333, "x": 5.51, "y": -0.48, "curve": "stepped" },
+					{ "time": 3.9333, "x": 5.51, "y": -0.48 },
+					{ "time": 4, "x": -0.59, "y": 2.88, "curve": "stepped" },
+					{ "time": 4.1, "x": -0.59, "y": 2.88 },
+					{ "time": 4.2, "x": -8.01, "y": -0.53, "curve": "stepped" },
+					{ "time": 4.3333, "x": -8.01, "y": -0.53 },
+					{ "time": 4.4, "x": 6.31, "y": 0.44, "curve": "stepped" },
+					{ "time": 4.5, "x": 6.31, "y": 0.44 },
+					{ "time": 4.6333, "x": -5.65, "y": -1.73, "curve": "stepped" },
+					{ "time": 4.7333, "x": -5.65, "y": -1.73 },
+					{ "time": 4.8667, "x": 5.47, "y": 0.28, "curve": "stepped" },
+					{ "time": 4.9667, "x": 5.47, "y": 0.28 },
+					{ "time": 5.0667, "x": -4.77, "y": -1.3 },
+					{ "time": 5.1667 }
+				]
+			},
+			"Eye_base_x": {
+				"scale": [
+					{
+						"curve": [ 0.25, 0.0, 0.75, 1.0 ],
+						"time": 0.0,
+						"x": 1.0,
+						"y": 1.0
+					},
+					{
+						"time": 1.1333,
+						"x": 0.98,
+						"y": 0.98,
+						"curve": [ 0.25, 0.0, 0.75, 1.0 ]
+					},
+					{
+						"time": 2.3667,
+						"curve": [ 0.25, 0.0, 0.75, 1.0 ],
+						"x": 1.0,
+						"y": 1.0
+					},
+					{
+						"time": 3.8333,
+						"x": 0.98,
+						"y": 0.98,
+						"curve": [ 0.25, 0.0, 0.75, 1.0 ]
+					},
+					{ "time": 5.1667, "x": 1.0, "y": 1.0 }
+				]
+			}
+		}
+	},
+	"None": {
+		"slots": {
+			"Iris": {
+				"attachment": [
+					{ "name": null, "time": 0.0 }
+				]
+			}
+		}
+	},
+	"Wrath": {
+		"slots": {
+			"Iris": {
+				"attachment": [
+					{ "name": "wrath", "time": 0.0 }
+				]
+			}
+		},
+		"bones": {
+			"Pupil": {
+				"scale": [
+					{ "time": 0.0, "x": 1.0, "y": 1.0 },
+					{ "time": 0.0333, "x": 0.822, "y": 0.822 },
+					{ "time": 0.1, "x": 1.0, "y": 1.0 },
+					{ "time": 0.1333, "x": 0.822, "y": 0.822 },
+					{ "time": 0.1667, "x": 1.0, "y": 1.0 }
+				]
+			},
+			"Eye_base_y": {
+				"translate": [
+					{ "time": 0.0 },
+					{ "time": 0.0333, "y": -1.6 },
+					{ "time": 0.1 },
+					{ "time": 0.1333, "y": -1.6 },
+					{ "time": 0.1667 }
+				]
+			},
+			"Eye_base_x": {
+				"translate": [
+					{ "time": 0.0 },
+					{ "time": 0.1, "x": 1.42 },
+					{ "time": 0.1667 }
+				]
+			}
+		}
+	}
+},
+"skins": {
+	"default": {
+		"clock": {
+			"clock": { "x": 46.56, "y": -38.15, "scaleX": -1, "rotation": 23.18, "width": 75, "height": 107 }
+		},
+		"Iris": {
+			"calm": { "x": 0.2, "y": 0.21, "rotation": 28.7, "width": 21, "height": 19 },
+			"divinity": { "x": 0.38, "y": 0.21, "rotation": 28.7, "width": 21, "height": 19 },
+			"wrath": { "x": 0.38, "y": 0.21, "rotation": 28.7, "width": 21, "height": 19 }
+		}
+	}
+}
+}

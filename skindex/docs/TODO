@@ -13,6 +13,9 @@ rework trackers
 -- update defect skin icons
 -- unlcoks & mem leak
 
+--localize
+--skin descriptions
+
 
 add credits display
 -> move skins over tracker

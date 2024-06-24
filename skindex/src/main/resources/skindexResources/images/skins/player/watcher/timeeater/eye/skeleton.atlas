@@ -1,0 +1,34 @@
+
+skeleton.png
+size: 124,75
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+calm
+  rotate: true
+  xy: 107, 57
+  size: 16, 15
+  orig: 21, 19
+  offset: 3, 2
+  index: -1
+clock
+  rotate: true
+  xy: 2, 2
+  size: 71, 103
+  orig: 75, 107
+  offset: 2, 2
+  index: -1
+divinity
+  rotate: true
+  xy: 107, 39
+  size: 16, 15
+  orig: 21, 19
+  offset: 3, 2
+  index: -1
+wrath
+  rotate: true
+  xy: 107, 21
+  size: 16, 15
+  orig: 21, 19
+  offset: 3, 2
+  index: -1

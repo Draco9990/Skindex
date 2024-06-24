@@ -20,6 +20,8 @@ public class WatcherPaperSkin extends PlayerImageSkin {
             id = ID;
             name = "Paper-thin";
 
+            icon = "skindexResources/images/skins/player/watcher/paper/icon.png";
+
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.WATCHER.name();
         }

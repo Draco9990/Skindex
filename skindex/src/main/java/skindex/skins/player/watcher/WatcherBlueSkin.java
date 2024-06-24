@@ -24,6 +24,8 @@ public class WatcherBlueSkin extends WatcherAtlasSkin {
             id = ID;
             name = "Blue";
 
+            icon = "skindexResources/images/skins/player/watcher/blue/icon.png";
+
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.WATCHER.name();
         }

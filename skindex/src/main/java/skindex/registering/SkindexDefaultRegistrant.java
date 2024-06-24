@@ -90,7 +90,10 @@ public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, Skind
                 new WatcherGreenSkin(),
                 new WatcherBlueSkin(),
                 new WatcherYellowSkin(),
-                new WatcherPaperSkin()
+                new WatcherPaperSkin(),
+                new WatcherTimeEaterSkin(),
+                new WatcherFormSkin(),
+                new WatcherAstrologerSkin()
         );
     }
 }

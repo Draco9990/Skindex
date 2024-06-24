@@ -57,6 +57,7 @@ public class CharacterPreviewSelectScreen extends AbstractScreen {
         listBox.addItem(AbstractPlayer.PlayerClass.IRONCLAD);
         listBox.addItem(AbstractPlayer.PlayerClass.THE_SILENT);
         listBox.addItem(AbstractPlayer.PlayerClass.DEFECT);
+        listBox.addItem(AbstractPlayer.PlayerClass.WATCHER);
         //listBox.setItems(SkindexRegistry.getRegisteredPlayerClasses());
         addChildNCS(listBox);
     }
