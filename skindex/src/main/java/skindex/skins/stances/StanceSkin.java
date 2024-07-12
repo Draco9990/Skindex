@@ -3,7 +3,11 @@ package skindex.skins.stances;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.*;
+import com.megacrit.cardcrawl.audio.MusicMaster;
+import com.megacrit.cardcrawl.audio.Sfx;
+import com.megacrit.cardcrawl.audio.SoundMaster;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.stances.*;
@@ -12,6 +16,7 @@ import com.megacrit.cardcrawl.vfx.stance.DivinityParticleEffect;
 import com.megacrit.cardcrawl.vfx.stance.StanceAuraEffect;
 import com.megacrit.cardcrawl.vfx.stance.WrathParticleEffect;
 import dLib.util.Reflection;
+import dLib.util.StaticResourceLoader;
 import dLib.util.Timer;
 import skindex.SkindexGame;
 import skindex.entities.player.SkindexPlayerEntity;
@@ -26,6 +31,8 @@ public class StanceSkin extends CustomizableItem {
     //region Variables
     public String stanceId;
 
+    public String stanceEnterSound;
+
     private ArrayList<Timer> effectTimers = new ArrayList<>();
     //endregion Variables
 
@@ -34,6 +41,8 @@ public class StanceSkin extends CustomizableItem {
         super(itemData);
 
         this.stanceId = itemData.stanceId;
+
+        this.stanceEnterSound = itemData.stanceEnterSound;
 
         for(Map.Entry<float[], ParticleData> particleData : itemData.particleData.entrySet()){
 
@@ -59,6 +68,22 @@ public class StanceSkin extends CustomizableItem {
     public void addTimer(Timer timer){
         effectTimers.add(timer);
     }
+    //endregion
+
+    //region Audio
+
+    public boolean hasCustomEnterSound(){
+        return stanceEnterSound != null;
+    }
+
+    public long playEnterSound(){
+        if (!CardCrawlGame.MUTE_IF_BG && !Settings.isBackgrounded) {
+            return StaticResourceLoader.getSfx(stanceEnterSound).play(Settings.SOUND_VOLUME * Settings.MASTER_VOLUME);
+        }
+
+        return 0L;
+    }
+
     //endregion
 
     //endregion Class Methods
@@ -112,7 +137,7 @@ public class StanceSkin extends CustomizableItem {
         }
         
         public static class RenderPatches{
-            public static boolean updateCustomStance(String stanceId){
+            public static StanceSkin getStanceSkin(String stanceId){
                 AbstractCreature renderOverride = SkindexGame.getStanceOverrideRenderCreature();
 
                 PlayerSkin skinToRender = null;
@@ -122,9 +147,14 @@ public class StanceSkin extends CustomizableItem {
                 else if (AbstractDungeon.player != null){
                     skinToRender = SkindexGame.getActivePlayerSkin();
                 }
-                if(skinToRender == null) return false;
+                if(skinToRender == null) return null;
 
                 StanceSkin currentSkin = skinToRender.stanceSkinMap.get(stanceId);
+                return currentSkin;
+            }
+
+            public static boolean updateCustomStance(String stanceId){
+                StanceSkin currentSkin = getStanceSkin(stanceId);
                 if(currentSkin == null) return false;
 
                 currentSkin.update();
@@ -169,6 +199,25 @@ public class StanceSkin extends CustomizableItem {
                 public static SpireReturn Prefix(AbstractStance __instance){
                     if(updateCustomStance(__instance.ID)){
                         return SpireReturn.Return();
+                    }
+
+                    return SpireReturn.Continue();
+                }
+            }
+        }
+
+        public static class AudioPatches{
+            @SpirePatch2(clz = SoundMaster.class, method = "play", paramtypez = {String.class, boolean.class})
+            public static class SoundPatcher{
+                public static SpireReturn<Long> Prefix(String key){
+                    if(!key.startsWith("STANCE_ENTER_"))
+                        return SpireReturn.Continue();
+
+                    String stance = key.substring("STANCE_ENTER_".length());
+                    stance = stance.substring(0, 1).toUpperCase() + stance.substring(1).toLowerCase();
+                    StanceSkin currentSkin = RenderPatches.getStanceSkin(stance);
+                    if(currentSkin != null && currentSkin.hasCustomEnterSound()){
+                        return SpireReturn.Return(currentSkin.playEnterSound());
                     }
 
                     return SpireReturn.Continue();

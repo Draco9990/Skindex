@@ -13,6 +13,9 @@ public class StanceSkinData extends CustomizableItemData implements Serializable
     @SerializedName("stanceId")
     public String stanceId;
 
+    @SerializedName("stanceEnterSound")
+    public String stanceEnterSound;
+
     @SerializedName("particles")
     public HashMap<float[], ParticleData> particleData = new HashMap<>();
 }

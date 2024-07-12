@@ -8,6 +8,8 @@ import skindex.skins.player.defect.*;
 import skindex.skins.player.ironclad.*;
 import skindex.skins.player.silent.*;
 import skindex.skins.player.watcher.*;
+import skindex.skins.stance.WatcherMusicStanceSkinSet;
+import skindex.skins.stances.StanceSkin;
 import skindex.trackers.SkindexDefaultTracker;
 import skindex.trackers.SkindexTracker;
 import skindex.unlockmethods.AchievementUnlockMethod;
@@ -17,9 +19,10 @@ import skindex.unlockmethods.UnlockMethod;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, SkindexUnlockMethodRegistrant, SkindexPlayerSkinRegistrant, SkindexOrbSkinRegistrant {
+public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, SkindexUnlockMethodRegistrant, SkindexPlayerSkinRegistrant, SkindexOrbSkinRegistrant, SkindexStanceSkinRegistrant {
     /** Registrants */
     @Override
     public List<SkindexTracker> getTrackersToRegister(int saveSlot) {
@@ -42,7 +45,14 @@ public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, Skind
         List<OrbSkin> orbSkins = new ArrayList<>();
         orbSkins.addAll(RebelAIOrbSkinSet.collectOrbSkins());
         orbSkins.addAll(MonsterHunterOrbSkinSet.collectOrbSkins());
-;        return orbSkins;
+        return orbSkins;
+    }
+
+    @Override
+    public List<StanceSkin> getStanceSkinsToRegister() {
+        List<StanceSkin> orbSkins = new ArrayList<>();
+        orbSkins.addAll(WatcherMusicStanceSkinSet.collectStanceSkins());
+        return orbSkins;
     }
 
     @Override
@@ -92,6 +102,7 @@ public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, Skind
                 new WatcherYellowSkin(),
                 new WatcherPaperSkin(),
                 new WatcherTimeEaterSkin(),
+                new WatcherMusicSkin(),
                 new WatcherFormSkin(),
                 new WatcherAstrologerSkin()
         );
