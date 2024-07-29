@@ -2,18 +2,20 @@ package skindex;
 
 import basemod.*;
 import basemod.abstracts.CustomSavable;
+import basemod.interfaces.StartGameSubscriber;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import skindex.files.SkindexUserConfig;
 import skindex.modcompat.SkindexModCompat;
 import skindex.patches.SkinApplierPatches;
 import skindex.registering.*;
 import skindex.skins.player.PlayerSkin;
 
 @SpireInitializer
-public class Skindex{
+public class Skindex {
     /** Variables */
     public static final Logger logger = LogManager.getLogger(Skindex.class.getName());
     private static String modID;

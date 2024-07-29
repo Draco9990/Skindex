@@ -91,7 +91,7 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         addChildNCS(itemCreditsTextBox);
 
         this.supportsItemFavourites = supportsItemFavourites;
-        favouriteButton = new TextButton("Set Favourite", 1169, 1080-986, 522, 101);
+        favouriteButton = new TextButton("Set Default", 1169, 1080-986, 522, 101);
         favouriteButton.getButton().addOnLeftClickConsumer(() -> {
             if(previewingItem != null){
                 onSetItemFavourite(previewingItem);
