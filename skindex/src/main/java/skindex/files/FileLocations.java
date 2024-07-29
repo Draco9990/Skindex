@@ -11,6 +11,12 @@ public class FileLocations {
         skindexDirectory + "unlocks2.skindex"
     };
 
+    public static String[] userConfigFiles = {
+            skindexDirectory + "userConfig0.skindex",
+            skindexDirectory + "userConfig0.skindex",
+            skindexDirectory + "userConfig0.skindex"
+    };
+
     public static String skindexCreatorsDirectory = skindexDirectory + "creators/";
     public static String eulaFile = skindexCreatorsDirectory + "eula.txt";
 }

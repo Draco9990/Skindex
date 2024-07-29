@@ -7,11 +7,13 @@ import com.megacrit.cardcrawl.orbs.*;
 import dLib.ui.elements.prefabs.Image;
 import dLib.util.TextureManager;
 import skindex.entities.player.DummyPlayer;
+import skindex.files.SkindexUserConfig;
 import skindex.registering.SkindexRegistry;
 import skindex.screens.preview.AbstractItemPreviewScreen;
 import skindex.skins.player.PlayerSkin;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<PlayerSkin> {
     //region Variables
@@ -23,7 +25,7 @@ public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<PlayerSki
 
     //region Constructors
     public PlayerSkinPreviewScreen(AbstractPlayer.PlayerClass playerClass){
-        super();
+        super(true);
 
         this.playerClass = playerClass;
 
@@ -49,8 +51,6 @@ public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<PlayerSki
         this.previewEntity.render(sb);
     }
 
-    //endregion Class Methods
-
     @Override
     protected ArrayList<PlayerSkin> getItems() {
         return SkindexRegistry.getSkinsForClass(playerClass, false);
@@ -69,4 +69,17 @@ public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<PlayerSki
             }
         });
     }
+
+    @Override
+    protected boolean isItemFavourite(PlayerSkin item) {
+        return Objects.equals(SkindexUserConfig.get().getFavouritedSkin(playerClass), item);
+    }
+
+    @Override
+    protected void onSetItemFavourite(PlayerSkin item) {
+        super.onSetItemFavourite(item);
+        SkindexUserConfig.get().setFavouritedSkin(playerClass, item);
+    }
+
+    //endregion Class Methods
 }

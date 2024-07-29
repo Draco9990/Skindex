@@ -9,12 +9,14 @@ import skindex.util.SkindexUI;
 
 public class CustomizableItemPreview<Item extends CustomizableItem> extends UIElement {
     //region Variables
-    private Item previewItem;
+    public Item previewItem;
+
+    private UIElement favouritedStar;
 
     //endregion Variables
 
     //region Constructors
-    public CustomizableItemPreview(Item previewItem){
+    public CustomizableItemPreview(Item previewItem, boolean isFavourited){
         super(0, 0, 160, 175);
 
         this.previewItem = previewItem;
@@ -22,6 +24,7 @@ public class CustomizableItemPreview<Item extends CustomizableItem> extends UIEl
         loadPreviewIcon();
         loadBorder();
         loadUnlockGem();
+        loadFavourited(isFavourited);
 
         setDimensions(130, 142);
     }
@@ -66,6 +69,16 @@ public class CustomizableItemPreview<Item extends CustomizableItem> extends UIEl
         else{
             addChildNCS(new Image(SkindexUI.PreviewScreen.previewItemReReleaseUnlockGem(), 68, 9, 26, 28));
         }
+    }
+
+    public void loadFavourited(boolean isFavourited){
+        if(isFavourited){
+            favouritedStar = addChildNCS(new Image(SkindexUI.PreviewScreen.previewItemFavouritedGem(), 130, 146, 57, 57));
+        }
+        else if(favouritedStar != null){
+            removeChild(favouritedStar);
+        }
+
     }
     //endregion
     //endregion Class Methods

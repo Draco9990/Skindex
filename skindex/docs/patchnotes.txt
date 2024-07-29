@@ -1,4 +1,7 @@
-Changes in v0.5.0:
+Changes in v0.5.1:
+- Resized the Skin Item box to stretch to the end of its parent
+
+Changes in v0.4.1:
 - Added 1 new Watcher Skin, unlockable by completing a certain achievement:
     - The Conductor
 

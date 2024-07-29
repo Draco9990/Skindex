@@ -7,6 +7,7 @@ import skindex.modcompat.packmaster.skins.player.PackmasterBuilderSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterHipsterSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterPackmistressSkin;
 import skindex.modcompat.skins.player.theUnchained.UnchainedBirthdaySkin;
+import skindex.modcompat.skins.player.theUnchained.UnchainedMermanSkin;
 import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneElMuerteCardSkinSet;
 import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneLittleHelperCardSkinSet;
 import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneRoyalGuardCardSkinSet;
@@ -137,6 +138,7 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCar
             new UnchainedPrinceUnboundSkin(),
             new UnchainedBirthdaySkin(),
             new UnchainedPixelSkin()
+            //new UnchainedMermanSkin()
         );
     }
     private static List<PlayerSkin> getSkulHeroSlayerSkinsToRegister(){

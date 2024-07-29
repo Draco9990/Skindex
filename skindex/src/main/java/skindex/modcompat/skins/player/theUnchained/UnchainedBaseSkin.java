@@ -22,6 +22,8 @@ public class UnchainedBaseSkin extends PlayerAtlasSkin {
             id = ID;
             name = "Base";
 
+            icon = "skindexResources/images/skins/player/unchained/base/icon.png";
+
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = TheUnchained.Enums.THE_UNCHAINED.name();
         }

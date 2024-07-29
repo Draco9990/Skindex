@@ -4,10 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import dLib.DLib;
 import dLib.ui.Alignment;
 import dLib.ui.elements.UIElement;
-import dLib.ui.elements.prefabs.Button;
-import dLib.ui.elements.prefabs.Image;
-import dLib.ui.elements.prefabs.TextBox;
-import dLib.ui.elements.prefabs.VerticalGridBox;
+import dLib.ui.elements.prefabs.*;
 import dLib.ui.screens.AbstractScreen;
 import dLib.ui.screens.ScreenManager;
 import dLib.ui.themes.UITheme;
@@ -28,13 +25,17 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
     TextBox itemCreditsTextBox;
     TextBox itemUnlockDescriptionTextBox;
 
+    TextButton favouriteButton;
+
     UIElement unlockButton;
 
     protected Item previewingItem = null;
+
+    private boolean supportsItemFavourites;
     //endregion
 
     //region Constructors
-    public AbstractItemPreviewScreen(){
+    public AbstractItemPreviewScreen(boolean supportsItemFavourites){
         addGenericBackground();
 
         addChildCS(new Button(1788, 1080-121, 95, 95){
@@ -57,10 +58,10 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         Color indentColor = Color.BLACK.cpy();
         indentColor.a = 0.4f;
 
-        itemBox = new VerticalGridBox<Item>(93, 1080-796, 787, 694){
+        itemBox = new VerticalGridBox<Item>(93, 1080-796-162, 787, 856){
             @Override
             public UIElement makeUIForItem(Item item) {
-                return new CustomizableItemPreview<>(item);
+                return new CustomizableItemPreview<>(item, isItemFavourite(item));
             }
 
             @Override
@@ -88,6 +89,16 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         itemCreditsTextBox.setAlignment(Alignment.HorizontalAlignment.LEFT, Alignment.VerticalAlignment.TOP);
         itemCreditsTextBox.setMarginPercY(0.01f);
         addChildNCS(itemCreditsTextBox);
+
+        this.supportsItemFavourites = supportsItemFavourites;
+        favouriteButton = new TextButton("Set Favourite", 1169, 1080-986, 522, 101);
+        favouriteButton.getButton().addOnLeftClickConsumer(() -> {
+            if(previewingItem != null){
+                onSetItemFavourite(previewingItem);
+            }
+        });
+        favouriteButton.hideAndDisable();
+        addChildCS(favouriteButton);
     }
 
     @Override
@@ -114,10 +125,19 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         if(!(item instanceof OwnableItem) || ((OwnableItem) item).canUse()){
             itemUnlockDescriptionTextBox.setText("");
             itemUnlockDescriptionTextBox.hide();
+
+            if(supportsItemFavourites && !isItemFavourite(item)){
+                favouriteButton.showAndEnable();
+            }
+            else{
+                favouriteButton.hideAndDisable();
+            }
         }
         else{
             itemUnlockDescriptionTextBox.setText(((OwnableItem) item).getUnlockDescription());
             itemUnlockDescriptionTextBox.show();
+
+            favouriteButton.hideAndDisable();
         }
 
         itemNameTextBox.setText(item.getName());
@@ -151,6 +171,28 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
             }
         }
     }
+    //endregion
+
+    //region Item Favouriting
+
+    protected boolean isItemFavourite(Item item){
+        return false;
+    }
+
+    protected void onSetItemFavourite(Item item){
+        favouriteButton.hideAndDisable();
+        refreshFavouritedItems();
+    }
+
+    private void refreshFavouritedItems(){
+        for(UIElement element : itemBox.getChildren()){
+            if(element instanceof CustomizableItemPreview){
+                CustomizableItemPreview<Item> preview = (CustomizableItemPreview<Item>) element;
+                preview.loadFavourited(isItemFavourite(preview.previewItem));
+            }
+        }
+    }
+
     //endregion
 
     protected abstract ArrayList<Item> getItems();

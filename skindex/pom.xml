@@ -6,7 +6,7 @@
     <groupId>skindex</groupId>
     <artifactId>skindex</artifactId> <!--Keep a note of this one: this is the ID used in the "auto add cards" method-->
     <name>Skindex</name>
-    <version>0.4.0</version>
+    <version>0.4.1</version>
     <description>Reskin the Spire's characters to your liking!</description>
 
     <properties>
