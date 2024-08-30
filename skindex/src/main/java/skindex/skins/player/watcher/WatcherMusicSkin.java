@@ -83,7 +83,7 @@ public class WatcherMusicSkin extends WatcherAtlasSkin {
                 totalMonsterHpAfter += AbstractDungeon.getMonsters().monsters.get(i).currentHealth;
             }
 
-            if(totalMonsterHp - totalMonsterHpAfter > 100){
+            if(totalMonsterHp - totalMonsterHpAfter > 100 && __instance.source != null){
                 AbstractPlayer player = (AbstractPlayer)__instance.source;
                 if(player.chosenClass == AbstractPlayer.PlayerClass.WATCHER){
                     unlockSkin(new SkinData());
