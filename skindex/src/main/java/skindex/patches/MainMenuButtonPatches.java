@@ -7,7 +7,6 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.MenuButton;
-import dLib.ui.screens.ScreenManager;
 import dLib.util.Reflection;
 import skindex.registering.SkindexRegistry;
 import skindex.screens.preview.AbstractItemPreviewScreen;
@@ -45,7 +44,8 @@ public class MainMenuButtonPatches {
     public static class EffectPatcher{
         public static SpireReturn Prefix(MenuButton __instance){
             if(__instance.result == Enums.SKINDEX){
-                ScreenManager.openScreen(new CharacterPreviewSelectScreen());
+                CharacterPreviewSelectScreen screen = new CharacterPreviewSelectScreen();
+                screen.open();
                 return SpireReturn.Return();
             }
             return SpireReturn.Continue();

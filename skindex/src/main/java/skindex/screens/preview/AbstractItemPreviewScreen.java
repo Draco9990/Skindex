@@ -5,8 +5,6 @@ import dLib.DLib;
 import dLib.ui.Alignment;
 import dLib.ui.elements.UIElement;
 import dLib.ui.elements.prefabs.*;
-import dLib.ui.screens.AbstractScreen;
-import dLib.ui.screens.ScreenManager;
 import dLib.ui.themes.UITheme;
 import dLib.ui.themes.UIThemeManager;
 import skindex.itemtypes.CustomizableItem;
@@ -17,7 +15,7 @@ import skindex.util.SkindexUI;
 
 import java.util.ArrayList;
 
-public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> extends AbstractScreen {
+public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> extends UIElement {
     //region Variables
     VerticalGridBox<Item> itemBox;
 
@@ -36,14 +34,18 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
 
     //region Constructors
     public AbstractItemPreviewScreen(boolean supportsItemFavourites){
-        addGenericBackground();
+        super(0, 0, 1920, 1080);
+
+        AbstractItemPreviewScreen self = this;
+
+        addChildNCS(new Image(UIThemeManager.getDefaultTheme().background, 0, 0, getWidth(), getHeight()));
 
         addChildCS(new Button(1788, 1080-121, 95, 95){
             @Override
             protected void onLeftClick() {
                 super.onLeftClick();
 
-                ScreenManager.openPreviousScreen();
+                self.close();
             }
         }.setImage(UIThemeManager.getDefaultTheme().button_small_decline));
 
@@ -102,12 +104,15 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
     }
 
     @Override
-    public void onOpen() {
-        super.onOpen();
+    protected void setVisibility(boolean visible) {
+        super.setVisibility(visible);
 
-        ArrayList<Item> items = getItems();
-        itemBox.setItems(items);
-        if(!items.isEmpty()) onPreviewItemChanged(items.get(0));
+        if(visible){
+            ArrayList<Item> items = getItems();
+            itemBox.setItems(items);
+            if(!items.isEmpty()) onPreviewItemChanged(items.get(0));
+            //TODO Rf
+        }
     }
 
     //endregion
@@ -196,11 +201,6 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
     //endregion
 
     protected abstract ArrayList<Item> getItems();
-
-    @Override
-    public String getModId() {
-        return DLib.getModID();
-    }
 
     //endregion
 }

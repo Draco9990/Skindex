@@ -1,19 +1,10 @@
 package skindex.screens.creators;
 
-import dLib.ui.screens.AbstractScreen;
+import dLib.ui.elements.UIElement;
 import skindex.Skindex;
 
-public class SkindexCreatorsEulaScreen extends AbstractScreen {
-    /** Variables */
-
-    /** Constructors */
+public class SkindexCreatorsEulaScreen extends UIElement {
     public SkindexCreatorsEulaScreen(){
-
-    }
-
-    /** Misc */
-    @Override
-    public String getModId() {
-        return Skindex.getModID();
+        super(0, 0, 1920, 1080);
     }
 }

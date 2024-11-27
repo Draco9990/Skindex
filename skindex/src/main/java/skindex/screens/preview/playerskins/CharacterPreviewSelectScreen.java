@@ -5,10 +5,9 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import dLib.DLib;
 import dLib.ui.elements.UIElement;
 import dLib.ui.elements.prefabs.Button;
+import dLib.ui.elements.prefabs.Image;
 import dLib.ui.elements.prefabs.VerticalBox;
 import dLib.ui.elements.prefabs.VerticalListBox;
-import dLib.ui.screens.AbstractScreen;
-import dLib.ui.screens.ScreenManager;
 import dLib.ui.themes.UIThemeManager;
 import skindex.registering.SkindexRegistry;
 import skindex.ui.elements.CharacterPreviewButton;
@@ -16,21 +15,23 @@ import skindex.ui.elements.CharacterPreviewButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharacterPreviewSelectScreen extends AbstractScreen {
+public class CharacterPreviewSelectScreen extends UIElement {
     //region Variables
     //endregion Variables
 
     //region Constructors
     public CharacterPreviewSelectScreen(){
-        addGenericBackground();
+        super(0, 0, 1920, 1080);
+
+        CharacterPreviewSelectScreen self = this;
+
+        addChildNCS(new Image(UIThemeManager.getDefaultTheme().background, 0, 0, getWidth(), getHeight()));
 
         addChildCS(new Button(1788, 1080-121, 95, 95){
             @Override
             protected void onLeftClick() {
                 super.onLeftClick();
-
-                //ScreenManager.openPreviousScreen();
-                ScreenManager.closeScreen();
+                self.close();
             }
         }.setImage(UIThemeManager.getDefaultTheme().button_small_decline));
 
@@ -48,7 +49,8 @@ public class CharacterPreviewSelectScreen extends AbstractScreen {
                     return;
                 }
 
-                ScreenManager.openScreen(new PlayerSkinPreviewScreen(item.get(0)));
+                PlayerSkinPreviewScreen screen = new PlayerSkinPreviewScreen(item.get(0));
+                screen.open();
             }
         };
         Color transparent = Color.WHITE.cpy();
@@ -58,11 +60,4 @@ public class CharacterPreviewSelectScreen extends AbstractScreen {
         addChildNCS(listBox);
     }
     //endregion Constructors
-
-    //region Class Methods
-    @Override
-    public String getModId() {
-        return DLib.getModID();
-    }
-    //endregion Class Methods
 }
