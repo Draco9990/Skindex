@@ -5,6 +5,6 @@ import skindex.Skindex;
 
 public class SkindexCreatorsEulaScreen extends UIElement {
     public SkindexCreatorsEulaScreen(){
-        super(0, 0, 1920, 1080);
+        super();
     }
 }

@@ -6,6 +6,9 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.orbs.*;
 import dLib.ui.elements.prefabs.Image;
 import dLib.util.TextureManager;
+import dLib.util.bindings.texture.Tex;
+import dLib.util.ui.dimensions.Dim;
+import dLib.util.ui.position.Pos;
 import skindex.entities.player.DummyPlayer;
 import skindex.files.SkindexUserConfig;
 import skindex.registering.SkindexRegistry;
@@ -62,7 +65,7 @@ public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<PlayerSki
 
         item.loadOnEntity(previewEntity);
 
-        addChildNCS(new Image(TextureManager.getTexture("skindexResources/images/ui/preview/customorbskins.png"), 1596, 1080-173, 291, 27){
+        addChildNCS(new Image(Tex.stat(TextureManager.getTexture("skindexResources/images/ui/preview/customorbskins.png")), Pos.px(1596), Pos.px(1080-173), Dim.px(291), Dim.px(27)){
             @Override
             public boolean isVisible() {
                 return previewingItem != null && !previewingItem.orbsSkinMap.isEmpty();

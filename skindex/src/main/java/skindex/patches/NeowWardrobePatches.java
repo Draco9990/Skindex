@@ -9,8 +9,11 @@ import dLib.ui.elements.UIElement;
 import dLib.ui.elements.implementations.Interactable;
 import dLib.ui.elements.implementations.Toggle;
 import dLib.ui.elements.prefabs.TextBox;
-import dLib.ui.themes.UIThemeManager;
+import dLib.ui.resources.UICommonResources;
 import dLib.util.TextureManager;
+import dLib.util.bindings.texture.Tex;
+import dLib.util.ui.dimensions.Dim;
+import dLib.util.ui.position.Pos;
 import skindex.SkindexGame;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.player.PlayerSkin;
@@ -24,24 +27,24 @@ public class NeowWardrobePatches {
         if(wardrobe != null) return;
 
         wardrobe = new Toggle(
-                TextureManager.getTexture("skindexResources/images/ui/wardrobe.png"),
-                TextureManager.getTexture("skindexResources/images/ui/wardrobe.png"),
-                27, 1080-726,
-                203, 374
+                Tex.stat(TextureManager.getTexture("skindexResources/images/ui/wardrobe.png")),
+                Tex.stat(TextureManager.getTexture("skindexResources/images/ui/wardrobe.png")),
+                Pos.px(27), Pos.px(1080-726),
+                Dim.px(203), Dim.px(374)
         ){
             @Override
             public boolean isActive() {
                 return super.isActive() && SkindexRegistry.getSkinsForClass(AbstractDungeon.player.chosenClass, true).size() > 1;
             }
         };
-        wardrobe.setHoveredTexture(TextureManager.getTexture("skindexResources/images/ui/wardrobe_hovered.png"));
-        wardrobe.setToggledHoveredTexture(TextureManager.getTexture("skindexResources/images/ui/wardrobe_hovered.png"));
+        wardrobe.setHoveredTexture(Tex.stat(TextureManager.getTexture("skindexResources/images/ui/wardrobe_hovered.png")));
+        wardrobe.setToggledHoveredTexture(Tex.stat(TextureManager.getTexture("skindexResources/images/ui/wardrobe_hovered.png")));
 
 
         TextBox textBox = (TextBox) new TextBox(
                 SkindexGame.getActivePlayerSkin() != null ? SkindexGame.getActivePlayerSkin().getName() : "",
-                62, 0,
-                265, 56,
+                Pos.px(62), Pos.px(0),
+                Dim.px(265), Dim.px(56),
                 0.07F, 0.20F){
             @Override
             public boolean isActive() {
@@ -51,9 +54,9 @@ public class NeowWardrobePatches {
         .setRenderColor(Color.WHITE);
 
         //todo replace with one element
-        skinController = new UIElement(286, 1080-828, 55, 56);
+        skinController = new UIElement(Pos.px(286), Pos.px(1080-828), Dim.px(55), Dim.px(56));
         skinController.addChildNCS(textBox);
-        skinController.addChildCS(new Interactable(UIThemeManager.getDefaultTheme().arrow_left, 0, 0, 55, 56){
+        skinController.addChildCS(new Interactable(Tex.stat(UICommonResources.arrow_left), Dim.px(55), Dim.px(56)){
             @Override
             public boolean isActive() {
                 return super.isActive() && wardrobe.isToggled();
@@ -71,7 +74,7 @@ public class NeowWardrobePatches {
                 }
             }
         });
-        skinController.addChildCS(new Interactable(UIThemeManager.getDefaultTheme().arrow_right, 334, 0, 55, 56){
+        skinController.addChildCS(new Interactable(Tex.stat(UICommonResources.arrow_right), Pos.px(334), Pos.px(0), Dim.px(55), Dim.px(56)){
             @Override
             public boolean isActive() {
                 return super.isActive() && wardrobe.isToggled();

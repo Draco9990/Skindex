@@ -5,8 +5,11 @@ import dLib.DLib;
 import dLib.ui.Alignment;
 import dLib.ui.elements.UIElement;
 import dLib.ui.elements.prefabs.*;
-import dLib.ui.themes.UITheme;
-import dLib.ui.themes.UIThemeManager;
+import dLib.ui.resources.UICommonResources;
+import dLib.util.bindings.texture.Tex;
+import dLib.util.ui.dimensions.Dim;
+import dLib.util.ui.padding.Padd;
+import dLib.util.ui.position.Pos;
 import skindex.itemtypes.CustomizableItem;
 import skindex.itemtypes.OwnableItem;
 import skindex.ui.elements.CustomizableItemPreview;
@@ -17,7 +20,7 @@ import java.util.ArrayList;
 
 public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> extends UIElement {
     //region Variables
-    VerticalGridBox<Item> itemBox;
+    GridItemBox<Item> itemBox;
 
     TextBox itemNameTextBox;
     TextBox itemCreditsTextBox;
@@ -34,25 +37,27 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
 
     //region Constructors
     public AbstractItemPreviewScreen(boolean supportsItemFavourites){
-        super(0, 0, 1920, 1080);
+        super();
 
         AbstractItemPreviewScreen self = this;
 
-        addChildNCS(new Image(UIThemeManager.getDefaultTheme().background, 0, 0, getWidth(), getHeight()));
+        addChildNCS(new Image(Tex.stat(UICommonResources.white_pixel), Dim.fill(), Dim.fill()));
 
-        addChildCS(new Button(1788, 1080-121, 95, 95){
+        Button main;
+        addChildCS(main = new Button(Pos.px(1788), Pos.px(1080-121), Dim.px(95), Dim.px(95)){
             @Override
             protected void onLeftClick() {
                 super.onLeftClick();
 
                 self.close();
             }
-        }.setImage(UIThemeManager.getDefaultTheme().button_small_decline));
+        });
+        main.setImage(Tex.stat(UICommonResources.xButton));
 
-        addChildNCS(new Image(SkindexUI.PreviewScreen.previewScreenBG(), 43, 1080-1058, 867, 1012));
+        addChildNCS(new Image(Tex.stat(SkindexUI.PreviewScreen.previewScreenBG()), Pos.px(43), Pos.px(1080-1058), Dim.px(867), Dim.px(1012)));
 
-        itemUnlockDescriptionTextBox = new TextBox("", 891, 1080-1013, 1029, 252);
-        itemUnlockDescriptionTextBox.setImage(SkindexUI.PreviewScreen.previewItemUnlockDescriptionBackground());
+        itemUnlockDescriptionTextBox = new TextBox("", Pos.px(891), Pos.px(1080-1013), Dim.px(1029), Dim.px(252));
+        itemUnlockDescriptionTextBox.setImage(Tex.stat(SkindexUI.PreviewScreen.previewItemUnlockDescriptionBackground()));
         itemUnlockDescriptionTextBox.setWrap(true);
         itemUnlockDescriptionTextBox.setTextRenderColor(Color.WHITE.cpy());
         addChildNCS(itemUnlockDescriptionTextBox);
@@ -60,7 +65,7 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
         Color indentColor = Color.BLACK.cpy();
         indentColor.a = 0.4f;
 
-        itemBox = new VerticalGridBox<Item>(93, 1080-796-162, 787, 856){
+        itemBox = new GridItemBox<Item>(Pos.px(93), Pos.px(1080-796-162), Dim.px(787), Dim.px(856)){
             @Override
             public UIElement makeUIForItem(Item item) {
                 return new CustomizableItemPreview<>(item, isItemFavourite(item));
@@ -78,23 +83,23 @@ public abstract class AbstractItemPreviewScreen<Item extends CustomizableItem> e
             }
         };
         itemBox.setItemSpacing(20);
-        itemBox.getBackground().setImage(UITheme.whitePixel);
-        itemBox.getBackground().setRenderColor(indentColor.cpy());
-        itemBox.setPadding(30, 30);
+        itemBox.setImage(Tex.stat(UICommonResources.white_pixel));
+        itemBox.setRenderColor(indentColor.cpy());
+        itemBox.setPadding(Padd.px(30));
         addChildCS(itemBox);
 
-        itemNameTextBox = new TextBox("", 1145, 1080-136, 570, 104);
+        itemNameTextBox = new TextBox("", Pos.px(1145), Pos.px(1080-136), Dim.px(570), Dim.px(104));
         addChildNCS(itemNameTextBox);
 
-        itemCreditsTextBox = new TextBox("", 921, 1080-753, 130, 705);
+        itemCreditsTextBox = new TextBox("", Pos.px(921), Pos.px(1080-753), Dim.px(130), Dim.px(705));
         itemCreditsTextBox.setTextRenderColor(Color.WHITE.cpy());
         itemCreditsTextBox.setAlignment(Alignment.HorizontalAlignment.LEFT, Alignment.VerticalAlignment.TOP);
         itemCreditsTextBox.setMarginPercY(0.01f);
         addChildNCS(itemCreditsTextBox);
 
         this.supportsItemFavourites = supportsItemFavourites;
-        favouriteButton = new TextButton("Set Default", 1169, 1080-986, 522, 101);
-        favouriteButton.getButton().addOnLeftClickConsumer(() -> {
+        favouriteButton = new TextButton("Set Default", Pos.px(1169), Pos.px(1080-986), Dim.px(522), Dim.px(101));
+        favouriteButton.getButton().onLeftClickEvent.subscribe(favouriteButton, () -> {
             if(previewingItem != null){
                 onSetItemFavourite(previewingItem);
             }

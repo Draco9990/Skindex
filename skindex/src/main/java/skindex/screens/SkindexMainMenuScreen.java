@@ -8,6 +8,6 @@ public class SkindexMainMenuScreen extends UIElement {
 
     /** Constructors */
     public SkindexMainMenuScreen(){
-        super(0, 0, 1920, 1080);
+        super();
     }
 }

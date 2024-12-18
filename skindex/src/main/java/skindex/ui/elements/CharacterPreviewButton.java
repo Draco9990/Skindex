@@ -8,10 +8,10 @@ import dLib.ui.elements.UIElement;
 import dLib.ui.elements.prefabs.Button;
 import dLib.ui.elements.prefabs.Image;
 import dLib.ui.elements.prefabs.TextBox;
-import dLib.ui.elements.prefabs.TextButton;
-import dLib.ui.themes.UITheme;
-import dLib.ui.themes.UIThemeManager;
-import skindex.screens.preview.playerskins.PlayerSkinPreviewScreen;
+import dLib.ui.resources.UICommonResources;
+import dLib.util.bindings.texture.Tex;
+import dLib.util.ui.dimensions.Dim;
+import dLib.util.ui.position.Pos;
 
 public class CharacterPreviewButton extends UIElement {
     //region Variables
@@ -22,7 +22,7 @@ public class CharacterPreviewButton extends UIElement {
 
     //region Constructors
     public CharacterPreviewButton(AbstractPlayer.PlayerClass playerClass) {
-        super(0, 0, 1724, 92);
+        super(Pos.px(0), Pos.px(0), Dim.px(1724), Dim.px(92));
 
         this.playerClass = playerClass;
         loadPlayerIconButton();
@@ -34,15 +34,15 @@ public class CharacterPreviewButton extends UIElement {
     private void loadPlayerIconButton(){
         AbstractPlayer player = CardCrawlGame.characterManager.getCharacter(playerClass);
         if(player != null){
-            addChildNCS(new Image(player.getCustomModeCharacterButtonImage(), -10, -30, 152, 152));
+            addChildNCS(new Image(Tex.stat(player.getCustomModeCharacterButtonImage()), Pos.px(-10), Pos.px(-30), Dim.px(152), Dim.px(152)));
         }
     }
 
     private void loadPlayerButton(){
         AbstractPlayer player = CardCrawlGame.characterManager.getCharacter(playerClass);
         if(player != null){
-            TextBox textBox = new TextBox(player.getLocalizedCharacterName(), 135, 6, 1589, 81);
-            textBox.setImage(UIThemeManager.getDefaultTheme().button_large);
+            TextBox textBox = new TextBox(player.getLocalizedCharacterName(), Pos.px(135), Pos.px(6), Dim.px(1589), Dim.px(81));
+            textBox.setImage(Tex.stat(UICommonResources.itembox_itembg_horizontal));
             textBox.setHorizontalAlignment(Alignment.HorizontalAlignment.LEFT);
             addChildNCS(textBox);
         }

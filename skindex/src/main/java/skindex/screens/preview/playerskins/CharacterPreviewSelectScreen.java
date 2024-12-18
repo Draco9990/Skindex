@@ -8,7 +8,10 @@ import dLib.ui.elements.prefabs.Button;
 import dLib.ui.elements.prefabs.Image;
 import dLib.ui.elements.prefabs.VerticalBox;
 import dLib.ui.elements.prefabs.VerticalListBox;
-import dLib.ui.themes.UIThemeManager;
+import dLib.ui.resources.UICommonResources;
+import dLib.util.bindings.texture.Tex;
+import dLib.util.ui.dimensions.Dim;
+import dLib.util.ui.position.Pos;
 import skindex.registering.SkindexRegistry;
 import skindex.ui.elements.CharacterPreviewButton;
 
@@ -21,21 +24,23 @@ public class CharacterPreviewSelectScreen extends UIElement {
 
     //region Constructors
     public CharacterPreviewSelectScreen(){
-        super(0, 0, 1920, 1080);
+        super();
 
         CharacterPreviewSelectScreen self = this;
 
-        addChildNCS(new Image(UIThemeManager.getDefaultTheme().background, 0, 0, getWidth(), getHeight()));
+        addChildNCS(new Image(Tex.stat(UICommonResources.white_pixel), Dim.fill(), Dim.fill()));
 
-        addChildCS(new Button(1788, 1080-121, 95, 95){
+        Button child;
+        addChildCS(child = new Button(Pos.px(1788), Pos.px(1080-121), Dim.px(95), Dim.px(95)){
             @Override
             protected void onLeftClick() {
                 super.onLeftClick();
                 self.close();
             }
-        }.setImage(UIThemeManager.getDefaultTheme().button_small_decline));
+        });
+        child.setImage(Tex.stat(UICommonResources.xButton));
 
-        VerticalListBox<AbstractPlayer.PlayerClass> listBox = new VerticalListBox<AbstractPlayer.PlayerClass>(70, 1080-1020, 1724, 840){
+        VerticalListBox<AbstractPlayer.PlayerClass> listBox = new VerticalListBox<AbstractPlayer.PlayerClass>(Pos.px(70), Pos.px(1080-1020), Dim.px(1724), Dim.px(840)){
             @Override
             public UIElement makeUIForItem(AbstractPlayer.PlayerClass item) {
                 return new CharacterPreviewButton(item);
@@ -55,7 +60,7 @@ public class CharacterPreviewSelectScreen extends UIElement {
         };
         Color transparent = Color.WHITE.cpy();
         transparent.a = 0.0f;
-        listBox.getBackground().setRenderColor(transparent);
+        listBox.setRenderColor(transparent);
         listBox.setItems(SkindexRegistry.getRegisteredPlayerClasses());
         addChildNCS(listBox);
     }
