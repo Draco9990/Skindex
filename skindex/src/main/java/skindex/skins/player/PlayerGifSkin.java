@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.util.GifDecoder;
 import dLib.util.Reflection;
-import dLib.util.TextureHelpers;
+import dLib.util.helpers.TextureHelpers;
 import skindex.entities.player.SkindexPlayerEntity;
 import skindex.entities.player.SkindexPlayerImageEntity;
 

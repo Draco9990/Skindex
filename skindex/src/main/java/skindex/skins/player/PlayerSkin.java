@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class PlayerSkin extends OwnableItem {
+public class PlayerSkin extends OwnableItem<PlayerSkin> {
     /** Variables */
     public AbstractPlayer.PlayerClass playerClass;
 
