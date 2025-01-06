@@ -4,7 +4,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import dLib.files.JsonDataFile;
 import skindex.registering.SkindexRegistry;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -47,7 +47,7 @@ public class SkindexUserConfig extends JsonDataFile implements Serializable {
     }
 
     //region Favourited Items
-    public PlayerSkin getFavouritedSkin(AbstractPlayer.PlayerClass playerClass){
+    public AbstractPlayerSkin getFavouritedSkin(AbstractPlayer.PlayerClass playerClass){
         if (favouritedSkins == null) return null;
         if (!favouritedSkins.containsKey(playerClass.name())) return null;
 
@@ -56,7 +56,7 @@ public class SkindexUserConfig extends JsonDataFile implements Serializable {
         return SkindexRegistry.getPlayerSkinByClassAndId(playerClass, favouritedSkinID);
     }
 
-    public void setFavouritedSkin(AbstractPlayer.PlayerClass playerClass, PlayerSkin skin){
+    public void setFavouritedSkin(AbstractPlayer.PlayerClass playerClass, AbstractPlayerSkin skin){
         if (favouritedSkins == null) favouritedSkins = new HashMap<>();
 
         if(skin == null){

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class OwnableItem<ItemType extends OwnableItem> extends CustomizableItem{
+public abstract class AbstractOwnableItem<ItemType extends AbstractOwnableItem> extends AbstractCustomizableItem {
     //region Variables
     public Class<ItemType> itemTypeClass;
 
@@ -25,7 +25,7 @@ public abstract class OwnableItem<ItemType extends OwnableItem> extends Customiz
     //endregion
 
     //region Constructors
-    public OwnableItem(OwnableItemData itemData){
+    public AbstractOwnableItem(OwnableItemData itemData){
         super(itemData);
 
         itemTypeClass = (Class<ItemType>) this.getClass().getGenericSuperclass();
@@ -66,7 +66,7 @@ public abstract class OwnableItem<ItemType extends OwnableItem> extends Customiz
     //endregion
 
     //region Unlock Description
-    public OwnableItem setUnlockDescription(String unlockDescription){
+    public AbstractOwnableItem setUnlockDescription(String unlockDescription){
         this.unlockDescription = unlockDescription;
         return this;
     }
@@ -86,7 +86,7 @@ public abstract class OwnableItem<ItemType extends OwnableItem> extends Customiz
     //endregion
 
     //region Bundles
-    public CustomizableItem setBundles(Bundle... keywords){
+    public AbstractCustomizableItem setBundles(Bundle... keywords){
         this.bundles = new ArrayList<>(Arrays.asList(keywords));
         return this;
     }

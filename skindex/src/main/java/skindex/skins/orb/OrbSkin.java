@@ -1,24 +1,14 @@
 package skindex.skins.orb;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.*;
-import com.megacrit.cardcrawl.audio.Sfx;
-import com.megacrit.cardcrawl.audio.SoundMaster;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.events.beyond.SpireHeart;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.orbs.*;
 import com.megacrit.cardcrawl.vfx.BobEffect;
-import dLib.util.Help;
 import dLib.util.Reflection;
 import skindex.SkindexGame;
-import skindex.itemtypes.CustomizableItem;
-import skindex.skins.player.PlayerSkin;
+import skindex.itemtypes.AbstractCustomizableItem;
 
-public class OrbSkin extends CustomizableItem {
+public class OrbSkin extends AbstractCustomizableItem {
     //region Variables
     public String orbId;
 

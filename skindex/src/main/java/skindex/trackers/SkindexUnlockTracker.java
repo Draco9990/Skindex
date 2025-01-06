@@ -2,11 +2,9 @@ package skindex.trackers;
 
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import dLib.files.JsonDataFile;
-import skindex.Skindex;
 import skindex.bundles.Bundle;
 import skindex.files.FileLocations;
-import skindex.itemtypes.OwnableItem;
-import skindex.skins.player.PlayerSkin;
+import skindex.itemtypes.AbstractOwnableItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +25,7 @@ public class SkindexUnlockTracker extends JsonDataFile{
     //endregion
 
     //region Variables
-    public HashMap<Class<? extends OwnableItem>, ArrayList<String>> unlocks = new HashMap<>();
+    public HashMap<String, ArrayList<String>> unlocks = new HashMap<>();
     public ArrayList<String> unlockedBundles = new ArrayList<>();
     //endregion
 
@@ -59,31 +57,31 @@ public class SkindexUnlockTracker extends JsonDataFile{
 
     //region Item Unlocking
 
-    public <T extends OwnableItem> boolean hasItem(T item){
+    public <T extends AbstractOwnableItem> boolean hasItem(T item){
         return hasItem(item.itemTypeClass, item.getId());
     }
-    public boolean hasItem(Class<? extends OwnableItem> itemType, String id){
+    public boolean hasItem(Class<? extends AbstractOwnableItem> itemType, String id){
         ensureItemTypeExists(itemType);
 
-        return unlocks.get(itemType).contains(id);
+        return unlocks.get(itemType.getName()).contains(id);
     }
 
-    public boolean unlockItem(OwnableItem item){
+    public boolean unlockItem(AbstractOwnableItem item){
         return unlockItem(item.itemTypeClass, item.getId());
     }
-    public boolean unlockItem(Class<? extends OwnableItem> itemType, String id){
+    public boolean unlockItem(Class<? extends AbstractOwnableItem> itemType, String id){
         ensureItemTypeExists(itemType);
 
         if(hasItem(itemType, id)) return false;
 
-        unlocks.get(itemType).add(id);
+        unlocks.get(itemType.getName()).add(id);
         save();
         return true;
     }
 
-    private void ensureItemTypeExists(Class<? extends OwnableItem> itemType){
+    private void ensureItemTypeExists(Class<? extends AbstractOwnableItem> itemType){
         if(!unlocks.containsKey(itemType)){
-            unlocks.put(itemType, new ArrayList<>());
+            unlocks.put(itemType.getName(), new ArrayList<>());
         }
     }
 

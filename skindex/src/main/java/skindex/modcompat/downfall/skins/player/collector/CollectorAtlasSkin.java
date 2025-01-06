@@ -12,7 +12,7 @@ import dLib.modcompat.ModManager;
 import dLib.util.Reflection;
 import skindex.SkindexGame;
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -47,7 +47,7 @@ public class CollectorAtlasSkin extends PlayerAtlasSkin {
     /** Misc Methods */
     private static void patchFire(Object o){
         if(Patches.FireRenderPatches.renderingPlayer){
-            PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+            AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
             if(currentSkin instanceof CollectorAtlasSkin){
                 CollectorAtlasSkin collectorAtlasSkin = (CollectorAtlasSkin) currentSkin;
 

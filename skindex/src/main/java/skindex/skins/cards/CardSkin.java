@@ -2,18 +2,16 @@ package skindex.skins.cards;
 
 import basemod.patches.com.megacrit.cardcrawl.cards.AbstractCard.RenderFixSwitches;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.modthespire.lib.ByRef;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import dLib.util.TextureManager;
 import skindex.SkindexGame;
-import skindex.itemtypes.CustomizableItem;
+import skindex.itemtypes.AbstractCustomizableItem;
 
-public final class CardSkin extends CustomizableItem {
+public final class CardSkin extends AbstractCustomizableItem {
     //region Variables
     public AbstractCard.CardType cardType;
     public AbstractCard.CardColor cardColor;

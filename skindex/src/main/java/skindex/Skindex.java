@@ -2,17 +2,15 @@ package skindex;
 
 import basemod.*;
 import basemod.abstracts.CustomSavable;
-import basemod.interfaces.StartGameSubscriber;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import skindex.files.SkindexUserConfig;
 import skindex.modcompat.SkindexModCompat;
 import skindex.patches.SkinApplierPatches;
 import skindex.registering.*;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 
 @SpireInitializer
 public class Skindex {
@@ -55,7 +53,7 @@ public class Skindex {
             BaseMod.addSaveField(makeID("player_skin"), new CustomSavable<String>() {
                 @Override
                 public String onSave() {
-                    PlayerSkin playerSkin = SkindexGame.getActivePlayerSkin();
+                    AbstractPlayerSkin playerSkin = SkindexGame.getActivePlayerSkin();
                     if(playerSkin != null){
                         return playerSkin.getId();
                     }
@@ -66,7 +64,7 @@ public class Skindex {
                 @Override
                 public void onLoad(String s) {
                     if(s != null){
-                        PlayerSkin skinToLoad = SkindexRegistry.getPlayerSkinByClassAndId(AbstractDungeon.player.chosenClass, s);
+                        AbstractPlayerSkin skinToLoad = SkindexRegistry.getPlayerSkinByClassAndId(AbstractDungeon.player.chosenClass, s);
                         if(skinToLoad != null){
                             SkindexGame.queuePlayerSkin(skinToLoad);
                         }

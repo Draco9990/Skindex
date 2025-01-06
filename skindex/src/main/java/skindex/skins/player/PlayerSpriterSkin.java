@@ -15,7 +15,7 @@ import skindex.util.SkindexLogger;
 
 import java.util.Objects;
 
-public class PlayerSpriterSkin extends PlayerSkin{
+public class PlayerSpriterSkin extends AbstractPlayerSkin {
     /** Variables */
     public SpriterAnimation model;
 
@@ -44,7 +44,7 @@ public class PlayerSpriterSkin extends PlayerSkin{
 
     public static boolean renderSpriterSkinModel(AbstractPlayer __instance, SpriteBatch sb){
         if(Objects.equals(__instance, AbstractDungeon.player)){
-            PlayerSkin playerSkin = SkindexGame.getActivePlayerSkin();
+            AbstractPlayerSkin playerSkin = SkindexGame.getActivePlayerSkin();
             if(playerSkin instanceof PlayerSpriterSkin){
                 ((PlayerSpriterSkin) playerSkin).renderModel(sb, (int)(__instance.drawX + __instance.animX), (int)(__instance.drawY + __instance.animY), __instance.flipHorizontal, __instance.flipVertical, 1);
                 return true;
@@ -85,10 +85,5 @@ public class PlayerSpriterSkin extends PlayerSkin{
         @SerializedName("scmlUrl")
         public String scmlUrl;
 
-        /** Create Player Skin */
-        @Override
-        public PlayerSkin createPlayerSkin() {
-            return new PlayerSpriterSkin(this);
-        }
     }
 }

@@ -23,14 +23,14 @@ import skindex.entities.player.SkindexPlayerAtlasEntity;
 import skindex.entities.player.SkindexPlayerEntity;
 import skindex.modcompat.downfall.entities.player.SkindexGremlinsAtlasEntity;
 import skindex.patches.PlayerLoadAnimationPatcher;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
-public class GremlinsAtlasSkin extends PlayerSkin {
+public class GremlinsAtlasSkin extends AbstractPlayerSkin {
     /** Variables */
     private static String[] gremlinList = new String[]{
             "angry",
@@ -138,7 +138,7 @@ public class GremlinsAtlasSkin extends PlayerSkin {
         @SpirePatch2(clz = GremlinStandby.class, method = SpirePatch.CONSTRUCTOR, requiredModId = ModManager.Downfall.modId, optional = true)
         public static class StandbyGremlinSkinLoader{
             public static void Postfix(GremlinStandby __instance, String assetFolder){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin instanceof GremlinsAtlasSkin){
                     __instance.skeleton = ((GremlinsAtlasSkin) currentSkin).getStandbyGremlinSkeleton(assetFolder);
                 }
@@ -148,7 +148,7 @@ public class GremlinsAtlasSkin extends PlayerSkin {
         @SpirePatch2(clz = GremlinCharacter.class, method = "swapBody", requiredModId = ModManager.Downfall.modId, optional = true)
         public static class ReloadAnimPatcher{
             public static void Postfix(){
-                PlayerSkin activeSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin activeSkin = SkindexGame.getActivePlayerSkin();
                 if(activeSkin != null){
                     activeSkin.loadOnPlayer();
                 }
@@ -158,7 +158,7 @@ public class GremlinsAtlasSkin extends PlayerSkin {
         @SpirePatch(clz = GremlinCharacter.class, method = "becomeNob", requiredModId = ModManager.Downfall.modId, optional = true)
         public static class BecomeNobPatcher{
             public static void Postfix(){
-                PlayerSkin activeSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin activeSkin = SkindexGame.getActivePlayerSkin();
                 if(activeSkin != null){
                     activeSkin.loadOnPlayer();
                 }
@@ -188,12 +188,6 @@ public class GremlinsAtlasSkin extends PlayerSkin {
         /** Variables */
         @SerializedName("gremlins")
         public ArrayList<GremlinAtlasSkinData> gremlins = new ArrayList<>();
-
-        /** Generate player skin */
-        @Override
-        public PlayerSkin createPlayerSkin() {
-            return new GremlinsAtlasSkin(this);
-        }
 
         public static class GremlinAtlasSkinData{
             /** Variables */

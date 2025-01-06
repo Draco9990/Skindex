@@ -3,8 +3,7 @@ package skindex.screens.preview.playerskins;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.orbs.*;
-import dLib.ui.elements.prefabs.Image;
+import dLib.ui.elements.items.Image;
 import dLib.util.TextureManager;
 import dLib.util.bindings.texture.Tex;
 import dLib.util.ui.dimensions.Dim;
@@ -13,12 +12,12 @@ import skindex.entities.player.DummyPlayer;
 import skindex.files.SkindexUserConfig;
 import skindex.registering.SkindexRegistry;
 import skindex.screens.preview.AbstractItemPreviewScreen;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<PlayerSkin> {
+public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<AbstractPlayerSkin> {
     //region Variables
     private AbstractPlayer.PlayerClass playerClass;
 
@@ -55,17 +54,17 @@ public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<PlayerSki
     }
 
     @Override
-    protected ArrayList<PlayerSkin> getItems() {
+    protected ArrayList<AbstractPlayerSkin> getItems() {
         return SkindexRegistry.getSkinsForClass(playerClass, false);
     }
 
     @Override
-    protected void onPreviewItemChanged(PlayerSkin item) {
+    protected void onPreviewItemChanged(AbstractPlayerSkin item) {
         super.onPreviewItemChanged(item);
 
         item.loadOnEntity(previewEntity);
 
-        addChildNCS(new Image(Tex.stat(TextureManager.getTexture("skindexResources/images/ui/preview/customorbskins.png")), Pos.px(1596), Pos.px(1080-173), Dim.px(291), Dim.px(27)){
+        addChild(new Image(Tex.stat(TextureManager.getTexture("skindexResources/images/ui/preview/customorbskins.png")), Pos.px(1596), Pos.px(1080-173), Dim.px(291), Dim.px(27)){
             @Override
             public boolean isVisible() {
                 return previewingItem != null && !previewingItem.orbsSkinMap.isEmpty();
@@ -74,12 +73,12 @@ public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<PlayerSki
     }
 
     @Override
-    protected boolean isItemFavourite(PlayerSkin item) {
+    protected boolean isItemFavourite(AbstractPlayerSkin item) {
         return Objects.equals(SkindexUserConfig.get().getFavouritedSkin(playerClass), item);
     }
 
     @Override
-    protected void onSetItemFavourite(PlayerSkin item) {
+    protected void onSetItemFavourite(AbstractPlayerSkin item) {
         super.onSetItemFavourite(item);
         SkindexUserConfig.get().setFavouritedSkin(playerClass, item);
     }

@@ -6,9 +6,9 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.neow.NeowRoom;
 import dLib.ui.elements.UIElement;
-import dLib.ui.elements.implementations.Interactable;
-import dLib.ui.elements.implementations.Toggle;
-import dLib.ui.elements.prefabs.TextBox;
+import dLib.ui.elements.items.Toggle;
+import dLib.ui.elements.items.buttons.Button;
+import dLib.ui.elements.items.text.TextBox;
 import dLib.ui.resources.UICommonResources;
 import dLib.util.TextureManager;
 import dLib.util.bindings.texture.Tex;
@@ -16,7 +16,7 @@ import dLib.util.ui.dimensions.Dim;
 import dLib.util.ui.position.Pos;
 import skindex.SkindexGame;
 import skindex.registering.SkindexRegistry;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 
 public class NeowWardrobePatches {
     public static Toggle wardrobe;
@@ -40,23 +40,20 @@ public class NeowWardrobePatches {
         wardrobe.setHoveredTexture(Tex.stat(TextureManager.getTexture("skindexResources/images/ui/wardrobe_hovered.png")));
         wardrobe.setToggledHoveredTexture(Tex.stat(TextureManager.getTexture("skindexResources/images/ui/wardrobe_hovered.png")));
 
-
-        TextBox textBox = (TextBox) new TextBox(
+        TextBox textBox = new TextBox(
                 SkindexGame.getActivePlayerSkin() != null ? SkindexGame.getActivePlayerSkin().getName() : "",
                 Pos.px(62), Pos.px(0),
-                Dim.px(265), Dim.px(56),
-                0.07F, 0.20F){
+                Dim.px(265), Dim.px(56)){
             @Override
             public boolean isActive() {
                 return super.isActive() && wardrobe.isToggled();
             }
-        }
-        .setRenderColor(Color.WHITE);
+        };
 
         //todo replace with one element
         skinController = new UIElement(Pos.px(286), Pos.px(1080-828), Dim.px(55), Dim.px(56));
-        skinController.addChildNCS(textBox);
-        skinController.addChildCS(new Interactable(Tex.stat(UICommonResources.arrow_left), Dim.px(55), Dim.px(56)){
+        skinController.addChild(textBox);
+        /*skinController.addChild(new Button(Tex.stat(UICommonResources.arrow_left), Dim.px(55), Dim.px(56)){
             @Override
             public boolean isActive() {
                 return super.isActive() && wardrobe.isToggled();
@@ -66,15 +63,15 @@ public class NeowWardrobePatches {
             protected void onLeftClick() {
                 super.onLeftClick();
 
-                PlayerSkin previousSkin = SkindexGame.getActivePlayerSkin();
-                PlayerSkin playerSkin = SkindexRegistry.getPreviousSkin(previousSkin, true, true);
+                AbstractPlayerSkin previousSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin playerSkin = SkindexRegistry.getPreviousSkin(previousSkin, true, true);
                 if(playerSkin != null) {
                     playerSkin.loadOnPlayer();
                     textBox.setText(playerSkin.getName());
                 }
             }
         });
-        skinController.addChildCS(new Interactable(Tex.stat(UICommonResources.arrow_right), Pos.px(334), Pos.px(0), Dim.px(55), Dim.px(56)){
+        skinController.addChild(new Interactable(Tex.stat(UICommonResources.arrow_right), Pos.px(334), Pos.px(0), Dim.px(55), Dim.px(56)){
             @Override
             public boolean isActive() {
                 return super.isActive() && wardrobe.isToggled();
@@ -84,14 +81,14 @@ public class NeowWardrobePatches {
             protected void onLeftClick() {
                 super.onLeftClick();
 
-                PlayerSkin previousSkin = SkindexGame.getActivePlayerSkin();
-                PlayerSkin playerSkin = SkindexRegistry.getNextSkin(previousSkin, true, true);
+                AbstractPlayerSkin previousSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin playerSkin = SkindexRegistry.getNextSkin(previousSkin, true, true);
                 if(playerSkin != null){
                     playerSkin.loadOnPlayer();
                     textBox.setText(playerSkin.getName());
                 }
             }
-        });
+        });*/
     }
 
     @SpirePatch2(clz = NeowRoom.class, method = "update")

@@ -7,7 +7,7 @@ import skindex.entities.player.SkindexPlayerAtlasEntity;
 import skindex.entities.player.SkindexPlayerEntity;
 import skindex.patches.PlayerLoadAnimationPatcher;
 
-public class PlayerAtlasSkin extends PlayerSkin{
+public class PlayerAtlasSkin extends AbstractPlayerSkin {
     /** Variables */
     public String atlasUrl;
     public String skeletonUrl;
@@ -70,10 +70,5 @@ public class PlayerAtlasSkin extends PlayerSkin{
         @SerializedName("invertedSkeletonScale")
         public Float invertedSkeletonScale = null;
 
-        /** Create Player Skin */
-        @Override
-        public PlayerSkin createPlayerSkin() {
-            return new PlayerAtlasSkin(this);
-        }
     }
 }

@@ -4,10 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import dLib.DLib;
 import dLib.ui.elements.UIElement;
-import dLib.ui.elements.prefabs.Button;
-import dLib.ui.elements.prefabs.Image;
-import dLib.ui.elements.prefabs.VerticalBox;
-import dLib.ui.elements.prefabs.VerticalListBox;
+import dLib.ui.elements.items.Image;
+import dLib.ui.elements.items.buttons.Button;
+import dLib.ui.elements.items.itembox.VerticalListBox;
 import dLib.ui.resources.UICommonResources;
 import dLib.util.bindings.texture.Tex;
 import dLib.util.ui.dimensions.Dim;
@@ -28,10 +27,10 @@ public class CharacterPreviewSelectScreen extends UIElement {
 
         CharacterPreviewSelectScreen self = this;
 
-        addChildNCS(new Image(Tex.stat(UICommonResources.white_pixel), Dim.fill(), Dim.fill()));
+        addChild(new Image(Tex.stat(UICommonResources.white_pixel), Dim.fill(), Dim.fill()));
 
         Button child;
-        addChildCS(child = new Button(Pos.px(1788), Pos.px(1080-121), Dim.px(95), Dim.px(95)){
+        addChild(child = new Button(Pos.px(1788), Pos.px(1080-121), Dim.px(95), Dim.px(95)){
             @Override
             protected void onLeftClick() {
                 super.onLeftClick();
@@ -62,7 +61,7 @@ public class CharacterPreviewSelectScreen extends UIElement {
         transparent.a = 0.0f;
         listBox.setRenderColor(transparent);
         listBox.setItems(SkindexRegistry.getRegisteredPlayerClasses());
-        addChildNCS(listBox);
+        addChild(listBox);
     }
     //endregion Constructors
 }

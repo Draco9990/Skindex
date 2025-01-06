@@ -1,13 +1,13 @@
 package skindex.skins.stances;
 
 import com.google.gson.annotations.SerializedName;
-import skindex.itemtypes.CustomizableItem;
+import skindex.itemtypes.AbstractCustomizableItem;
 import skindex.skins.misc.particle.ParticleData;
 
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class StanceSkinData extends CustomizableItem.CustomizableItemData implements Serializable {
+public class StanceSkinData extends AbstractCustomizableItem.CustomizableItemData implements Serializable {
     static final long serialVersionUID = 1L;
 
     @SerializedName("stanceId")

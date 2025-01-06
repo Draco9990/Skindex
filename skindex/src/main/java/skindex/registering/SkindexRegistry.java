@@ -6,7 +6,7 @@ import skindex.bundles.Bundle;
 import skindex.callbacks.SkindexPostRegistryFinishCallback;
 import skindex.skins.cards.CardSkin;
 import skindex.skins.orb.OrbSkin;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 import skindex.skins.stances.StanceSkin;
 import skindex.unlockmethods.NonUnlockableUnlockMethod;
 import skindex.unlockmethods.UnlockMethod;
@@ -38,8 +38,8 @@ public class SkindexRegistry {
 
     private static LinkedHashMap<String, CardSkin> cardSkins = new LinkedHashMap<>();
 
-    private static LinkedHashMap<AbstractPlayer.PlayerClass, HashMap<String, PlayerSkin>> playerSkins = new LinkedHashMap<>();
-    private static LinkedHashMap<AbstractPlayer.PlayerClass, PlayerSkin> defaultPlayerSkins = new LinkedHashMap<>();
+    private static LinkedHashMap<AbstractPlayer.PlayerClass, HashMap<String, AbstractPlayerSkin>> playerSkins = new LinkedHashMap<>();
+    private static LinkedHashMap<AbstractPlayer.PlayerClass, AbstractPlayerSkin> defaultPlayerSkins = new LinkedHashMap<>();
 
     /** Getters and Setters */
     public static void subscribe(ISkindexSubscriber skindexRegistrant){
@@ -98,16 +98,16 @@ public class SkindexRegistry {
         }
 
         for(SkindexPlayerSkinRegistrant skindexRegistrant : playerSkinRegistrants){
-            List<PlayerSkin> defaultPlayerSkinsToRegister = skindexRegistrant.getDefaultPlayerSkinsToRegister();
+            List<AbstractPlayerSkin> defaultPlayerSkinsToRegister = skindexRegistrant.getDefaultPlayerSkinsToRegister();
             if(defaultPlayerSkinsToRegister != null){
-                for(PlayerSkin item : defaultPlayerSkinsToRegister){
+                for(AbstractPlayerSkin item : defaultPlayerSkinsToRegister){
                     registerDefaultPlayerSkin(item);
                 }
             }
 
-            List<PlayerSkin> playerSkinsToRegister = skindexRegistrant.getPlayerSkinsToRegister();
+            List<AbstractPlayerSkin> playerSkinsToRegister = skindexRegistrant.getPlayerSkinsToRegister();
             if(playerSkinsToRegister != null){
-                for(PlayerSkin item : skindexRegistrant.getPlayerSkinsToRegister()){
+                for(AbstractPlayerSkin item : skindexRegistrant.getPlayerSkinsToRegister()){
                     registerPlayerSkin(item);
                 }
             }
@@ -199,7 +199,7 @@ public class SkindexRegistry {
         return getCardSkin(id, false);
     }
 
-    private static void registerPlayerSkin(PlayerSkin playerSkin){
+    private static void registerPlayerSkin(AbstractPlayerSkin playerSkin){
         if(playerSkin == null) return;
 
         if(!playerSkins.containsKey(playerSkin.playerClass)){
@@ -208,27 +208,27 @@ public class SkindexRegistry {
 
         playerSkins.get(playerSkin.playerClass).put(playerSkin.getId(), playerSkin);
     }
-    public static PlayerSkin getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass playerClass, String id, boolean makeCopy){
+    public static AbstractPlayerSkin getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass playerClass, String id, boolean makeCopy){
         if(playerClass == null || id == null) return null;
 
         if(!playerSkins.containsKey(playerClass)){
             return null;
         }
 
-        PlayerSkin playerSkin = playerSkins.get(playerClass).get(id);
+        AbstractPlayerSkin playerSkin = playerSkins.get(playerClass).get(id);
         if(playerSkin == null || !makeCopy) return playerSkin;
 
-        return (PlayerSkin) playerSkins.get(playerClass).get(id).makeCopy();
+        return (AbstractPlayerSkin) playerSkins.get(playerClass).get(id).makeCopy();
     }
-    public static PlayerSkin getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass playerClass, String id){
+    public static AbstractPlayerSkin getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass playerClass, String id){
         return getPlayerSkinByClassAndId(playerClass, id, false);
     }
 
-    public static ArrayList<PlayerSkin> getSkinsForClass(AbstractPlayer.PlayerClass playerClass, boolean onlyOwned, boolean makeCopy){
+    public static ArrayList<AbstractPlayerSkin> getSkinsForClass(AbstractPlayer.PlayerClass playerClass, boolean onlyOwned, boolean makeCopy){
         if(playerClass == null) return new ArrayList<>();
         if(!playerSkins.containsKey(playerClass)) return new ArrayList<>();
 
-        ArrayList<PlayerSkin> skins = new ArrayList<>(playerSkins.get(playerClass).values());
+        ArrayList<AbstractPlayerSkin> skins = new ArrayList<>(playerSkins.get(playerClass).values());
 
         skins.removeIf(skin -> skin.unlockMethod.id.equals(NonUnlockableUnlockMethod.methodId));
         if(onlyOwned){
@@ -236,84 +236,84 @@ public class SkindexRegistry {
         }
 
         if(makeCopy){
-            ArrayList<PlayerSkin> skinArrayCopy = new ArrayList<>();
-            for(PlayerSkin s : skins){
-                skinArrayCopy.add((PlayerSkin) s.makeCopy());
+            ArrayList<AbstractPlayerSkin> skinArrayCopy = new ArrayList<>();
+            for(AbstractPlayerSkin s : skins){
+                skinArrayCopy.add((AbstractPlayerSkin) s.makeCopy());
             }
             return skinArrayCopy;
         }
 
         return skins;
     }
-    public static ArrayList<PlayerSkin> getSkinsForClass(AbstractPlayer.PlayerClass playerClass, boolean onlyOwned){
+    public static ArrayList<AbstractPlayerSkin> getSkinsForClass(AbstractPlayer.PlayerClass playerClass, boolean onlyOwned){
         return getSkinsForClass(playerClass, onlyOwned, false);
     }
-    public static PlayerSkin getPreviousSkin(PlayerSkin current, boolean onlyOwned, boolean makeCopy){
+    public static AbstractPlayerSkin getPreviousSkin(AbstractPlayerSkin current, boolean onlyOwned, boolean makeCopy){
         if(current == null) return null;
 
-        ArrayList<PlayerSkin> skins = getSkinsForClass(current.playerClass, onlyOwned);
+        ArrayList<AbstractPlayerSkin> skins = getSkinsForClass(current.playerClass, onlyOwned);
         if(skins.isEmpty()) return null;
 
         int indexOf = skins.indexOf(current);
         indexOf--;
         if(indexOf < 0) indexOf = skins.size() - 1;
 
-        PlayerSkin skin = skins.get(indexOf);
+        AbstractPlayerSkin skin = skins.get(indexOf);
         if(skin == null || !makeCopy) return skin;
 
-        return (PlayerSkin) skin.makeCopy();
+        return (AbstractPlayerSkin) skin.makeCopy();
     }
-    public static PlayerSkin getPreviousSkin(PlayerSkin current, boolean onlyOwned){
+    public static AbstractPlayerSkin getPreviousSkin(AbstractPlayerSkin current, boolean onlyOwned){
         return getPreviousSkin(current, onlyOwned, false);
     }
-    public static PlayerSkin getNextSkin(PlayerSkin current, boolean onlyOwned, boolean makeCopy){
+    public static AbstractPlayerSkin getNextSkin(AbstractPlayerSkin current, boolean onlyOwned, boolean makeCopy){
         if(current == null) return null;
 
-        ArrayList<PlayerSkin> skins = getSkinsForClass(current.playerClass, onlyOwned, false);
+        ArrayList<AbstractPlayerSkin> skins = getSkinsForClass(current.playerClass, onlyOwned, false);
         if(skins.isEmpty()) return null;
 
         int indexOf = skins.indexOf(current);
         indexOf++;
         if(indexOf >= skins.size()) indexOf = 0;
 
-        PlayerSkin skin = skins.get(indexOf);
+        AbstractPlayerSkin skin = skins.get(indexOf);
         if(skin == null || !makeCopy) return skin;
 
-        return (PlayerSkin) skin.makeCopy();
+        return (AbstractPlayerSkin) skin.makeCopy();
     }
-    public static PlayerSkin getNextSkin(PlayerSkin current, boolean onlyOwned){
+    public static AbstractPlayerSkin getNextSkin(AbstractPlayerSkin current, boolean onlyOwned){
         return getNextSkin(current, onlyOwned, false);
     }
-    public static PlayerSkin getRandomSkin(AbstractPlayer.PlayerClass playerClass, boolean onlyOwned, boolean makeCopy){
+    public static AbstractPlayerSkin getRandomSkin(AbstractPlayer.PlayerClass playerClass, boolean onlyOwned, boolean makeCopy){
         if(playerClass == null) return null;
 
-        ArrayList<PlayerSkin> skins = getSkinsForClass(playerClass, onlyOwned);
+        ArrayList<AbstractPlayerSkin> skins = getSkinsForClass(playerClass, onlyOwned);
         if(skins.isEmpty()) return null;
 
-        PlayerSkin skin = skins.get(new Random().random(skins.size()-1));
+        AbstractPlayerSkin skin = skins.get(new Random().random(skins.size()-1));
         if(skin == null || !makeCopy) return skin;
 
-        return (PlayerSkin) skin.makeCopy();
+        return (AbstractPlayerSkin) skin.makeCopy();
     }
-    public static PlayerSkin getRandomSkin(AbstractPlayer.PlayerClass playerClass, boolean onlyOwned){
+    public static AbstractPlayerSkin getRandomSkin(AbstractPlayer.PlayerClass playerClass, boolean onlyOwned){
         return getRandomSkin(playerClass, onlyOwned, false);
     }
 
-    private static void registerDefaultPlayerSkin(PlayerSkin playerSkin){
+    private static void registerDefaultPlayerSkin(AbstractPlayerSkin playerSkin){
         if(playerSkin == null) return;
 
         defaultPlayerSkins.put(playerSkin.playerClass, playerSkin);
         registerPlayerSkin(playerSkin);
     }
-    public static PlayerSkin getDefaultPlayerSkinByClass(AbstractPlayer.PlayerClass playerClass, boolean makeCopy){
+    public static AbstractPlayerSkin getDefaultPlayerSkinByClass(AbstractPlayer.PlayerClass playerClass, boolean makeCopy){
         if(playerClass == null) return null;
 
-        PlayerSkin skin = defaultPlayerSkins.get(playerClass);
+        AbstractPlayerSkin skin = defaultPlayerSkins.get(playerClass);
         if(skin == null || !makeCopy) return skin;
 
-        return (PlayerSkin) skin.makeCopy();
+        return (AbstractPlayerSkin) skin.makeCopy();
     }
-    public static PlayerSkin getDefaultPlayerSkinByClass(AbstractPlayer.PlayerClass playerClass){
+    public static AbstractPlayerSkin getDefaultPlayerSkinByClass(AbstractPlayer.PlayerClass playerClass){
         return getDefaultPlayerSkinByClass(playerClass, false);
     }
 

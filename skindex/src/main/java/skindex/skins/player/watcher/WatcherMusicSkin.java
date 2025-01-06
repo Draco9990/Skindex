@@ -6,14 +6,10 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
 import com.megacrit.cardcrawl.cards.purple.Conclude;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.dungeons.TheEnding;
-import com.megacrit.cardcrawl.screens.GameOverScreen;
 import dLib.util.Reflection;
 import skindex.skins.stance.WatcherMusicStanceSkinSet;
 import skindex.unlockmethods.AchievementUnlockMethod;
-import skindex.unlockmethods.FreeUnlockMethod;
 
 public class WatcherMusicSkin extends WatcherAtlasSkin {
 

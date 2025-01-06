@@ -10,28 +10,28 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.cards.CardSkin;
 import skindex.skins.orb.OrbSkin;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 import skindex.skins.stances.StanceSkin;
 
 import java.util.Objects;
 
 public class SkindexGame {
-    private static PlayerSkin queuedSkin = null;
+    private static AbstractPlayerSkin queuedSkin = null;
 
     /** Field Patches */
     public static class FieldPatches{
         /** Field Patches */
         @SpirePatch(clz = AbstractPlayer.class, method = "<class>")
         public static class Player {
-            public static SpireField<PlayerSkin> skin = new SpireField<>(() -> null);
+            public static SpireField<AbstractPlayerSkin> skin = new SpireField<>(() -> null);
         }
     }
 
     /** Getters and Setters */
-    public static void queuePlayerSkin(PlayerSkin skin){
+    public static void queuePlayerSkin(AbstractPlayerSkin skin){
         queuedSkin = skin;
     }
-    public static PlayerSkin getQueuedPlayerSkin(){
+    public static AbstractPlayerSkin getQueuedPlayerSkin(){
         return queuedSkin;
     }
     public static boolean hasQueuedPlayerSkin(){
@@ -41,15 +41,15 @@ public class SkindexGame {
         queuedSkin = null;
     }
 
-    public static void setActivePlayerSkin(PlayerSkin skin){
+    public static void setActivePlayerSkin(AbstractPlayerSkin skin){
         if(!CardCrawlGame.isInARun()) return;
 
         FieldPatches.Player.skin.set(AbstractDungeon.player, skin);
     }
-    public static PlayerSkin getActivePlayerSkin(){
+    public static AbstractPlayerSkin getActivePlayerSkin(){
         if(!CardCrawlGame.isInARun()) return null;
 
-        PlayerSkin current = FieldPatches.Player.skin.get(AbstractDungeon.player);
+        AbstractPlayerSkin current = FieldPatches.Player.skin.get(AbstractDungeon.player);
         if(current == null){
             current = SkindexRegistry.getDefaultPlayerSkinByClass(AbstractDungeon.player.chosenClass, true);
             if(current != null){
@@ -60,7 +60,7 @@ public class SkindexGame {
     }
 
     public static CardSkin getActiveCardSkin(AbstractCard.CardColor cardColor, AbstractCard.CardType cardType){
-        PlayerSkin currentSkin = getActivePlayerSkin();
+        AbstractPlayerSkin currentSkin = getActivePlayerSkin();
         if(currentSkin == null){
             return null;
         }
@@ -77,7 +77,7 @@ public class SkindexGame {
         return null;
     }
     public static OrbSkin makeOrbSkinForOrb(String orbType){
-        PlayerSkin currentSkin = getActivePlayerSkin();
+        AbstractPlayerSkin currentSkin = getActivePlayerSkin();
         if(currentSkin == null){
             return null;
         }
@@ -85,7 +85,7 @@ public class SkindexGame {
         return SkindexRegistry.getOrbSkinById(currentSkin.orbsSkinMap.get(orbType), true);
     }
     public static StanceSkin getActiveStanceSkin(String stanceId){
-        PlayerSkin currentSkin = getActivePlayerSkin();
+        AbstractPlayerSkin currentSkin = getActivePlayerSkin();
         if(currentSkin == null){
             return null;
         }

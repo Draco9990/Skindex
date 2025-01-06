@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.*;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
+import com.google.gson.annotations.SerializedName;
 import com.megacrit.cardcrawl.characters.Watcher;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -18,7 +19,7 @@ import skindex.entities.player.SkindexPlayerAtlasEntity;
 import skindex.entities.player.SkindexPlayerEntity;
 import skindex.entities.player.SkindexWatcherAtlasEntity;
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 import skindex.skins.player.PlayerSpriterSkin;
 
 public class WatcherAtlasSkin extends PlayerAtlasSkin {
@@ -113,7 +114,7 @@ public class WatcherAtlasSkin extends PlayerAtlasSkin {
         @SpirePatch2(clz = Watcher.class, method = "renderPlayerImage")
         public static class NoEyeRenderPatch{
             public static SpireReturn Prefix(Watcher __instance, SpriteBatch sb){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
 
                 if(currentSkin instanceof PlayerSpriterSkin){
                     ((PlayerSpriterSkin) currentSkin).renderModel(sb, (int)(__instance.drawX + __instance.animX), (int)(__instance.drawY + __instance.animY), __instance.flipHorizontal, __instance.flipVertical, 1);
@@ -123,5 +124,16 @@ public class WatcherAtlasSkin extends PlayerAtlasSkin {
                 return SpireReturn.Continue();
             }
         }
+    }
+
+    public static class WatcherAtlasSkinData extends PlayerAtlasSkinData {
+        /** Variables */
+        @SerializedName("eyeAtlasUrl")
+        public String eyeAtlasUrl;
+        @SerializedName("eyeSkeletonUrl")
+        public String eyeSkeletonUrl;
+        @SerializedName("eyeResourceDirectoryUrl")
+        public String eyeResourceDirectoryUrl;
+
     }
 }

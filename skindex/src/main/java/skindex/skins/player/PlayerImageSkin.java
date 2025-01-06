@@ -18,7 +18,7 @@ import skindex.entities.player.SkindexPlayerImageEntity;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PlayerImageSkin extends PlayerSkin{
+public class PlayerImageSkin extends AbstractPlayerSkin {
     /** Variables */
     private Texture image;
 
@@ -62,7 +62,7 @@ public class PlayerImageSkin extends PlayerSkin{
             @SpireInsertPatch(locator = Locator.class)
             public static SpireReturn Insert(AbstractPlayer __instance, SpriteBatch sb){
                 if(Objects.equals(AbstractDungeon.player, __instance)){
-                    PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                    AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                     if(currentSkin instanceof PlayerImageSkin){
                         PlayerImageSkin imgSkin = (PlayerImageSkin) currentSkin;
                         imgSkin.renderSkinImage(sb, __instance, __instance.img, 1.0f);
@@ -79,7 +79,7 @@ public class PlayerImageSkin extends PlayerSkin{
             @SpireInsertPatch(locator = Locator.class)
             public static SpireReturn Insert(AbstractPlayer __instance, SpriteBatch sb){
                 if(Objects.equals(AbstractDungeon.player, __instance)){
-                    PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                    AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                     if(currentSkin instanceof PlayerImageSkin){
                         PlayerImageSkin imgSkin = (PlayerImageSkin) currentSkin;
                         imgSkin.renderSkinImage(sb, __instance, __instance.img, 1.0f);

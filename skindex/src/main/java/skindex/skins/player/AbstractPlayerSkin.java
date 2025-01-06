@@ -10,13 +10,12 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.CardTrailEffect;
 import skindex.SkindexGame;
-import skindex.itemtypes.OwnableItem;
+import skindex.itemtypes.AbstractOwnableItem;
 import skindex.registering.SkindexRegistry;
 import skindex.effects.AbstractCreatureEffect;
 import skindex.entities.player.SkindexPlayerEntity;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.stances.StanceSkin;
-import skindex.trackers.SkindexUnlockTracker;
 import skindex.util.SkindexLogger;
 
 import java.io.Serializable;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class PlayerSkin extends OwnableItem<PlayerSkin> {
+public abstract class AbstractPlayerSkin extends AbstractOwnableItem<AbstractPlayerSkin> {
     /** Variables */
     public AbstractPlayer.PlayerClass playerClass;
 
@@ -47,7 +46,7 @@ public class PlayerSkin extends OwnableItem<PlayerSkin> {
     public float scale = 1;
 
     /** Constructors */
-    public PlayerSkin(PlayerSkinData skinData){
+    public AbstractPlayerSkin(PlayerSkinData skinData){
         super(skinData);
         this.resourceDirectory = skinData.resourceDirectoryUrl;
         this.playerClass = AbstractPlayer.PlayerClass.valueOf(skinData.playerClass);
@@ -78,12 +77,12 @@ public class PlayerSkin extends OwnableItem<PlayerSkin> {
     }
 
     /** Getters and Setters */
-    public PlayerSkin setRenderColor(Color c){
+    public AbstractPlayerSkin setRenderColor(Color c){
         renderColor = c.cpy();
         return this;
     }
 
-    public PlayerSkin setEffect(AbstractCreatureEffect skinEffect){
+    public AbstractPlayerSkin setEffect(AbstractCreatureEffect skinEffect){
         this.effect = skinEffect;
         return this;
     }
@@ -126,7 +125,7 @@ public class PlayerSkin extends OwnableItem<PlayerSkin> {
 
     /** Methods */
     public static void unlockSkin(String skinId, AbstractPlayer.PlayerClass playerClass){
-        PlayerSkin skin = SkindexRegistry.getPlayerSkinByClassAndId(playerClass, skinId);
+        AbstractPlayerSkin skin = SkindexRegistry.getPlayerSkinByClassAndId(playerClass, skinId);
         if(skin != null){
             skin.unlock();
         }
@@ -142,7 +141,7 @@ public class PlayerSkin extends OwnableItem<PlayerSkin> {
         public static class UpdatePatcher{
             public static void Postfix(AbstractPlayer __instance){
                 if(__instance.equals(AbstractDungeon.player)){
-                    PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                    AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                     if(currentSkin != null){
                         currentSkin.update(__instance);
                     }
@@ -155,7 +154,7 @@ public class PlayerSkin extends OwnableItem<PlayerSkin> {
             static Random colorRand = new Random();
 
             public static void Postfix(CardTrailEffect __instance){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin != null){
                     ArrayList<Color> cardTrailColors = currentSkin.cardTrailColors;
                     if(cardTrailColors.size() == 1){
@@ -178,9 +177,9 @@ public class PlayerSkin extends OwnableItem<PlayerSkin> {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof PlayerSkin)) return false;
+        if(!(obj instanceof AbstractPlayerSkin)) return false;
 
-        PlayerSkin item = (PlayerSkin) obj;
+        AbstractPlayerSkin item = (AbstractPlayerSkin) obj;
 
         return item.getId().equals(id) &&
                 item.playerClass.equals(playerClass);
@@ -217,9 +216,5 @@ public class PlayerSkin extends OwnableItem<PlayerSkin> {
         @SerializedName("stanceSkins")
         public ArrayList<String> stanceSkins = new ArrayList<>();
 
-        /** Generate Player Skin */
-        public PlayerSkin createPlayerSkin(){
-            return new PlayerSkin(this);
-        }
     }
 }

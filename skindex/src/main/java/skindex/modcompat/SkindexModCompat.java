@@ -7,7 +7,6 @@ import skindex.modcompat.packmaster.skins.player.PackmasterBuilderSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterHipsterSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterPackmistressSkin;
 import skindex.modcompat.skins.player.theUnchained.UnchainedBirthdaySkin;
-import skindex.modcompat.skins.player.theUnchained.UnchainedMermanSkin;
 import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneElMuerteCardSkinSet;
 import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneLittleHelperCardSkinSet;
 import skindex.modcompat.skulHeroSlayer.skins.card.LittleBoneRoyalGuardCardSkinSet;
@@ -46,7 +45,7 @@ import skindex.modcompat.skins.player.theAbyssal.AbyssalBaseSkin;
 import skindex.modcompat.skins.player.theUnchained.UnchainedBaseSkin;
 import skindex.modcompat.skins.player.theUnchained.UnchainedPrinceUnboundSkin;
 import skindex.skins.cards.CardSkin;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,8 +54,8 @@ import java.util.List;
 public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCardSkinRegistrant {
     /** Methods */
     @Override
-    public List<PlayerSkin> getDefaultPlayerSkinsToRegister() {
-        ArrayList<PlayerSkin> totalList = new ArrayList<>();
+    public List<AbstractPlayerSkin> getDefaultPlayerSkinsToRegister() {
+        ArrayList<AbstractPlayerSkin> totalList = new ArrayList<>();
         if(ModManager.Downfall.isActive()) totalList.addAll(getDefaultDownfallSkinsToRegister());
         if(ModManager.MarisaContinued.isActive()) totalList.addAll(getDefaultMarisaContinuedSkinsToRegister());
         if(ModManager.SkulHeroSlayer.isActive()) totalList.addAll(getDefaultSkulHeroSlayerSkinsToRegister());
@@ -67,7 +66,7 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCar
         return totalList;
     }
 
-    private static List<PlayerSkin> getDefaultDownfallSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getDefaultDownfallSkinsToRegister(){
         return Arrays.asList(
             new AutomatonBaseSkin(),
             new ChampBaseSkin(),
@@ -80,29 +79,29 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCar
             new SneckoBaseSkin()
         );
     }
-    private static List<PlayerSkin> getDefaultMarisaContinuedSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getDefaultMarisaContinuedSkinsToRegister(){
         return Arrays.asList(new MarisaBaseSkin());
     }
-    private static List<PlayerSkin> getDefaultSkulHeroSlayerSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getDefaultSkulHeroSlayerSkinsToRegister(){
         return Arrays.asList(new LittleBoneBaseSkin());
     }
-    private static List<PlayerSkin> getDefaultTheAbyssalSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getDefaultTheAbyssalSkinsToRegister(){
         return Arrays.asList(new AbyssalBaseSkin());
     }
-    private static List<PlayerSkin> getDefaultTheUnchainedSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getDefaultTheUnchainedSkinsToRegister(){
         return Arrays.asList(new UnchainedBaseSkin());
     }
-    private static List<PlayerSkin> getDefaultPackmasterSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getDefaultPackmasterSkinsToRegister(){
         return Arrays.asList(new PackmasterBaseSkin());
     }
-    private static List<PlayerSkin> getDefaultDuelistModSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getDefaultDuelistModSkinsToRegister(){
         return Arrays.asList(new DuelistBaseSkin());
     }
 
 
     @Override
-    public List<PlayerSkin> getPlayerSkinsToRegister() {
-        ArrayList<PlayerSkin> totalList = new ArrayList<>();
+    public List<AbstractPlayerSkin> getPlayerSkinsToRegister() {
+        ArrayList<AbstractPlayerSkin> totalList = new ArrayList<>();
         if(ModManager.Downfall.isActive()) totalList.addAll(getDownfallSkinsToRegister());
         if(ModManager.TheUnchained.isActive()) totalList.addAll(getTheUnchainedSkinsToRegister());
         if(ModManager.SkulHeroSlayer.isActive()) totalList.addAll(getSkulHeroSlayerSkinsToRegister());
@@ -111,7 +110,7 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCar
         return totalList;
     }
 
-    private static List<PlayerSkin> getDownfallSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getDownfallSkinsToRegister(){
         return Arrays.asList(
             new AutomatonBetaSkin(),
             new AutomatonThePerfectSkin(),
@@ -133,7 +132,7 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCar
             new SneckoBetaSkin()
         );
     }
-    private static List<PlayerSkin> getTheUnchainedSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getTheUnchainedSkinsToRegister(){
         return Arrays.asList(
             new UnchainedPrinceUnboundSkin(),
             new UnchainedBirthdaySkin(),
@@ -141,21 +140,21 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCar
             //new UnchainedMermanSkin()
         );
     }
-    private static List<PlayerSkin> getSkulHeroSlayerSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getSkulHeroSlayerSkinsToRegister(){
         return Arrays.asList(
             new LittleBoneElMuerteSkin(),
             new LittleBoneLittleHelperSkin(),
             new LittleBoneRoyalGuardSkin()
         );
     }
-    private static List<PlayerSkin> getPackmasterSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getPackmasterSkinsToRegister(){
         return Arrays.asList(
             new PackmasterPackmistressSkin(),
             new PackmasterHipsterSkin(),
             new PackmasterBuilderSkin()
         );
     }
-    private static List<PlayerSkin> getDuelistModSkinsToRegister(){
+    private static List<AbstractPlayerSkin> getDuelistModSkinsToRegister(){
         return Arrays.asList(
             new DuelistClassicYugiSkin(),
             new DuelistKaibaSkin(),

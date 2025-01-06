@@ -3,7 +3,7 @@ package skindex.registering;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.orb.monsterhunter.MonsterHunterOrbSkinSet;
 import skindex.skins.orb.rebelai.*;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 import skindex.skins.player.defect.*;
 import skindex.skins.player.ironclad.*;
 import skindex.skins.player.silent.*;
@@ -45,7 +45,7 @@ public class SkindexDefaultRegistrant implements SkindexUnlockMethodRegistrant, 
     }
 
     @Override
-    public List<PlayerSkin> getDefaultPlayerSkinsToRegister() {
+    public List<AbstractPlayerSkin> getDefaultPlayerSkinsToRegister() {
         return Arrays.asList(
                 new IroncladBaseSkin(),
                 new SilentBaseSkin(),
@@ -54,7 +54,7 @@ public class SkindexDefaultRegistrant implements SkindexUnlockMethodRegistrant, 
         );
     }
     @Override
-    public List<PlayerSkin> getPlayerSkinsToRegister() {
+    public List<AbstractPlayerSkin> getPlayerSkinsToRegister() {
         return Arrays.asList(
                 new IroncladGreenSkin(),
                 new IroncladBlueSkin(),

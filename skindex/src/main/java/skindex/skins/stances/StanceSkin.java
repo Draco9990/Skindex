@@ -3,8 +3,6 @@ package skindex.skins.stances;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.*;
-import com.megacrit.cardcrawl.audio.MusicMaster;
-import com.megacrit.cardcrawl.audio.Sfx;
 import com.megacrit.cardcrawl.audio.SoundMaster;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -20,14 +18,14 @@ import dLib.util.StaticResourceLoader;
 import dLib.util.Timer;
 import skindex.SkindexGame;
 import skindex.entities.player.SkindexPlayerEntity;
-import skindex.itemtypes.CustomizableItem;
+import skindex.itemtypes.AbstractCustomizableItem;
 import skindex.skins.misc.particle.ParticleData;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-public class StanceSkin extends CustomizableItem {
+public class StanceSkin extends AbstractCustomizableItem {
     //region Variables
     public String stanceId;
 
@@ -140,7 +138,7 @@ public class StanceSkin extends CustomizableItem {
             public static StanceSkin getStanceSkin(String stanceId){
                 AbstractCreature renderOverride = SkindexGame.getStanceOverrideRenderCreature();
 
-                PlayerSkin skinToRender = null;
+                AbstractPlayerSkin skinToRender = null;
                 if(renderOverride instanceof SkindexPlayerEntity){
                     skinToRender = ((SkindexPlayerEntity) renderOverride).getPlayerSkin();
                 }

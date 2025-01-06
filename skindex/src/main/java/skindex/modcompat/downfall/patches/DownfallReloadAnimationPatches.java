@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.modcompat.ModManager;
 import guardian.characters.GuardianCharacter;
 import skindex.SkindexGame;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 import slimebound.characters.SlimeboundCharacter;
 import sneckomod.TheSnecko;
 import theHexaghost.TheHexaghost;
@@ -21,7 +21,7 @@ public class DownfallReloadAnimationPatches {
     public static class SneckoPatch{
         public static SpireReturn Prefix(TheSnecko __instance){
             if(Objects.equals(__instance, AbstractDungeon.player)){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin != null){
                     currentSkin.loadOnPlayer();
                     return SpireReturn.Return();
@@ -36,7 +36,7 @@ public class DownfallReloadAnimationPatches {
     public static class SlimeboundPatch{
         public static SpireReturn Prefix(SlimeboundCharacter __instance){
             if(Objects.equals(__instance, AbstractDungeon.player)){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin != null){
                     currentSkin.loadOnPlayer();
                     return SpireReturn.Return();
@@ -51,7 +51,7 @@ public class DownfallReloadAnimationPatches {
     public static class HexaghostPatch{
         public static SpireReturn Prefix(TheHexaghost __instance){
             if(Objects.equals(__instance, AbstractDungeon.player)){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin != null){
                     currentSkin.loadOnPlayer();
                     return SpireReturn.Return();
@@ -66,7 +66,7 @@ public class DownfallReloadAnimationPatches {
     public static class GuardianPatch{
         public static SpireReturn Prefix(GuardianCharacter __instance){
             if(Objects.equals(__instance, AbstractDungeon.player)){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin != null){
                     currentSkin.loadOnPlayer();
                     return SpireReturn.Return();
@@ -81,7 +81,7 @@ public class DownfallReloadAnimationPatches {
     public static class CollectorPatch{
         public static SpireReturn Prefix(CollectorChar __instance){
             if(Objects.equals(__instance, AbstractDungeon.player)){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin != null){
                     currentSkin.loadOnPlayer();
                     return SpireReturn.Return();
@@ -96,7 +96,7 @@ public class DownfallReloadAnimationPatches {
     public static class ChampPatch{
         public static SpireReturn Prefix(ChampChar __instance){
             if(Objects.equals(__instance, AbstractDungeon.player)){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin != null){
                     currentSkin.loadOnPlayer();
                     return SpireReturn.Return();
@@ -111,7 +111,7 @@ public class DownfallReloadAnimationPatches {
     public static class AutomatonPatch{
         public static SpireReturn Prefix(AutomatonChar __instance){
             if(Objects.equals(__instance, AbstractDungeon.player)){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin != null){
                     currentSkin.loadOnPlayer();
                     return SpireReturn.Return();

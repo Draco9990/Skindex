@@ -6,20 +6,18 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.BobEffect;
 import dLib.modcompat.ModManager;
 import dLib.util.Reflection;
 import dLib.util.TextureManager;
-import downfall.util.TextureLoader;
 import skindex.SkindexGame;
 import skindex.entities.player.SkindexPlayerEntity;
 import skindex.modcompat.downfall.entities.player.SkindexHexaghostAtlasEntity;
 import skindex.modcompat.downfall.skins.player.DownfallSkinWrapper;
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 import theHexaghost.TheHexaghost;
 import theHexaghost.vfx.MyBody;
 
@@ -99,7 +97,7 @@ public class HexaghostAtlasSkin extends PlayerAtlasSkin {
         @SpirePatch2(clz = TheHexaghost.class, method = "preBattlePrep", requiredModId = ModManager.Downfall.modId, optional = true)
         public static class InCombatRotationSpeedPatch{
             public static void Postfix(){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin instanceof HexaghostAtlasSkin && AbstractDungeon.player instanceof TheHexaghost){
                     ((TheHexaghost) AbstractDungeon.player).myBody.targetRotationSpeed = ((HexaghostAtlasSkin) currentSkin).fastRotationSpeed;
                 }
@@ -109,7 +107,7 @@ public class HexaghostAtlasSkin extends PlayerAtlasSkin {
         @SpirePatch2(clz = TheHexaghost.class, method = "onVictory", requiredModId = ModManager.Downfall.modId, optional = true)
         public static class OutOfCombatRotationSpeedPatch{
             public static void Postfix(){
-                PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                 if(currentSkin instanceof HexaghostAtlasSkin && AbstractDungeon.player instanceof TheHexaghost){
                     ((TheHexaghost) AbstractDungeon.player).myBody.targetRotationSpeed = ((HexaghostAtlasSkin) currentSkin).standardRotationSpeed;
                 }
@@ -127,7 +125,7 @@ public class HexaghostAtlasSkin extends PlayerAtlasSkin {
             public static SpireReturn Prefix(MyBody __instance, SpriteBatch sb){
                 Float scale = FieldPatches.scale.get(__instance);
                 if(scale != null){
-                    PlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                    AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
                     if(currentSkin instanceof HexaghostAtlasSkin && AbstractDungeon.player instanceof TheHexaghost){
                         if(__instance.equals(((TheHexaghost) AbstractDungeon.player).myBody)){
                             if(((HexaghostAtlasSkin) currentSkin).disablePlasma){

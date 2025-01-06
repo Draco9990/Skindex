@@ -22,9 +22,4 @@ public class HexaghostAtlasSkinData extends PlayerAtlasSkin.PlayerAtlasSkinData 
     @SerializedName("fastRotationSpeed")
     public Float fastRotationSpeed = 100.f;
 
-    /** Create Player Skin */
-    @Override
-    public HexaghostAtlasSkin createPlayerSkin() {
-        return new HexaghostAtlasSkin(this);
-    }
 }

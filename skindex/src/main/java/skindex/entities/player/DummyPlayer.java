@@ -9,19 +9,17 @@ import com.esotericsoftware.spine.*;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import dLib.util.AssetLoader;
 import dLib.util.Reflection;
-import skindex.SkindexGame;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.player.PlayerImageSkin;
-import skindex.skins.player.PlayerSkin;
+import skindex.skins.player.AbstractPlayerSkin;
 import skindex.skins.player.PlayerSpriterSkin;
 
 public class DummyPlayer extends AbstractMonster implements SkindexPlayerImageEntity, SkindexPlayerAtlasEntity {
     //region Variables
-    protected PlayerSkin currentSkin;
+    protected AbstractPlayerSkin currentSkin;
 
     protected float renderScale = 1;
 
@@ -129,12 +127,12 @@ public class DummyPlayer extends AbstractMonster implements SkindexPlayerImageEn
     //region Player Skin implementation
 
     @Override
-    public void setPlayerSkin(PlayerSkin newSkin) {
+    public void setPlayerSkin(AbstractPlayerSkin newSkin) {
         this.currentSkin = newSkin;
     }
 
     @Override
-    public PlayerSkin getPlayerSkin() {
+    public AbstractPlayerSkin getPlayerSkin() {
         return currentSkin;
     }
 

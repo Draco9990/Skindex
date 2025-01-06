@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
 
-public abstract class CustomizableItem {
+public abstract class AbstractCustomizableItem {
     //region Variables
     protected String id;
     protected String name;
@@ -26,7 +26,7 @@ public abstract class CustomizableItem {
     //endregion Variables
 
     //region Constructors
-    public CustomizableItem(CustomizableItemData itemData){
+    public AbstractCustomizableItem(CustomizableItemData itemData){
         this.id = itemData.id;
         this.name = itemData.name;
 
@@ -46,7 +46,7 @@ public abstract class CustomizableItem {
     //endregion
 
     //region Name
-    public CustomizableItem setName(String newName){
+    public AbstractCustomizableItem setName(String newName){
         this.name = newName;
         return this;
     }
@@ -63,7 +63,7 @@ public abstract class CustomizableItem {
     //endregion
 
     //region Credits
-    public CustomizableItem setCredits(String... credits){
+    public AbstractCustomizableItem setCredits(String... credits){
         this.credits = new ArrayList<>(Arrays.asList(credits));
         return this;
     }
@@ -96,14 +96,14 @@ public abstract class CustomizableItem {
     //region Misc
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof CustomizableItem)) return false;
+        if(!(obj instanceof AbstractCustomizableItem)) return false;
 
-        CustomizableItem item = (CustomizableItem) obj;
+        AbstractCustomizableItem item = (AbstractCustomizableItem) obj;
 
-        return item.getId().equals(((CustomizableItem) obj).getId());
+        return item.getId().equals(((AbstractCustomizableItem) obj).getId());
     }
 
-    public CustomizableItem makeCopy(){
+    public AbstractCustomizableItem makeCopy(){
         try{
             return getClass().getConstructor().newInstance();
         }catch (Exception ignored){
@@ -111,7 +111,7 @@ public abstract class CustomizableItem {
 
         for(Constructor<?> constructor: getClass().getDeclaredConstructors()){
             try{
-                return (CustomizableItem) constructor.newInstance(dataInitializer);
+                return (AbstractCustomizableItem) constructor.newInstance(dataInitializer);
             }catch (Exception ignored){}
         }
 
