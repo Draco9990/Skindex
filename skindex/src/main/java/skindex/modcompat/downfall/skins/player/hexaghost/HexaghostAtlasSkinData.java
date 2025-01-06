@@ -1,9 +1,9 @@
 package skindex.modcompat.downfall.skins.player.hexaghost;
 
 import com.google.gson.annotations.SerializedName;
-import skindex.skins.player.PlayerAtlasSkinData;
+import skindex.skins.player.PlayerAtlasSkin;
 
-public class HexaghostAtlasSkinData extends PlayerAtlasSkinData {
+public class HexaghostAtlasSkinData extends PlayerAtlasSkin.PlayerAtlasSkinData {
     /** Variables */
     @SerializedName("plasma1Url")
     public String plasma1Url;

@@ -2,7 +2,6 @@ package skindex.skins.player.silent;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class SilentBlueSkin extends PlayerAtlasSkin {

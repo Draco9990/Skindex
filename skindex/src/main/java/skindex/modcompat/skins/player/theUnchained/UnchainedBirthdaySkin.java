@@ -1,10 +1,7 @@
 package skindex.modcompat.skins.player.theUnchained;
 
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
-import skindex.unlockmethods.AchievementUnlockMethod;
 import skindex.unlockmethods.FreeUnlockMethod;
-import theUnchainedMod.TheUnchainedMod;
 import theUnchainedMod.characters.TheUnchained;
 
 public class UnchainedBirthdaySkin extends PlayerAtlasSkin {

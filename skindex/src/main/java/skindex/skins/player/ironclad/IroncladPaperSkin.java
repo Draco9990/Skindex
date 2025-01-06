@@ -1,10 +1,7 @@
 package skindex.skins.player.ironclad;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.skins.player.PlayerImageSkin;
-import skindex.skins.player.PlayerImageSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class IroncladPaperSkin extends PlayerImageSkin {

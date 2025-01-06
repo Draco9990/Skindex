@@ -1,7 +1,6 @@
 package skindex.trackers;
 
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import dLib.files.JsonDataFile;
 import skindex.Skindex;
 import skindex.bundles.Bundle;
@@ -11,16 +10,16 @@ import skindex.skins.player.PlayerSkin;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SkindexDefaultTracker extends JsonDataFile implements SkindexTracker{
+public class SkindexUnlockTracker extends JsonDataFile implements SkindexTracker{
     /** Singleton(ish) */
-    public static SkindexDefaultTracker[] instances = new SkindexDefaultTracker[3];
-    public static SkindexDefaultTracker get(int saveSlot){
+    public static SkindexUnlockTracker[] instances = new SkindexUnlockTracker[3];
+    public static SkindexUnlockTracker get(int saveSlot){
         if(instances[saveSlot] == null){
             instances[saveSlot] = load(saveSlot);
         }
         return instances[saveSlot];
     }
-    public static SkindexDefaultTracker get(){
+    public static SkindexUnlockTracker get(){
         return get(CardCrawlGame.saveSlot);
     }
 
@@ -31,23 +30,23 @@ public class SkindexDefaultTracker extends JsonDataFile implements SkindexTracke
     public HashMap<String, ArrayList<String>> unlockedPlayerSkins = new HashMap<>();
 
     /** Constructors */
-    public SkindexDefaultTracker(int saveSlot) {
+    public SkindexUnlockTracker(int saveSlot) {
         super(FileLocations.trackerFiles[saveSlot]);
     }
-    public SkindexDefaultTracker(){
+    public SkindexUnlockTracker(){
         this(CardCrawlGame.saveSlot);
     }
 
     /** Load */
-    public static SkindexDefaultTracker load(int saveSlot){
-        SkindexDefaultTracker tracker = (SkindexDefaultTracker) load(FileLocations.trackerFiles[saveSlot], SkindexDefaultTracker.class);
+    public static SkindexUnlockTracker load(int saveSlot){
+        SkindexUnlockTracker tracker = (SkindexUnlockTracker) load(FileLocations.trackerFiles[saveSlot], SkindexUnlockTracker.class);
         if(tracker == null){
-            tracker = new SkindexDefaultTracker(saveSlot);
+            tracker = new SkindexUnlockTracker(saveSlot);
         }
 
         return tracker;
     }
-    public static SkindexDefaultTracker load(){
+    public static SkindexUnlockTracker load(){
         return load(CardCrawlGame.saveSlot);
     }
 

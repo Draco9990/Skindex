@@ -9,6 +9,7 @@ import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonJson;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
+import com.google.gson.annotations.SerializedName;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.modcompat.ModManager;
@@ -24,6 +25,7 @@ import skindex.modcompat.downfall.entities.player.SkindexGremlinsAtlasEntity;
 import skindex.patches.PlayerLoadAnimationPatcher;
 import skindex.skins.player.PlayerSkin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
@@ -179,6 +181,31 @@ public class GremlinsAtlasSkin extends PlayerSkin {
             atlasUrl = skinData.atlasUrl;
             skeletonUrl = skinData.skeletonUrl;
             resourceDirectory = skinData.resourceDirectoryUrl;
+        }
+    }
+
+    public static class GremlinsAtlasSkinData extends PlayerSkinData {
+        /** Variables */
+        @SerializedName("gremlins")
+        public ArrayList<GremlinAtlasSkinData> gremlins = new ArrayList<>();
+
+        /** Generate player skin */
+        @Override
+        public PlayerSkin createPlayerSkin() {
+            return new GremlinsAtlasSkin(this);
+        }
+
+        public static class GremlinAtlasSkinData{
+            /** Variables */
+            @SerializedName("gremlin")
+            public String gremlinId;
+
+            @SerializedName("atlasUrl")
+            public String atlasUrl;
+            @SerializedName("skeletonUrl")
+            public String skeletonUrl;
+            @SerializedName("resourceDirectoryUrl")
+            public String resourceDirectoryUrl;
         }
     }
 }

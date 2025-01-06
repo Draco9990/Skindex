@@ -4,20 +4,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
+import com.google.gson.annotations.SerializedName;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import dLib.modcompat.ModManager;
 import dLib.util.Reflection;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
 import skindex.SkindexGame;
-import skindex.entities.player.SkindexPlayerEntity;
 import skindex.entities.player.SkindexPlayerImageEntity;
-import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneAtlasSkin;
-import skulmod.character.LittleBone;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 public class PlayerImageSkin extends PlayerSkin{
@@ -100,5 +98,13 @@ public class PlayerImageSkin extends PlayerSkin{
                 return lines;
             }
         }
+    }
+
+    public static class PlayerImageSkinData extends PlayerSkinData implements Serializable {
+        static final long serialVersionUID = 1L;
+
+        /** Variables */
+        @SerializedName("imageUrl")
+        public String imageUrl;
     }
 }

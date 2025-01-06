@@ -4,9 +4,6 @@ import duelistmod.DuelistMod;
 import duelistmod.patches.TheDuelistEnum;
 import skindex.entities.player.SkindexPlayerEntity;
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
-import skindex.skins.player.PlayerSpriterSkin;
-import skindex.skins.player.PlayerSpriterSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class DuelistAnimatedYugiSkin extends PlayerAtlasSkin {

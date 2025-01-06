@@ -2,7 +2,6 @@ package skindex.skins.player.defect;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import skindex.skins.player.PlayerImageSkin;
-import skindex.skins.player.PlayerImageSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class DefectPaperSkin extends PlayerImageSkin {

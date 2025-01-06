@@ -2,7 +2,7 @@ package skindex.modcompat.skulHeroSlayer.skins.player;
 
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
-import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.google.gson.annotations.SerializedName;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.modcompat.ModManager;
 import dLib.util.Reflection;
@@ -91,6 +91,22 @@ public class LittleBoneAtlasSkin extends PlayerSkin {
                     return lines;
                 }
             }
+        }
+    }
+
+    public static class LittleBoneAtlasSkinData extends PlayerSkinData {
+        /** Variables */
+        @SerializedName("atlasUrl")
+        public String atlasDirectoryUrl;
+        @SerializedName("skeletonUrl")
+        public String skeletonDirectoryUrl;
+        @SerializedName("defaultAnimName")
+        public String defaultAnimName = "IDLE";
+
+        /** Create player skin */
+        @Override
+        public PlayerSkin createPlayerSkin() {
+            return new LittleBoneAtlasSkin(this);
         }
     }
 }

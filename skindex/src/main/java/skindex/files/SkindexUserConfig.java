@@ -3,14 +3,10 @@ package skindex.files;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import dLib.files.JsonDataFile;
-import skindex.Skindex;
-import skindex.bundles.Bundle;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.player.PlayerSkin;
-import skindex.trackers.SkindexDefaultTracker;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SkindexUserConfig extends JsonDataFile implements Serializable {

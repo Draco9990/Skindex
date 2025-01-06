@@ -2,21 +2,14 @@ package skindex.skins.player.ironclad;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.dungeons.TheEnding;
-import com.megacrit.cardcrawl.rooms.TrueVictoryRoom;
 import com.megacrit.cardcrawl.screens.GameOverScreen;
-import com.megacrit.cardcrawl.screens.VictoryScreen;
 import dLib.util.Reflection;
-import skindex.registering.SkindexRegistry;
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
-import skindex.skins.player.silent.SilentCultistSkin;
 import skindex.unlockmethods.AchievementUnlockMethod;
-import skindex.unlockmethods.FreeUnlockMethod;
 
 public class IroncladAstrologerSkin extends PlayerAtlasSkin {
     private static int SCORE_TRESHOLD = 3500;

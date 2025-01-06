@@ -2,7 +2,6 @@ package skindex.modcompat.downfall.skins.player.hermit;
 
 import hermit.characters.hermit;
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class HermitBaseSkin extends PlayerAtlasSkin {

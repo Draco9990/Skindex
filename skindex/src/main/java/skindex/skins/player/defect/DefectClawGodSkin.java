@@ -1,19 +1,14 @@
 package skindex.skins.player.defect;
 
-import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.megacrit.cardcrawl.actions.defect.GashAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.blue.Claw;
-import com.megacrit.cardcrawl.cards.blue.Melter;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.monsters.city.SphericGuardian;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.unlockmethods.AchievementUnlockMethod;
-import skindex.unlockmethods.FreeUnlockMethod;
 
 import java.util.Iterator;
 

@@ -8,10 +8,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.dungeons.TheEnding;
 import com.megacrit.cardcrawl.screens.GameOverScreen;
 import dLib.util.Reflection;
-import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.unlockmethods.AchievementUnlockMethod;
-import skindex.unlockmethods.FreeUnlockMethod;
 
 public class WatcherAstrologerSkin extends WatcherAtlasSkin {
     private static int SCORE_TRESHOLD = 3500;

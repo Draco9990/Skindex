@@ -1,7 +1,5 @@
 package skindex.modcompat.skulHeroSlayer.skins.player;
 
-import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 import skulmod.character.LittleBone;
 

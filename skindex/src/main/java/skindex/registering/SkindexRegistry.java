@@ -20,7 +20,6 @@ import java.util.List;
 
 public class SkindexRegistry {
     /** Registrant Variables */
-    private static ArrayList<SkindexTrackerRegistrant> trackerRegistrants = new ArrayList<>();
     private static ArrayList<SkindexUnlockMethodRegistrant> unlockMethodRegistrants = new ArrayList<>();
     private static ArrayList<SkindexBundleRegistrant> bundleRegistrants = new ArrayList<>();
 
@@ -48,7 +47,6 @@ public class SkindexRegistry {
 
     /** Getters and Setters */
     public static void subscribe(ISkindexSubscriber skindexRegistrant){
-        if(skindexRegistrant instanceof  SkindexTrackerRegistrant) trackerRegistrants.add((SkindexTrackerRegistrant) skindexRegistrant);
         if(skindexRegistrant instanceof  SkindexUnlockMethodRegistrant) unlockMethodRegistrants.add((SkindexUnlockMethodRegistrant) skindexRegistrant);
         if(skindexRegistrant instanceof  SkindexBundleRegistrant) bundleRegistrants.add((SkindexBundleRegistrant) skindexRegistrant);
 
@@ -61,16 +59,6 @@ public class SkindexRegistry {
         if(skindexRegistrant instanceof  SkindexPostRegistryFinishCallback) postRegistryFinishCallbacks.add((SkindexPostRegistryFinishCallback) skindexRegistrant);
     }
     public static void processRegistrants(){
-        for(SkindexTrackerRegistrant skindexRegistrant : trackerRegistrants){
-            for(int i = 0; i < 3; i++){
-                List<SkindexTracker> trackersToRegister = skindexRegistrant.getTrackersToRegister(i);
-                if(trackersToRegister == null) continue;
-
-                for(SkindexTracker item : trackersToRegister){
-                    registerTracker(i, item);
-                }
-            }
-        }
         for(SkindexUnlockMethodRegistrant skindexRegistrant : unlockMethodRegistrants){
             List<UnlockMethod> unlockMethodsToRegister = skindexRegistrant.getUnlockMethodsToRegister();
             if(unlockMethodsToRegister == null) continue;

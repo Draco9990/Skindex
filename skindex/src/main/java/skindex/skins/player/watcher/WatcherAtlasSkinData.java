@@ -1,11 +1,10 @@
 package skindex.skins.player.watcher;
 
 import com.google.gson.annotations.SerializedName;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import skindex.skins.player.PlayerAtlasSkinData;
+import skindex.skins.player.PlayerAtlasSkin;
 import skindex.skins.player.PlayerSkin;
 
-public class WatcherAtlasSkinData extends PlayerAtlasSkinData {
+public class WatcherAtlasSkinData extends PlayerAtlasSkin.PlayerAtlasSkinData {
     /** Variables */
     @SerializedName("eyeAtlasUrl")
     public String eyeAtlasUrl;

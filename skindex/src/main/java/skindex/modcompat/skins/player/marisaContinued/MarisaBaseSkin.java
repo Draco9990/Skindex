@@ -4,7 +4,6 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import dLib.util.Reflection;
 import marisa.patches.ThModClassEnum;
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class MarisaBaseSkin extends PlayerAtlasSkin {

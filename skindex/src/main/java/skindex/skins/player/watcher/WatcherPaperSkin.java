@@ -2,7 +2,6 @@ package skindex.skins.player.watcher;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import skindex.skins.player.PlayerImageSkin;
-import skindex.skins.player.PlayerImageSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class WatcherPaperSkin extends PlayerImageSkin {

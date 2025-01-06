@@ -2,7 +2,6 @@ package skindex.modcompat.duelistmod.skins.player;
 
 import duelistmod.patches.TheDuelistEnum;
 import skindex.skins.player.PlayerSpriterSkin;
-import skindex.skins.player.PlayerSpriterSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class DuelistBaseSkin extends PlayerSpriterSkin {

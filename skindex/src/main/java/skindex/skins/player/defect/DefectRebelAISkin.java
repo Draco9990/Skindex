@@ -10,9 +10,7 @@ import com.megacrit.cardcrawl.monsters.city.SphericGuardian;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.orb.rebelai.*;
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.unlockmethods.AchievementUnlockMethod;
-import skindex.unlockmethods.FreeUnlockMethod;
 
 public class DefectRebelAISkin extends PlayerAtlasSkin {
     /** Constructors */

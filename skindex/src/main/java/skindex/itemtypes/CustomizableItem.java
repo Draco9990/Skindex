@@ -2,14 +2,16 @@ package skindex.itemtypes;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.google.gson.annotations.SerializedName;
 import dLib.util.TextureManager;
 import skindex.util.SkindexLogger;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.UUID;
 
 public abstract class CustomizableItem {
     //region Variables
@@ -119,4 +121,19 @@ public abstract class CustomizableItem {
     }
     //endregion
     //endregion Class Methods
+
+    public static class CustomizableItemData implements Serializable {
+        static final long serialVersionUID = 1L;
+
+        @SerializedName("ID")
+        public String id = "itemSkin_" + UUID.randomUUID();
+        @SerializedName("name")
+        public String name = "";
+
+        @SerializedName("icon")
+        public String icon = "skindexResources/images/ui/preview/defaultPreviewIcon.png";
+
+        @SerializedName("credits")
+        public ArrayList<String> credits = new ArrayList<>();
+    }
 }

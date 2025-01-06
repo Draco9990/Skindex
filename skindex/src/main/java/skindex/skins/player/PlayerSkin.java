@@ -3,6 +3,7 @@ package skindex.skins.player;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
+import com.google.gson.annotations.SerializedName;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -17,6 +18,7 @@ import skindex.skins.orb.OrbSkin;
 import skindex.skins.stances.StanceSkin;
 import skindex.util.SkindexLogger;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -200,5 +202,42 @@ public class PlayerSkin extends OwnableItem {
 
         return item.getId().equals(id) &&
                 item.playerClass.equals(playerClass);
+    }
+
+    public static class PlayerSkinData extends OwnableItemData implements Serializable {
+        static final long serialVersionUID = 1L;
+
+        /** Resources */
+        @SerializedName("playerClass")
+        public String playerClass = AbstractPlayer.PlayerClass.IRONCLAD.name();
+
+        @SerializedName("resourceDirectoryUrl")
+        public String resourceDirectoryUrl;
+        @SerializedName("scale")
+        public Float scale = 1.f;
+
+        /** Shoulder & Death */
+        @SerializedName("shoulderImg")
+        public String shoulderIMG;
+        @SerializedName("shoulder2Img")
+        public String shoulder2IMG;
+        @SerializedName("corpseIms")
+        public String corpseIMG;
+
+        /** Card stuff */
+        @SerializedName("cardSkins")
+        public ArrayList<String> cardSkins = new ArrayList<>();
+        @SerializedName("cardTrailColors")
+        public ArrayList<String> cardTrailColors = new ArrayList<>();
+
+        @SerializedName("orbSkins")
+        public ArrayList<String> orbSkins = new ArrayList<>();
+        @SerializedName("stanceSkins")
+        public ArrayList<String> stanceSkins = new ArrayList<>();
+
+        /** Generate Player Skin */
+        public PlayerSkin createPlayerSkin(){
+            return new PlayerSkin(this);
+        }
     }
 }

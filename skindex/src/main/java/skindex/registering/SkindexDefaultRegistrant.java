@@ -10,8 +10,6 @@ import skindex.skins.player.silent.*;
 import skindex.skins.player.watcher.*;
 import skindex.skins.stance.WatcherMusicStanceSkinSet;
 import skindex.skins.stances.StanceSkin;
-import skindex.trackers.SkindexDefaultTracker;
-import skindex.trackers.SkindexTracker;
 import skindex.unlockmethods.AchievementUnlockMethod;
 import skindex.unlockmethods.FreeUnlockMethod;
 import skindex.unlockmethods.NonUnlockableUnlockMethod;
@@ -19,18 +17,9 @@ import skindex.unlockmethods.UnlockMethod;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class SkindexDefaultRegistrant implements SkindexTrackerRegistrant, SkindexUnlockMethodRegistrant, SkindexPlayerSkinRegistrant, SkindexOrbSkinRegistrant, SkindexStanceSkinRegistrant {
-    /** Registrants */
-    @Override
-    public List<SkindexTracker> getTrackersToRegister(int saveSlot) {
-        return Arrays.asList(
-                SkindexDefaultTracker.get(saveSlot)
-        );
-    }
-
+public class SkindexDefaultRegistrant implements SkindexUnlockMethodRegistrant, SkindexPlayerSkinRegistrant, SkindexOrbSkinRegistrant, SkindexStanceSkinRegistrant {
     @Override
     public List<UnlockMethod> getUnlockMethodsToRegister() {
         return Arrays.asList(

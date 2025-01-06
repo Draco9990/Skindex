@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class PlayerGifSkinData extends PlayerImageSkinData implements Serializable {
+public class PlayerGifSkinData extends PlayerImageSkin.PlayerImageSkinData implements Serializable {
     static final long serialVersionUID = 1L;
 
     /** Variables */

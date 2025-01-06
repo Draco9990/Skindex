@@ -2,23 +2,17 @@ package skindex.skins.player;
 
 import basemod.animations.SpriterAnimation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.evacipated.cardcrawl.modthespire.Loader;
-import com.evacipated.cardcrawl.modthespire.ModInfo;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
-import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
+import com.google.gson.annotations.SerializedName;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.util.Reflection;
 import javassist.*;
-import org.clapper.util.classutil.ClassFinder;
 import skindex.SkindexGame;
 import skindex.util.SkindexLogger;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.util.Objects;
 
 public class PlayerSpriterSkin extends PlayerSkin{
@@ -83,6 +77,18 @@ public class PlayerSpriterSkin extends PlayerSkin{
 
                 System.out.println("Skindex => Finished dynamically patching Spriter render.");
             }
+        }
+    }
+
+    public static class PlayerSpriterSkinData extends PlayerSkinData {
+        /** Variables */
+        @SerializedName("scmlUrl")
+        public String scmlUrl;
+
+        /** Create Player Skin */
+        @Override
+        public PlayerSkin createPlayerSkin() {
+            return new PlayerSpriterSkin(this);
         }
     }
 }

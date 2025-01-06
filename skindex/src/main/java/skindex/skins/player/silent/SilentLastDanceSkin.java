@@ -1,21 +1,11 @@
 package skindex.skins.player.silent;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.colorless.RitualDagger;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.monsters.exordium.Cultist;
-import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.powers.RitualPower;
 import com.megacrit.cardcrawl.powers.ThornsPower;
-import skindex.registering.SkindexRegistry;
 import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkinData;
 import skindex.unlockmethods.AchievementUnlockMethod;
-
-import java.util.ArrayList;
 
 public class SilentLastDanceSkin extends PlayerAtlasSkin {
     public static final int THORN_REQUIREMENT = 15;

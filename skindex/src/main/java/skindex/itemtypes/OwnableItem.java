@@ -1,14 +1,15 @@
 package skindex.itemtypes;
 
+import com.google.gson.annotations.SerializedName;
 import skindex.SkindexDev;
 import skindex.bundles.Bundle;
 import skindex.registering.SkindexRegistry;
-import skindex.trackers.SkindexDefaultTracker;
+import skindex.trackers.SkindexUnlockTracker;
 import skindex.trackers.SkindexTracker;
 import skindex.unlockmethods.FreeUnlockMethod;
 import skindex.unlockmethods.UnlockMethod;
-import skindex.util.SkindexLogger;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -96,11 +97,24 @@ public abstract class OwnableItem extends CustomizableItem{
 
     //region Tracker
     public SkindexTracker getTracker(){
-        if(trackerId == null) return SkindexRegistry.getTrackerById(SkindexDefaultTracker.get().getId());
+        if(trackerId == null) return SkindexRegistry.getTrackerById(SkindexUnlockTracker.get().getId());
 
         return SkindexRegistry.getTrackerById(trackerId);
     }
     //endregion
 
     //endregion
+
+    public static class OwnableItemData extends CustomizableItemData implements Serializable {
+        static final long serialVersionUID = 1L;
+
+        @SerializedName("unlockDescription")
+        public String unlockDescription;
+
+        @SerializedName("unlockMethod")
+        public String unlockMethod = FreeUnlockMethod.methodId;
+
+        @SerializedName("tracker")
+        public String tracker = SkindexUnlockTracker.get().getId();
+    }
 }
