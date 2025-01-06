@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class OwnableItem extends CustomizableItem{
+public abstract class OwnableItem<ItemType extends OwnableItem> extends CustomizableItem{
     //region Variables
+    public Class<ItemType> itemTypeClass;
+
     public UnlockMethod unlockMethod;
 
     public ArrayList<Bundle> bundles;
@@ -25,6 +27,8 @@ public abstract class OwnableItem extends CustomizableItem{
     //region Constructors
     public OwnableItem(OwnableItemData itemData){
         super(itemData);
+
+        itemTypeClass = (Class<ItemType>) this.getClass().getGenericSuperclass();
 
         unlockDescription = itemData.unlockDescription;
 
@@ -43,8 +47,14 @@ public abstract class OwnableItem extends CustomizableItem{
         return hasUnlocked();
     }
 
-    public abstract boolean unlock();
+    public boolean unlock(){
+        return SkindexUnlockTracker.get().unlockItem(this);
+    }
     public boolean hasUnlocked(){
+        if(SkindexUnlockTracker.get().hasItem(this)){
+            return true;
+        }
+
         for(Bundle b : bundles){
             if(SkindexUnlockTracker.get().hasBundle(b)){
                 return true;

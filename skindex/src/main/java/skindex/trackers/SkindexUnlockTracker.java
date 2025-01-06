@@ -5,6 +5,7 @@ import dLib.files.JsonDataFile;
 import skindex.Skindex;
 import skindex.bundles.Bundle;
 import skindex.files.FileLocations;
+import skindex.itemtypes.OwnableItem;
 import skindex.skins.player.PlayerSkin;
 
 import java.util.ArrayList;
@@ -23,13 +24,11 @@ public class SkindexUnlockTracker extends JsonDataFile{
         return get(CardCrawlGame.saveSlot);
     }
 
-    private transient boolean undefined = false;
-
     //endregion
 
     //region Variables
+    public HashMap<Class<? extends OwnableItem>, ArrayList<String>> unlocks = new HashMap<>();
     public ArrayList<String> unlockedBundles = new ArrayList<>();
-    public HashMap<String, ArrayList<String>> unlockedPlayerSkins = new HashMap<>();
     //endregion
 
     //region Constructors
@@ -40,6 +39,8 @@ public class SkindexUnlockTracker extends JsonDataFile{
         this(CardCrawlGame.saveSlot);
     }
     //endregion
+
+    //region Class Methods
 
     //region Save/Load
     public static SkindexUnlockTracker load(int saveSlot){
@@ -56,40 +57,61 @@ public class SkindexUnlockTracker extends JsonDataFile{
 
     //endregion
 
-    public boolean hasSkin(PlayerSkin s) {
-        if(s == null) return false;
-        if(!unlockedPlayerSkins.containsKey(s.playerClass.name())) return false;
+    //region Item Unlocking
 
-        return unlockedPlayerSkins.get(s.playerClass.name()).contains(s.getId());
+    public <T extends OwnableItem> boolean hasItem(T item){
+        return hasItem(item.itemTypeClass, item.getId());
     }
-    public boolean unlockSkin(PlayerSkin s) {
-        if(s == null) return false;
-        if(hasSkin(s)) return false;
+    public boolean hasItem(Class<? extends OwnableItem> itemType, String id){
+        ensureItemTypeExists(itemType);
 
-        if(!unlockedPlayerSkins.containsKey(s.playerClass.name())){
-            unlockedPlayerSkins.put(s.playerClass.name(), new ArrayList<>());
-        }
+        return unlocks.get(itemType).contains(id);
+    }
 
-        unlockedPlayerSkins.get(s.playerClass.name()).add(s.getId());
+    public boolean unlockItem(OwnableItem item){
+        return unlockItem(item.itemTypeClass, item.getId());
+    }
+    public boolean unlockItem(Class<? extends OwnableItem> itemType, String id){
+        ensureItemTypeExists(itemType);
+
+        if(hasItem(itemType, id)) return false;
+
+        unlocks.get(itemType).add(id);
         save();
         return true;
     }
+
+    private void ensureItemTypeExists(Class<? extends OwnableItem> itemType){
+        if(!unlocks.containsKey(itemType)){
+            unlocks.put(itemType, new ArrayList<>());
+        }
+    }
+
+    //endregion
+
+    //region Bundle Unlocking
 
     public boolean hasBundle(Bundle b) {
         if(b == null) return false;
-
-        return unlockedBundles.contains(b.id);
+        return hasBundle(b.id);
     }
+    public boolean hasBundle(String bundleId) {
+        return unlockedBundles.contains(bundleId);
+    }
+
     public boolean unlockBundle(Bundle b) {
         if(b == null) return false;
-        if(hasBundle(b)) return false;
+        return unlockBundle(b.id);
+    }
+    public boolean unlockBundle(String bundleId) {
+        if(hasBundle(bundleId)) return false;
 
-        unlockedBundles.add(b.id);
+        unlockedBundles.add(bundleId);
         save();
         return true;
     }
 
-    public String getId() {
-        return Skindex.getModID();
-    }
+    //endregion
+
+    //endregion
 }

@@ -125,17 +125,6 @@ public class PlayerSkin extends OwnableItem {
     }
 
     /** Methods */
-    @Override
-    public boolean unlock() {
-        return SkindexUnlockTracker.get().unlockSkin(this);
-    }
-    @Override
-    public boolean hasUnlocked() {
-        if(super.hasUnlocked()) return true;
-
-        return SkindexUnlockTracker.get().hasSkin(this);
-    }
-
     public static void unlockSkin(String skinId, AbstractPlayer.PlayerClass playerClass){
         PlayerSkin skin = SkindexRegistry.getPlayerSkinByClassAndId(playerClass, skinId);
         if(skin != null){
