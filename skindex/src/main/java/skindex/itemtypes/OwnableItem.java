@@ -5,7 +5,6 @@ import skindex.SkindexDev;
 import skindex.bundles.Bundle;
 import skindex.registering.SkindexRegistry;
 import skindex.trackers.SkindexUnlockTracker;
-import skindex.trackers.SkindexTracker;
 import skindex.unlockmethods.FreeUnlockMethod;
 import skindex.unlockmethods.UnlockMethod;
 
@@ -21,8 +20,6 @@ public abstract class OwnableItem extends CustomizableItem{
     public ArrayList<Bundle> bundles;
 
     private String unlockDescription;
-
-    protected String trackerId;
     //endregion
 
     //region Constructors
@@ -33,8 +30,6 @@ public abstract class OwnableItem extends CustomizableItem{
 
         unlockMethod = SkindexRegistry.getUnlockMethodById(itemData.unlockMethod);
         bundles = new ArrayList<>();
-
-        trackerId = itemData.tracker;
     }
     //endregion
 
@@ -50,11 +45,9 @@ public abstract class OwnableItem extends CustomizableItem{
 
     public abstract boolean unlock();
     public boolean hasUnlocked(){
-        if(getTracker() != null){
-            for(Bundle b : bundles){
-                if(getTracker().hasBundle(b)){
-                    return true;
-                }
+        for(Bundle b : bundles){
+            if(SkindexUnlockTracker.get().hasBundle(b)){
+                return true;
             }
         }
 
@@ -95,14 +88,6 @@ public abstract class OwnableItem extends CustomizableItem{
     }
     //endregion
 
-    //region Tracker
-    public SkindexTracker getTracker(){
-        if(trackerId == null) return SkindexRegistry.getTrackerById(SkindexUnlockTracker.get().getId());
-
-        return SkindexRegistry.getTrackerById(trackerId);
-    }
-    //endregion
-
     //endregion
 
     public static class OwnableItemData extends CustomizableItemData implements Serializable {
@@ -113,8 +98,5 @@ public abstract class OwnableItem extends CustomizableItem{
 
         @SerializedName("unlockMethod")
         public String unlockMethod = FreeUnlockMethod.methodId;
-
-        @SerializedName("tracker")
-        public String tracker = SkindexUnlockTracker.get().getId();
     }
 }

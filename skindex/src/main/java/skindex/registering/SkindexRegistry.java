@@ -1,7 +1,6 @@
 package skindex.registering;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.random.Random;
 import skindex.bundles.Bundle;
 import skindex.callbacks.SkindexPostRegistryFinishCallback;
@@ -9,7 +8,6 @@ import skindex.skins.cards.CardSkin;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.player.PlayerSkin;
 import skindex.skins.stances.StanceSkin;
-import skindex.trackers.SkindexTracker;
 import skindex.unlockmethods.NonUnlockableUnlockMethod;
 import skindex.unlockmethods.UnlockMethod;
 
@@ -32,8 +30,6 @@ public class SkindexRegistry {
     private static ArrayList<SkindexPostRegistryFinishCallback> postRegistryFinishCallbacks = new ArrayList<>();
 
     /** Vairables */
-    private static LinkedHashMap<Integer, LinkedHashMap<String, SkindexTracker>> trackers = new LinkedHashMap<Integer, LinkedHashMap<String, SkindexTracker>>();
-
     private static LinkedHashMap<String, UnlockMethod> unlockMethods = new LinkedHashMap<>();
     private static LinkedHashMap<String, Bundle> bundles = new LinkedHashMap<>();
 
@@ -132,25 +128,6 @@ public class SkindexRegistry {
     public static UnlockMethod getUnlockMethodById(String id){
         if(id == null) return null;
         return unlockMethods.get(id);
-    }
-
-    private static void registerTracker(int saveSlot, SkindexTracker tracker){
-        if(tracker == null) return;
-
-        if(!trackers.containsKey(saveSlot)){
-            trackers.put(saveSlot, new LinkedHashMap<>());
-        }
-
-        trackers.get(saveSlot).put(tracker.getId(), tracker);
-    }
-    public static SkindexTracker getTrackerById(String id){
-        if(id == null) return null;
-
-        if(!trackers.containsKey(CardCrawlGame.saveSlot)){
-            return null;
-        }
-
-        return trackers.get(CardCrawlGame.saveSlot).get(id);
     }
 
     private static void registerBundle(Bundle bundle){

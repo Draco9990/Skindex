@@ -10,8 +10,8 @@ import skindex.skins.player.PlayerSkin;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SkindexUnlockTracker extends JsonDataFile implements SkindexTracker{
-    /** Singleton(ish) */
+public class SkindexUnlockTracker extends JsonDataFile{
+    //region Singleton(ish)
     public static SkindexUnlockTracker[] instances = new SkindexUnlockTracker[3];
     public static SkindexUnlockTracker get(int saveSlot){
         if(instances[saveSlot] == null){
@@ -25,19 +25,23 @@ public class SkindexUnlockTracker extends JsonDataFile implements SkindexTracker
 
     private transient boolean undefined = false;
 
-    /** Variables */
+    //endregion
+
+    //region Variables
     public ArrayList<String> unlockedBundles = new ArrayList<>();
     public HashMap<String, ArrayList<String>> unlockedPlayerSkins = new HashMap<>();
+    //endregion
 
-    /** Constructors */
+    //region Constructors
     public SkindexUnlockTracker(int saveSlot) {
         super(FileLocations.trackerFiles[saveSlot]);
     }
     public SkindexUnlockTracker(){
         this(CardCrawlGame.saveSlot);
     }
+    //endregion
 
-    /** Load */
+    //region Save/Load
     public static SkindexUnlockTracker load(int saveSlot){
         SkindexUnlockTracker tracker = (SkindexUnlockTracker) load(FileLocations.trackerFiles[saveSlot], SkindexUnlockTracker.class);
         if(tracker == null){
@@ -50,15 +54,14 @@ public class SkindexUnlockTracker extends JsonDataFile implements SkindexTracker
         return load(CardCrawlGame.saveSlot);
     }
 
-    /** Skins */
-    @Override
+    //endregion
+
     public boolean hasSkin(PlayerSkin s) {
         if(s == null) return false;
         if(!unlockedPlayerSkins.containsKey(s.playerClass.name())) return false;
 
         return unlockedPlayerSkins.get(s.playerClass.name()).contains(s.getId());
     }
-    @Override
     public boolean unlockSkin(PlayerSkin s) {
         if(s == null) return false;
         if(hasSkin(s)) return false;
@@ -72,14 +75,11 @@ public class SkindexUnlockTracker extends JsonDataFile implements SkindexTracker
         return true;
     }
 
-    /** Bundles */
-    @Override
     public boolean hasBundle(Bundle b) {
         if(b == null) return false;
 
         return unlockedBundles.contains(b.id);
     }
-    @Override
     public boolean unlockBundle(Bundle b) {
         if(b == null) return false;
         if(hasBundle(b)) return false;
@@ -89,8 +89,6 @@ public class SkindexUnlockTracker extends JsonDataFile implements SkindexTracker
         return true;
     }
 
-    /** Misc */
-    @Override
     public String getId() {
         return Skindex.getModID();
     }

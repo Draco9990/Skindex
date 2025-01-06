@@ -16,6 +16,7 @@ import skindex.effects.AbstractCreatureEffect;
 import skindex.entities.player.SkindexPlayerEntity;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.stances.StanceSkin;
+import skindex.trackers.SkindexUnlockTracker;
 import skindex.util.SkindexLogger;
 
 import java.io.Serializable;
@@ -126,21 +127,13 @@ public class PlayerSkin extends OwnableItem {
     /** Methods */
     @Override
     public boolean unlock() {
-        if(getTracker() != null){
-            return getTracker().unlockSkin(this);
-        }
-
-        return false;
+        return SkindexUnlockTracker.get().unlockSkin(this);
     }
     @Override
     public boolean hasUnlocked() {
         if(super.hasUnlocked()) return true;
 
-        if(getTracker() != null){
-            return getTracker().hasSkin(this);
-        }
-
-        return false;
+        return SkindexUnlockTracker.get().hasSkin(this);
     }
 
     public static void unlockSkin(String skinId, AbstractPlayer.PlayerClass playerClass){
