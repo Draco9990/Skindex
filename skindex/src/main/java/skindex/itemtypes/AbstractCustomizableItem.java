@@ -13,8 +13,10 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
 
-public abstract class AbstractCustomizableItem {
+public abstract class AbstractCustomizableItem<ItemType extends AbstractCustomizableItem> {
     //region Variables
+    public Class<ItemType> itemTypeClass;
+
     protected String id;
     protected String name;
 
@@ -35,6 +37,8 @@ public abstract class AbstractCustomizableItem {
         credits = itemData.credits;
 
         dataInitializer = itemData;
+
+        itemTypeClass = (Class<ItemType>) this.getClass().getGenericSuperclass();
     }
     //endregion Constructors
 

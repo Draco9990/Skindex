@@ -25,7 +25,7 @@ import skindex.skins.player.AbstractPlayerSkin;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class StanceSkin extends AbstractCustomizableItem {
+public class StanceSkin extends AbstractCustomizableItem<StanceSkin> {
     //region Variables
     public String stanceId;
 

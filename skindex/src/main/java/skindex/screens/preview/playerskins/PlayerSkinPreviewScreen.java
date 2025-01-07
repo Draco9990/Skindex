@@ -80,7 +80,7 @@ public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<AbstractP
     @Override
     protected void onSetItemFavourite(AbstractPlayerSkin item) {
         super.onSetItemFavourite(item);
-        SkindexUserConfig.get().setFavouritedSkin(playerClass, item);
+        SkindexUserConfig.get().setFavouritedSkin(item);
     }
 
     //endregion Class Methods

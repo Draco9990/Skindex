@@ -45,6 +45,8 @@ public abstract class AbstractPlayerSkin extends AbstractOwnableItem<AbstractPla
 
     public float scale = 1;
 
+    public boolean isDefault = false;
+
     /** Constructors */
     public AbstractPlayerSkin(PlayerSkinData skinData){
         super(skinData);
@@ -74,6 +76,8 @@ public abstract class AbstractPlayerSkin extends AbstractOwnableItem<AbstractPla
         }
 
         scale = skinData.scale;
+
+        isDefault = skinData.isDefault;
     }
 
     /** Getters and Setters */
@@ -216,5 +220,7 @@ public abstract class AbstractPlayerSkin extends AbstractOwnableItem<AbstractPla
         @SerializedName("stanceSkins")
         public ArrayList<String> stanceSkins = new ArrayList<>();
 
+        @SerializedName("isDefault")
+        public boolean isDefault = false;
     }
 }

@@ -66,7 +66,7 @@ public class SkindexGame {
         }
 
         for(String cardSkinId : currentSkin.cardSkins){
-            CardSkin cardSkin = SkindexRegistry.getCardSkin(cardSkinId);
+            CardSkin cardSkin = SkindexRegistry.getCardSkinById(cardSkinId, false);
             if(cardSkin == null) continue;
 
             if(Objects.equals(cardSkin.cardType, cardType) && Objects.equals(cardSkin.cardColor, cardColor)){

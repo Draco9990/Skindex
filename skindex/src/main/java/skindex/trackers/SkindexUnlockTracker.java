@@ -1,16 +1,19 @@
 package skindex.trackers;
 
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import dLib.files.JsonDataFile;
 import skindex.bundles.Bundle;
 import skindex.files.FileLocations;
 import skindex.itemtypes.AbstractOwnableItem;
+import skindex.skins.player.AbstractPlayerSkin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SkindexUnlockTracker extends JsonDataFile{
     //region Singleton(ish)
+
     public static SkindexUnlockTracker[] instances = new SkindexUnlockTracker[3];
     public static SkindexUnlockTracker get(int saveSlot){
         if(instances[saveSlot] == null){
@@ -26,7 +29,9 @@ public class SkindexUnlockTracker extends JsonDataFile{
 
     //region Variables
     public HashMap<String, ArrayList<String>> unlocks = new HashMap<>();
+
     public ArrayList<String> unlockedBundles = new ArrayList<>();
+    public HashMap<String, ArrayList<String>> unlockedSkins = new HashMap<>();
     //endregion
 
     //region Constructors
@@ -105,6 +110,34 @@ public class SkindexUnlockTracker extends JsonDataFile{
         if(hasBundle(bundleId)) return false;
 
         unlockedBundles.add(bundleId);
+        save();
+        return true;
+    }
+
+    //endregion
+
+    //region Skin Unlocking
+
+    public boolean hasSkin(AbstractPlayerSkin skin){
+        return hasSkin(skin.playerClass, skin.getId());
+    }
+    public boolean hasSkin(AbstractPlayer.PlayerClass playerClass, String skinId){
+        return hasSkin(playerClass.name(), skinId);
+    }
+    public boolean hasSkin(String playerClass, String skinId){
+        return unlockedSkins.get(playerClass).contains(skinId);
+    }
+
+    public boolean unlockSkin(AbstractPlayerSkin skin){
+        return unlockSkin(skin.playerClass, skin.getId());
+    }
+    public boolean unlockSkin(AbstractPlayer.PlayerClass playerClass, String skinId){
+        return unlockSkin(playerClass.name(), skinId);
+    }
+    public boolean unlockSkin(String playerClass, String skinId){
+        if(hasSkin(playerClass, skinId)) return false;
+
+        unlockedSkins.get(playerClass).add(skinId);
         save();
         return true;
     }

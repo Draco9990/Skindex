@@ -22,7 +22,7 @@ import skindex.util.SkindexUI;
 
 import java.util.ArrayList;
 
-public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizableItem> extends UIElement {
+public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizableItem<?>> extends UIElement {
     //region Variables
     GridItemBox<Item> itemBox;
 

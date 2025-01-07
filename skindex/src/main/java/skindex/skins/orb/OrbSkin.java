@@ -8,7 +8,7 @@ import dLib.util.Reflection;
 import skindex.SkindexGame;
 import skindex.itemtypes.AbstractCustomizableItem;
 
-public class OrbSkin extends AbstractCustomizableItem {
+public class OrbSkin extends AbstractCustomizableItem<OrbSkin> {
     //region Variables
     public String orbId;
 

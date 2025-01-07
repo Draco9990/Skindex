@@ -4,6 +4,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.random.Random;
 import skindex.bundles.Bundle;
 import skindex.callbacks.SkindexPostRegistryFinishCallback;
+import skindex.itemtypes.AbstractCustomizableItem;
+import skindex.itemtypes.AbstractOwnableItem;
 import skindex.skins.cards.CardSkin;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.player.AbstractPlayerSkin;
@@ -17,98 +19,57 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 public class SkindexRegistry {
-    /** Registrant Variables */
-    private static ArrayList<SkindexUnlockMethodRegistrant> unlockMethodRegistrants = new ArrayList<>();
-    private static ArrayList<SkindexBundleRegistrant> bundleRegistrants = new ArrayList<>();
+    //region Variables
+    private static ArrayList<ISkindexItemRegistrant> itemRegistrants = new ArrayList<>();
 
-    private static ArrayList<SkindexOrbSkinRegistrant> orbSkinRegistrants = new ArrayList<>();
-    private static ArrayList<SkindexStanceSkinRegistrant> stanceSkinRegistrants = new ArrayList<>();
-    private static ArrayList<SkindexCardSkinRegistrant> cardSkinRegistrants = new ArrayList<>();
+    private static HashMap<Class<? extends AbstractCustomizableItem>, HashMap<String, AbstractCustomizableItem>> items = new HashMap<>();
 
-    private static ArrayList<SkindexPlayerSkinRegistrant> playerSkinRegistrants = new ArrayList<>();
-
-    private static ArrayList<SkindexPostRegistryFinishCallback> postRegistryFinishCallbacks = new ArrayList<>();
-
-    /** Vairables */
-    private static LinkedHashMap<String, UnlockMethod> unlockMethods = new LinkedHashMap<>();
-    private static LinkedHashMap<String, Bundle> bundles = new LinkedHashMap<>();
-
-    private static LinkedHashMap<String, OrbSkin> orbSkins = new LinkedHashMap<>();
-    private static LinkedHashMap<String, StanceSkin> stanceSkins = new LinkedHashMap<>();
-
-    private static LinkedHashMap<String, CardSkin> cardSkins = new LinkedHashMap<>();
+    private static HashMap<String, Bundle> bundles = new HashMap<>();
+    private static HashMap<String, UnlockMethod> unlockMethods = new HashMap<>();
 
     private static LinkedHashMap<AbstractPlayer.PlayerClass, HashMap<String, AbstractPlayerSkin>> playerSkins = new LinkedHashMap<>();
     private static LinkedHashMap<AbstractPlayer.PlayerClass, AbstractPlayerSkin> defaultPlayerSkins = new LinkedHashMap<>();
 
-    /** Getters and Setters */
+    private static ArrayList<SkindexPostRegistryFinishCallback> postRegistryFinishCallbacks = new ArrayList<>();
+
+    //region Class Methods
+
+    //region Subscribing and Registering
+
     public static void subscribe(ISkindexSubscriber skindexRegistrant){
-        if(skindexRegistrant instanceof  SkindexUnlockMethodRegistrant) unlockMethodRegistrants.add((SkindexUnlockMethodRegistrant) skindexRegistrant);
-        if(skindexRegistrant instanceof  SkindexBundleRegistrant) bundleRegistrants.add((SkindexBundleRegistrant) skindexRegistrant);
+        if(skindexRegistrant instanceof ISkindexItemRegistrant) itemRegistrants.add((ISkindexItemRegistrant) skindexRegistrant);
 
-        if(skindexRegistrant instanceof  SkindexOrbSkinRegistrant) orbSkinRegistrants.add((SkindexOrbSkinRegistrant) skindexRegistrant);
-        if(skindexRegistrant instanceof  SkindexStanceSkinRegistrant) stanceSkinRegistrants.add((SkindexStanceSkinRegistrant) skindexRegistrant);
-        if(skindexRegistrant instanceof  SkindexCardSkinRegistrant) cardSkinRegistrants.add((SkindexCardSkinRegistrant) skindexRegistrant);
-
-        if(skindexRegistrant instanceof  SkindexPlayerSkinRegistrant) playerSkinRegistrants.add((SkindexPlayerSkinRegistrant) skindexRegistrant);
-
-        if(skindexRegistrant instanceof  SkindexPostRegistryFinishCallback) postRegistryFinishCallbacks.add((SkindexPostRegistryFinishCallback) skindexRegistrant);
+        if(skindexRegistrant instanceof SkindexPostRegistryFinishCallback) postRegistryFinishCallbacks.add((SkindexPostRegistryFinishCallback) skindexRegistrant);
     }
     public static void processRegistrants(){
-        for(SkindexUnlockMethodRegistrant skindexRegistrant : unlockMethodRegistrants){
-            List<UnlockMethod> unlockMethodsToRegister = skindexRegistrant.getUnlockMethodsToRegister();
-            if(unlockMethodsToRegister == null) continue;
+        for(ISkindexItemRegistrant itemRegistrant : itemRegistrants){
+            //Unlock methods to register
+            {
+                List<UnlockMethod> unlockMethodsToRegister = itemRegistrant.getUnlockMethodsToRegister();
+                if(unlockMethodsToRegister == null) continue;
 
-            for(UnlockMethod item : unlockMethodsToRegister){
-                registerUnlockMethod(item);
-            }
-        }
-        for(SkindexBundleRegistrant skindexRegistrant : bundleRegistrants){
-            List<Bundle> bundlesToRegister = skindexRegistrant.getBundlesToRegister();
-            if(bundlesToRegister == null) continue;
-
-            for(Bundle item : bundlesToRegister){
-                registerBundle(item);
-            }
-        }
-
-        for(SkindexOrbSkinRegistrant skindexRegistrant : orbSkinRegistrants){
-            List<OrbSkin> orbSkinsToRegister = skindexRegistrant.getOrbSkinsToRegister();
-            if(orbSkinsToRegister == null) continue;
-
-            for(OrbSkin item : orbSkinsToRegister){
-                registerOrbSkin(item);
-            }
-        }
-        for(SkindexStanceSkinRegistrant skindexRegistrant : stanceSkinRegistrants){
-            List<StanceSkin> stanceSkinsToRegister = skindexRegistrant.getStanceSkinsToRegister();
-            if(stanceSkinsToRegister == null) continue;
-
-            for(StanceSkin item : stanceSkinsToRegister){
-                registerStanceSkin(item);
-            }
-        }
-        for(SkindexCardSkinRegistrant skindexRegistrant : cardSkinRegistrants){
-            List<CardSkin> cardSkinsToRegister = skindexRegistrant.getCardSkinsToRegister();
-            if(cardSkinsToRegister == null) continue;
-
-            for(CardSkin item : cardSkinsToRegister){
-                registerCardSkin(item);
-            }
-        }
-
-        for(SkindexPlayerSkinRegistrant skindexRegistrant : playerSkinRegistrants){
-            List<AbstractPlayerSkin> defaultPlayerSkinsToRegister = skindexRegistrant.getDefaultPlayerSkinsToRegister();
-            if(defaultPlayerSkinsToRegister != null){
-                for(AbstractPlayerSkin item : defaultPlayerSkinsToRegister){
-                    registerDefaultPlayerSkin(item);
+                for(UnlockMethod unlockMethod : unlockMethodsToRegister){
+                    unlockMethods.put(unlockMethod.id, unlockMethod);
                 }
             }
 
-            List<AbstractPlayerSkin> playerSkinsToRegister = skindexRegistrant.getPlayerSkinsToRegister();
-            if(playerSkinsToRegister != null){
-                for(AbstractPlayerSkin item : skindexRegistrant.getPlayerSkinsToRegister()){
-                    registerPlayerSkin(item);
+            //Bundles to register
+            {
+                List<Bundle> bundlesToRegister = itemRegistrant.getBundlesToRegister();
+                if(bundlesToRegister == null) continue;
+
+                for(Bundle bundle : bundlesToRegister){
+                    bundles.put(bundle.id, bundle);
+                }
+            }
+
+            //Items to register
+            {
+                List<AbstractCustomizableItem> itemsToRegister = itemRegistrant.getItemsToRegister();
+                if(itemsToRegister == null) continue;
+
+                for(AbstractCustomizableItem item : itemsToRegister){
+                    registerItem(item);
                 }
             }
         }
@@ -120,94 +81,70 @@ public class SkindexRegistry {
         }
     }
 
-    private static void registerUnlockMethod(UnlockMethod unlockMethod){
-        if(unlockMethod == null) return;
+    private static void registerItem(AbstractCustomizableItem item){
+        if(item == null) return;
 
-        unlockMethods.put(unlockMethod.id, unlockMethod);
+        if(item instanceof AbstractPlayerSkin){
+            AbstractPlayerSkin skin = (AbstractPlayerSkin) item;
+            if(skin.isDefault){
+                defaultPlayerSkins.put(skin.playerClass, skin);
+            }
+            else{
+                if(!playerSkins.containsKey(skin.playerClass)){
+                    playerSkins.put(skin.playerClass, new HashMap<>());
+                }
+
+                playerSkins.get(skin.playerClass).put(skin.getId(), skin);
+            }
+        }
+        else{
+            if(!items.containsKey(item.itemTypeClass)){
+                items.put(item.itemTypeClass, new HashMap<>());
+            }
+
+            items.get(item.itemTypeClass).put(item.getId(), item);
+        }
     }
+
+    //endregion
+
+    //region Unlock Methods
+
     public static UnlockMethod getUnlockMethodById(String id){
         if(id == null) return null;
         return unlockMethods.get(id);
     }
 
-    private static void registerBundle(Bundle bundle){
-        if(bundle == null) return;
+    //endregion
 
-        bundles.put(bundle.id, bundle);
-    }
+    //region Bundles
+
     public static Bundle getBundleById(String bundleId){
         if(bundleId == null) return null;
 
         return bundles.get(bundleId);
     }
-    public static ArrayList<Bundle> getAllBundles(){
-        return new ArrayList<>(bundles.values());
+
+    //endregion
+
+    //region Item Types
+
+    public static <T extends AbstractCustomizableItem> T getItemById(Class<T> itemType, String id){
+        return getItemById(itemType, id, false);
+    }
+    public static <T extends AbstractCustomizableItem> T getItemById(Class<T> itemType, String id, boolean makeCopy){
+        if(itemType == null || id == null) return null;
+
+        AbstractCustomizableItem item = items.get(itemType).get(id);
+        if(item == null || !makeCopy) return (T) item;
+
+        return (T) item.makeCopy();
     }
 
-    private static void registerOrbSkin(OrbSkin orbSkin){
-        if(orbSkin == null) return;
+    //endregion
 
-        orbSkins.put(orbSkin.getId(), orbSkin);
-    }
-    public static OrbSkin getOrbSkinById(String id, boolean makeCopy){
-        if(id == null) return null;
+    //region Player Skins
 
-        OrbSkin orbSkin = orbSkins.get(id);
-        if(orbSkin == null){
-            return null;
-        }
-
-        if(!makeCopy) return orbSkin;
-
-        return (OrbSkin) orbSkin.makeCopy();
-    }
-    public static OrbSkin getOrbSkinById(String id){
-        return getOrbSkinById(id, false);
-    }
-
-    private static void registerStanceSkin(StanceSkin stanceSkin){
-        if(stanceSkin == null) return;
-
-        stanceSkins.put(stanceSkin.getId(), stanceSkin);
-    }
-    public static StanceSkin getStanceSkinById(String id, boolean makeCopy){
-        if(id == null) return null;
-
-        StanceSkin stanceSkin = stanceSkins.get(id);
-        if(stanceSkin == null || !makeCopy) return stanceSkin;
-
-        return (StanceSkin) stanceSkin.makeCopy();
-    }
-    public static StanceSkin getStanceSkinById(String id){
-        return getStanceSkinById(id, false);
-    }
-
-    private static void registerCardSkin(CardSkin cardSkinSet){
-        if(cardSkinSet == null) return;
-
-        cardSkins.put(cardSkinSet.getId(), cardSkinSet);
-    }
-    public static CardSkin getCardSkin(String id, boolean makeCopy){
-        if(id == null) return null;
-
-        CardSkin cardSkin = cardSkins.get(id);
-        if(cardSkin == null || !makeCopy) return cardSkin;
-
-        return (CardSkin) cardSkin.makeCopy();
-    }
-    public static CardSkin getCardSkin(String id){
-        return getCardSkin(id, false);
-    }
-
-    private static void registerPlayerSkin(AbstractPlayerSkin playerSkin){
-        if(playerSkin == null) return;
-
-        if(!playerSkins.containsKey(playerSkin.playerClass)){
-            playerSkins.put(playerSkin.playerClass, new LinkedHashMap<>());
-        }
-
-        playerSkins.get(playerSkin.playerClass).put(playerSkin.getId(), playerSkin);
-    }
     public static AbstractPlayerSkin getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass playerClass, String id, boolean makeCopy){
         if(playerClass == null || id == null) return null;
 
@@ -248,6 +185,7 @@ public class SkindexRegistry {
     public static ArrayList<AbstractPlayerSkin> getSkinsForClass(AbstractPlayer.PlayerClass playerClass, boolean onlyOwned){
         return getSkinsForClass(playerClass, onlyOwned, false);
     }
+
     public static AbstractPlayerSkin getPreviousSkin(AbstractPlayerSkin current, boolean onlyOwned, boolean makeCopy){
         if(current == null) return null;
 
@@ -299,12 +237,6 @@ public class SkindexRegistry {
         return getRandomSkin(playerClass, onlyOwned, false);
     }
 
-    private static void registerDefaultPlayerSkin(AbstractPlayerSkin playerSkin){
-        if(playerSkin == null) return;
-
-        defaultPlayerSkins.put(playerSkin.playerClass, playerSkin);
-        registerPlayerSkin(playerSkin);
-    }
     public static AbstractPlayerSkin getDefaultPlayerSkinByClass(AbstractPlayer.PlayerClass playerClass, boolean makeCopy){
         if(playerClass == null) return null;
 
@@ -313,13 +245,30 @@ public class SkindexRegistry {
 
         return (AbstractPlayerSkin) skin.makeCopy();
     }
-    public static AbstractPlayerSkin getDefaultPlayerSkinByClass(AbstractPlayer.PlayerClass playerClass){
-        return getDefaultPlayerSkinByClass(playerClass, false);
-    }
 
     public static ArrayList<AbstractPlayer.PlayerClass> getRegisteredPlayerClasses(){
         ArrayList<AbstractPlayer.PlayerClass> playerClasses = new ArrayList<>();
         playerClasses.addAll(defaultPlayerSkins.keySet());
         return playerClasses;
     }
+
+    //endregion
+
+    //region Convenience Methods
+
+    public static OrbSkin getOrbSkinById(String id, boolean makeCopy){
+        return getItemById(OrbSkin.class, id, makeCopy);
+    }
+
+    public static StanceSkin getStanceSkinById(String id, boolean makeCopy){
+        return getItemById(StanceSkin.class, id, makeCopy);
+    }
+
+    public static CardSkin getCardSkinById(String id, boolean makeCopy){
+        return getItemById(CardSkin.class, id, makeCopy);
+    }
+
+    //endregion
+
+    //endregion
 }

@@ -13,22 +13,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class AbstractOwnableItem<ItemType extends AbstractOwnableItem> extends AbstractCustomizableItem {
+public abstract class AbstractOwnableItem<ItemType extends AbstractOwnableItem> extends AbstractCustomizableItem<ItemType> {
     //region Variables
-    public Class<ItemType> itemTypeClass;
 
     public UnlockMethod unlockMethod;
 
     public ArrayList<Bundle> bundles;
 
     private String unlockDescription;
+
     //endregion
 
     //region Constructors
     public AbstractOwnableItem(OwnableItemData itemData){
         super(itemData);
-
-        itemTypeClass = (Class<ItemType>) this.getClass().getGenericSuperclass();
 
         unlockDescription = itemData.unlockDescription;
 
