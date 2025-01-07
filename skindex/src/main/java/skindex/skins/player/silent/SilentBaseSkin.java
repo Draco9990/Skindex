@@ -25,6 +25,8 @@ public class SilentBaseSkin extends PlayerAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.THE_SILENT.name();
+
+            isDefault = true;
         }
     }
 }

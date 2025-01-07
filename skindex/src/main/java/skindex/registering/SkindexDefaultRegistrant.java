@@ -1,5 +1,7 @@
 package skindex.registering;
 
+import skindex.bundles.Bundle;
+import skindex.itemtypes.AbstractCustomizableItem;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.orb.monsterhunter.MonsterHunterOrbSkinSet;
 import skindex.skins.orb.rebelai.*;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SkindexDefaultRegistrant implements SkindexUnlockMethodRegistrant, SkindexPlayerSkinRegistrant, SkindexOrbSkinRegistrant, SkindexStanceSkinRegistrant {
+public class SkindexDefaultRegistrant implements ISkindexItemRegistrant {
     @Override
     public List<UnlockMethod> getUnlockMethodsToRegister() {
         return Arrays.asList(
@@ -30,6 +32,19 @@ public class SkindexDefaultRegistrant implements SkindexUnlockMethodRegistrant, 
     }
 
     @Override
+    public List<AbstractCustomizableItem> getItemsToRegister() {
+        List<AbstractCustomizableItem> items = new ArrayList<>();
+
+        items.addAll(getOrbSkinsToRegister());
+
+        items.addAll(getStanceSkinsToRegister());
+
+        items.addAll(getDefaultPlayerSkinsToRegister());
+        items.addAll(getPlayerSkinsToRegister());
+
+        return items;
+    }
+
     public List<OrbSkin> getOrbSkinsToRegister() {
         List<OrbSkin> orbSkins = new ArrayList<>();
         orbSkins.addAll(RebelAIOrbSkinSet.collectOrbSkins());
@@ -37,14 +52,12 @@ public class SkindexDefaultRegistrant implements SkindexUnlockMethodRegistrant, 
         return orbSkins;
     }
 
-    @Override
     public List<StanceSkin> getStanceSkinsToRegister() {
         List<StanceSkin> orbSkins = new ArrayList<>();
         orbSkins.addAll(WatcherMusicStanceSkinSet.collectStanceSkins());
         return orbSkins;
     }
 
-    @Override
     public List<AbstractPlayerSkin> getDefaultPlayerSkinsToRegister() {
         return Arrays.asList(
                 new IroncladBaseSkin(),
@@ -53,7 +66,6 @@ public class SkindexDefaultRegistrant implements SkindexUnlockMethodRegistrant, 
                 new WatcherBaseSkin()
         );
     }
-    @Override
     public List<AbstractPlayerSkin> getPlayerSkinsToRegister() {
         return Arrays.asList(
                 new IroncladGreenSkin(),

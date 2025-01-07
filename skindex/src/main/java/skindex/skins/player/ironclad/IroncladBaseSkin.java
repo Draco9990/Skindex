@@ -25,6 +25,8 @@ public class IroncladBaseSkin extends PlayerAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.IRONCLAD.name();
+
+            isDefault = true;
         }
     }
 }

@@ -28,6 +28,8 @@ public class WatcherBaseSkin extends WatcherAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.WATCHER.name();
+
+            isDefault = true;
         }
     }
 }

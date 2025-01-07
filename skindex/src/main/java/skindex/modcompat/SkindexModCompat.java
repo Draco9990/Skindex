@@ -1,6 +1,7 @@
 package skindex.modcompat;
 
 import dLib.modcompat.ModManager;
+import skindex.itemtypes.AbstractCustomizableItem;
 import skindex.modcompat.duelistmod.skins.player.*;
 import skindex.modcompat.packmaster.skins.player.PackmasterBaseSkin;
 import skindex.modcompat.packmaster.skins.player.PackmasterBuilderSkin;
@@ -15,8 +16,7 @@ import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneLittleHelperSkin;
 import skindex.modcompat.skulHeroSlayer.skins.player.LittleBoneRoyalGuardSkin;
 import skindex.modcompat.unchained.skins.card.UnchainedPixelCardSkinSet;
 import skindex.modcompat.unchained.skins.player.UnchainedPixelSkin;
-import skindex.registering.SkindexCardSkinRegistrant;
-import skindex.registering.SkindexPlayerSkinRegistrant;
+import skindex.registering.ISkindexItemRegistrant;
 import skindex.modcompat.downfall.skins.player.automaton.AutomatonBaseSkin;
 import skindex.modcompat.downfall.skins.player.automaton.AutomatonBetaSkin;
 import skindex.modcompat.downfall.skins.player.automaton.AutomatonThePerfectSkin;
@@ -51,9 +51,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCardSkinRegistrant {
-    /** Methods */
+public class SkindexModCompat implements ISkindexItemRegistrant {
     @Override
+    public List<AbstractCustomizableItem> getItemsToRegister() {
+        List<AbstractCustomizableItem> items = new ArrayList<>();
+
+        items.addAll(getCardSkinsToRegister());
+
+        items.addAll(getDefaultPlayerSkinsToRegister());
+        items.addAll(getPlayerSkinsToRegister());
+
+        return items;
+    }
+
     public List<AbstractPlayerSkin> getDefaultPlayerSkinsToRegister() {
         ArrayList<AbstractPlayerSkin> totalList = new ArrayList<>();
         if(ModManager.Downfall.isActive()) totalList.addAll(getDefaultDownfallSkinsToRegister());
@@ -99,7 +109,6 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCar
     }
 
 
-    @Override
     public List<AbstractPlayerSkin> getPlayerSkinsToRegister() {
         ArrayList<AbstractPlayerSkin> totalList = new ArrayList<>();
         if(ModManager.Downfall.isActive()) totalList.addAll(getDownfallSkinsToRegister());
@@ -164,8 +173,6 @@ public class SkindexModCompat implements SkindexPlayerSkinRegistrant, SkindexCar
     }
 
 
-
-    @Override
     public List<CardSkin> getCardSkinsToRegister() {
         ArrayList<CardSkin> totalList = new ArrayList<>();
         if(ModManager.TheUnchained.isActive()) totalList.addAll(getTheUnchainedCardSkinsToRegister());

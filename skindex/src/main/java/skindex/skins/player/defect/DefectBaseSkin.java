@@ -25,6 +25,8 @@ public class DefectBaseSkin extends PlayerAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = AbstractPlayer.PlayerClass.DEFECT.name();
+
+            isDefault = true;
         }
     }
 }
