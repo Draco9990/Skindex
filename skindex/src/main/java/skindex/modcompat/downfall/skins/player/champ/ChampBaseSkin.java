@@ -11,5 +11,7 @@ public class ChampBaseSkin extends DownfallSkinWrapper {
 
         playerClass = ChampChar.Enums.THE_CHAMP;
         isOriginal = true;
+
+        isDefault = true;
     }
 }

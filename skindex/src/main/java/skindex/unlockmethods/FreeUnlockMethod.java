@@ -1,11 +1,16 @@
 package skindex.unlockmethods;
 
-public class FreeUnlockMethod extends UnlockMethod {
-    /** Variables */
+import skindex.itemtypes.AbstractOwnableItem;
+
+public class FreeUnlockMethod extends AbstractUnlockMethod {
     public static String methodId = "FREE";
 
-    /** Constructors */
     public FreeUnlockMethod() {
         super(methodId, "");
+    }
+
+    @Override
+    public boolean hasUnlocked(AbstractOwnableItem ownableItem) {
+        return true;
     }
 }

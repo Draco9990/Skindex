@@ -11,5 +11,7 @@ public class SneckoBaseSkin extends DownfallSkinWrapper {
 
         playerClass = TheSnecko.Enums.THE_SNECKO;
         isOriginal = true;
+
+        isDefault = true;
     }
 }

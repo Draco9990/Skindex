@@ -23,6 +23,8 @@ public class PackmasterBaseSkin extends PlayerAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = ThePackmaster.Enums.THE_PACKMASTER.name();
+
+            isDefault = true;
         }
     }
 }

@@ -11,23 +11,18 @@ import skindex.skins.orb.OrbSkin;
 import skindex.skins.player.AbstractPlayerSkin;
 import skindex.skins.stances.StanceSkin;
 import skindex.unlockmethods.NonUnlockableUnlockMethod;
-import skindex.unlockmethods.UnlockMethod;
+import skindex.unlockmethods.AbstractUnlockMethod;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class SkindexRegistry {
     //region Variables
-    private static ArrayList<ISkindexItemRegistrant> itemRegistrants = new ArrayList<>();
-
-    private static HashMap<Class<? extends AbstractCustomizableItem>, HashMap<String, AbstractCustomizableItem>> items = new HashMap<>();
+    private static HashMap<Class<? extends AbstractCustomizableItem>, LinkedHashMap<String, AbstractCustomizableItem>> items = new HashMap<>();
 
     private static HashMap<String, Bundle> bundles = new HashMap<>();
-    private static HashMap<String, UnlockMethod> unlockMethods = new HashMap<>();
+    private static HashMap<String, AbstractUnlockMethod> unlockMethods = new HashMap<>();
 
-    private static LinkedHashMap<AbstractPlayer.PlayerClass, HashMap<String, AbstractPlayerSkin>> playerSkins = new LinkedHashMap<>();
+    private static LinkedHashMap<AbstractPlayer.PlayerClass, LinkedHashMap<String, AbstractPlayerSkin>> playerSkins = new LinkedHashMap<>();
     private static LinkedHashMap<AbstractPlayer.PlayerClass, AbstractPlayerSkin> defaultPlayerSkins = new LinkedHashMap<>();
 
     private static ArrayList<SkindexPostRegistryFinishCallback> postRegistryFinishCallbacks = new ArrayList<>();
@@ -37,43 +32,9 @@ public class SkindexRegistry {
     //region Subscribing and Registering
 
     public static void subscribe(ISkindexSubscriber skindexRegistrant){
-        if(skindexRegistrant instanceof ISkindexItemRegistrant) itemRegistrants.add((ISkindexItemRegistrant) skindexRegistrant);
-
         if(skindexRegistrant instanceof SkindexPostRegistryFinishCallback) postRegistryFinishCallbacks.add((SkindexPostRegistryFinishCallback) skindexRegistrant);
     }
     public static void processRegistrants(){
-        for(ISkindexItemRegistrant itemRegistrant : itemRegistrants){
-            //Unlock methods to register
-            {
-                List<UnlockMethod> unlockMethodsToRegister = itemRegistrant.getUnlockMethodsToRegister();
-                if(unlockMethodsToRegister == null) continue;
-
-                for(UnlockMethod unlockMethod : unlockMethodsToRegister){
-                    unlockMethods.put(unlockMethod.id, unlockMethod);
-                }
-            }
-
-            //Bundles to register
-            {
-                List<Bundle> bundlesToRegister = itemRegistrant.getBundlesToRegister();
-                if(bundlesToRegister == null) continue;
-
-                for(Bundle bundle : bundlesToRegister){
-                    bundles.put(bundle.id, bundle);
-                }
-            }
-
-            //Items to register
-            {
-                List<AbstractCustomizableItem> itemsToRegister = itemRegistrant.getItemsToRegister();
-                if(itemsToRegister == null) continue;
-
-                for(AbstractCustomizableItem item : itemsToRegister){
-                    registerItem(item);
-                }
-            }
-        }
-
         for(SkindexPostRegistryFinishCallback skindexRegistrant : postRegistryFinishCallbacks){
             if(skindexRegistrant != null){
                 skindexRegistrant.onRegistryFinish();
@@ -81,25 +42,42 @@ public class SkindexRegistry {
         }
     }
 
-    private static void registerItem(AbstractCustomizableItem item){
+    public static void registerUnlockMethod(AbstractUnlockMethod unlockMethod){
+        if(unlockMethod == null) return;
+
+        unlockMethods.put(unlockMethod.id, unlockMethod);
+    }
+
+    public static void registerBundle(Bundle bundle){
+        if(bundle == null) return;
+
+        bundles.put(bundle.id, bundle);
+    }
+
+    public static void registerPlayerSkin(AbstractPlayerSkin playerSkin){
+        if(playerSkin == null) return;
+
+        if(playerSkin.isDefault){
+            defaultPlayerSkins.put(playerSkin.playerClass, playerSkin);
+        }
+        else{
+            if(!playerSkins.containsKey(playerSkin.playerClass)){
+                playerSkins.put(playerSkin.playerClass, new LinkedHashMap<>());
+            }
+
+            playerSkins.get(playerSkin.playerClass).put(playerSkin.getId(), playerSkin);
+        }
+    }
+
+    public static void registerItem(AbstractCustomizableItem item){
         if(item == null) return;
 
         if(item instanceof AbstractPlayerSkin){
-            AbstractPlayerSkin skin = (AbstractPlayerSkin) item;
-            if(skin.isDefault){
-                defaultPlayerSkins.put(skin.playerClass, skin);
-            }
-            else{
-                if(!playerSkins.containsKey(skin.playerClass)){
-                    playerSkins.put(skin.playerClass, new HashMap<>());
-                }
-
-                playerSkins.get(skin.playerClass).put(skin.getId(), skin);
-            }
+            registerPlayerSkin((AbstractPlayerSkin) item);
         }
         else{
             if(!items.containsKey(item.itemTypeClass)){
-                items.put(item.itemTypeClass, new HashMap<>());
+                items.put(item.itemTypeClass, new LinkedHashMap<>());
             }
 
             items.get(item.itemTypeClass).put(item.getId(), item);
@@ -110,7 +88,7 @@ public class SkindexRegistry {
 
     //region Unlock Methods
 
-    public static UnlockMethod getUnlockMethodById(String id){
+    public static AbstractUnlockMethod getUnlockMethodById(String id){
         if(id == null) return null;
         return unlockMethods.get(id);
     }
@@ -123,6 +101,10 @@ public class SkindexRegistry {
         if(bundleId == null) return null;
 
         return bundles.get(bundleId);
+    }
+
+    public static ArrayList<Bundle> getAllBundles(){
+        return new ArrayList<>(bundles.values());
     }
 
     //endregion
@@ -141,6 +123,31 @@ public class SkindexRegistry {
         return (T) item.makeCopy();
     }
 
+    public static <T extends AbstractCustomizableItem> ArrayList<T> getAllItemsOfType(Class<T> itemType){
+        return getAllItemsOfType(itemType, false, false);
+    }
+    public static <T extends AbstractCustomizableItem> ArrayList<T> getAllItemsOfType(Class<T> itemType, boolean onlyOwned){
+        return getAllItemsOfType(itemType, onlyOwned, false);
+    }
+    public static <T extends AbstractCustomizableItem> ArrayList<T> getAllItemsOfType(Class<T> itemType, boolean onlyOwned, boolean makeCopy){
+        if(itemType == null || !items.containsKey(itemType)) return new ArrayList<>();
+
+        ArrayList<T> itemsOfType = new ArrayList<T>((Collection<? extends T>) items.get(itemType).values());
+        if(onlyOwned){
+            itemsOfType.removeIf(item -> !((AbstractOwnableItem) item).canUse());
+        }
+
+        if(makeCopy){
+            ArrayList<T> itemsCopy = new ArrayList<>();
+            for(T item : itemsOfType){
+                itemsCopy.add((T) item.makeCopy());
+            }
+            return itemsCopy;
+        }
+
+        return itemsOfType;
+    }
+
     //endregion
 
     //region Player Skins
@@ -148,14 +155,26 @@ public class SkindexRegistry {
     public static AbstractPlayerSkin getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass playerClass, String id, boolean makeCopy){
         if(playerClass == null || id == null) return null;
 
-        if(!playerSkins.containsKey(playerClass)){
-            return null;
+        if(playerSkins.containsKey(playerClass)){
+            AbstractPlayerSkin playerSkin = playerSkins.get(playerClass).get(id);
+
+            if(playerSkin != null){
+                if(!makeCopy) return playerSkin;
+
+                return (AbstractPlayerSkin) playerSkins.get(playerClass).get(id).makeCopy();
+            }
+        }
+        if(defaultPlayerSkins.containsKey(playerClass)){
+            AbstractPlayerSkin playerSkin = defaultPlayerSkins.get(playerClass);
+
+            if(playerSkin != null){
+                if(!makeCopy) return playerSkin;
+
+                return (AbstractPlayerSkin) playerSkin.makeCopy();
+            }
         }
 
-        AbstractPlayerSkin playerSkin = playerSkins.get(playerClass).get(id);
-        if(playerSkin == null || !makeCopy) return playerSkin;
-
-        return (AbstractPlayerSkin) playerSkins.get(playerClass).get(id).makeCopy();
+        return null;
     }
     public static AbstractPlayerSkin getPlayerSkinByClassAndId(AbstractPlayer.PlayerClass playerClass, String id){
         return getPlayerSkinByClassAndId(playerClass, id, false);

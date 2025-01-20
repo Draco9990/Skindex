@@ -8,7 +8,7 @@ import dLib.util.Reflection;
 import skindex.SkindexGame;
 import skindex.itemtypes.AbstractCustomizableItem;
 
-public class OrbSkin extends AbstractCustomizableItem<OrbSkin> {
+public class OrbSkin extends AbstractCustomizableItem {
     //region Variables
     public String orbId;
 
@@ -23,6 +23,12 @@ public class OrbSkin extends AbstractCustomizableItem<OrbSkin> {
 
         overlay = orbSkinData.overlay;
     }
+
+    @Override
+    protected Class<? extends AbstractCustomizableItem> getItemType() {
+        return OrbSkin.class;
+    }
+
     //endregion Constructors
 
     //region Class Methods

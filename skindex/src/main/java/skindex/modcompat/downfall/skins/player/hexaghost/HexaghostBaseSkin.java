@@ -12,5 +12,7 @@ public class HexaghostBaseSkin extends HexaghostAtlasSkin {
         playerClass = TheHexaghost.Enums.THE_SPIRIT;
         defaultAnimName = "idle2";
         isOriginal = true;
+
+        isDefault = true;
     }
 }

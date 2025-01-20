@@ -76,7 +76,7 @@ public class OrbAtlasSkin extends OrbSkin {
     }
 
     protected void loadAnimation(OrbAtlasSkinData orbSkinData) {
-        this.atlas = TextureManager.getTextureAtlas(Gdx.files.internal(orbSkinData.atlasUrl));
+        this.atlas = TextureManager.getTextureAtlas(orbSkinData.atlasUrl);
         SkeletonJson json = new SkeletonJson(this.atlas);
         json.setScale(Settings.renderScale * orbSkinData.scale);
         SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(orbSkinData.skeletonUrl));

@@ -1,8 +1,5 @@
 package skindex.registering;
 
-import skindex.bundles.Bundle;
-import skindex.itemtypes.AbstractCustomizableItem;
-import skindex.skins.orb.OrbSkin;
 import skindex.skins.orb.monsterhunter.MonsterHunterOrbSkinSet;
 import skindex.skins.orb.rebelai.*;
 import skindex.skins.player.AbstractPlayerSkin;
@@ -11,101 +8,82 @@ import skindex.skins.player.ironclad.*;
 import skindex.skins.player.silent.*;
 import skindex.skins.player.watcher.*;
 import skindex.skins.stance.WatcherMusicStanceSkinSet;
-import skindex.skins.stances.StanceSkin;
 import skindex.unlockmethods.AchievementUnlockMethod;
 import skindex.unlockmethods.FreeUnlockMethod;
 import skindex.unlockmethods.NonUnlockableUnlockMethod;
-import skindex.unlockmethods.UnlockMethod;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class SkindexDefaultRegistrant implements ISkindexItemRegistrant {
-    @Override
-    public List<UnlockMethod> getUnlockMethodsToRegister() {
-        return Arrays.asList(
-                new FreeUnlockMethod(),
-                new AchievementUnlockMethod(),
-                new NonUnlockableUnlockMethod()
-        );
+public class SkindexDefaultRegistrant {
+    public static void registerAll(){
+        registerUnlockMethods();
+
+        registerOrbSkins();
+        registerStanceSkins();
+
+        registerDefaultPlayerSkins();
+        registerPlayerSkins();
     }
 
-    @Override
-    public List<AbstractCustomizableItem> getItemsToRegister() {
-        List<AbstractCustomizableItem> items = new ArrayList<>();
-
-        items.addAll(getOrbSkinsToRegister());
-
-        items.addAll(getStanceSkinsToRegister());
-
-        items.addAll(getDefaultPlayerSkinsToRegister());
-        items.addAll(getPlayerSkinsToRegister());
-
-        return items;
+    public static void registerUnlockMethods() {
+        SkindexRegistry.registerUnlockMethod(new FreeUnlockMethod());
+        SkindexRegistry.registerUnlockMethod(new AchievementUnlockMethod());
+        SkindexRegistry.registerUnlockMethod(new NonUnlockableUnlockMethod());
     }
 
-    public List<OrbSkin> getOrbSkinsToRegister() {
-        List<OrbSkin> orbSkins = new ArrayList<>();
-        orbSkins.addAll(RebelAIOrbSkinSet.collectOrbSkins());
-        orbSkins.addAll(MonsterHunterOrbSkinSet.collectOrbSkins());
-        return orbSkins;
+    public static void registerOrbSkins() {
+        RebelAIOrbSkinSet.registerOrbSkins();
+        MonsterHunterOrbSkinSet.registerOrbSkins();
     }
 
-    public List<StanceSkin> getStanceSkinsToRegister() {
-        List<StanceSkin> orbSkins = new ArrayList<>();
-        orbSkins.addAll(WatcherMusicStanceSkinSet.collectStanceSkins());
-        return orbSkins;
+    public static void registerStanceSkins() {
+        WatcherMusicStanceSkinSet.registerStanceSkins();
     }
 
-    public List<AbstractPlayerSkin> getDefaultPlayerSkinsToRegister() {
-        return Arrays.asList(
-                new IroncladBaseSkin(),
-                new SilentBaseSkin(),
-                new DefectBaseSkin(),
-                new WatcherBaseSkin()
-        );
+    public static void registerDefaultPlayerSkins() {
+        SkindexRegistry.registerPlayerSkin(new IroncladBaseSkin());
+        SkindexRegistry.registerPlayerSkin(new SilentBaseSkin());
+        SkindexRegistry.registerPlayerSkin(new DefectBaseSkin());
+        SkindexRegistry.registerPlayerSkin(new WatcherBaseSkin());
     }
-    public List<AbstractPlayerSkin> getPlayerSkinsToRegister() {
-        return Arrays.asList(
-                new IroncladGreenSkin(),
-                new IroncladBlueSkin(),
-                new IroncladYellowSkin(),
-                new IroncladPaperSkin(),
-                new IroncladSlaverBlueSkin(),
-                new IroncladSlaverRedSkin(),
-                new IroncladCyberSkin(),
-                new IroncladAstrologerSkin(),
-                new IroncladFormSkin(),
+    public static void registerPlayerSkins() {
+        SkindexRegistry.registerPlayerSkin(new IroncladGreenSkin());
+        SkindexRegistry.registerPlayerSkin(new IroncladBlueSkin());
+        SkindexRegistry.registerPlayerSkin(new IroncladYellowSkin());
+        SkindexRegistry.registerPlayerSkin(new IroncladPaperSkin());
+        SkindexRegistry.registerPlayerSkin(new IroncladSlaverBlueSkin());
+        SkindexRegistry.registerPlayerSkin(new IroncladSlaverRedSkin());
+        SkindexRegistry.registerPlayerSkin(new IroncladCyberSkin());
+        SkindexRegistry.registerPlayerSkin(new IroncladAstrologerSkin());
+        SkindexRegistry.registerPlayerSkin(new IroncladFormSkin());
 
-                new SilentRedSkin(),
-                new SilentBlueSkin(),
-                new SilentYellowSkin(),
-                new SilentPaperSkin(),
-                new SilentCultistSkin(),
-                new SilentLastDanceSkin(),
-                new SilentAstrologerSkin(),
-                new SilentFormSkin(),
+        SkindexRegistry.registerPlayerSkin(new SilentRedSkin());
+        SkindexRegistry.registerPlayerSkin(new SilentBlueSkin());
+        SkindexRegistry.registerPlayerSkin(new SilentYellowSkin());
+        SkindexRegistry.registerPlayerSkin(new SilentPaperSkin());
+        SkindexRegistry.registerPlayerSkin(new SilentCultistSkin());
+        SkindexRegistry.registerPlayerSkin(new SilentLastDanceSkin());
+        SkindexRegistry.registerPlayerSkin(new SilentAstrologerSkin());
+        SkindexRegistry.registerPlayerSkin(new SilentFormSkin());
 
-                new DefectRedSkin(),
-                new DefectGreenSkin(),
-                new DefectYellowSkin(),
-                new DefectPaperSkin(),
-                new DefectClawGodSkin(),
-                new DefectRebelAISkin(),
-                new DefectMonsterHunterSkin(),
-                new DefectFormSkin(),
-                new DefectAstrologerSkin(),
+        SkindexRegistry.registerPlayerSkin(new DefectRedSkin());
+        SkindexRegistry.registerPlayerSkin(new DefectGreenSkin());
+        SkindexRegistry.registerPlayerSkin(new DefectYellowSkin());
+        SkindexRegistry.registerPlayerSkin(new DefectPaperSkin());
+        SkindexRegistry.registerPlayerSkin(new DefectClawGodSkin());
+        SkindexRegistry.registerPlayerSkin(new DefectRebelAISkin());
+        SkindexRegistry.registerPlayerSkin(new DefectMonsterHunterSkin());
+        SkindexRegistry.registerPlayerSkin(new DefectFormSkin());
+        SkindexRegistry.registerPlayerSkin(new DefectAstrologerSkin());
 
-                new WatcherRedSkin(),
-                new WatcherGreenSkin(),
-                new WatcherBlueSkin(),
-                new WatcherYellowSkin(),
-                new WatcherPaperSkin(),
-                new WatcherTimeEaterSkin(),
-                new WatcherMusicSkin(),
-                new WatcherFormSkin(),
-                new WatcherAstrologerSkin()
-        );
+        SkindexRegistry.registerPlayerSkin(new WatcherRedSkin());
+        SkindexRegistry.registerPlayerSkin(new WatcherGreenSkin());
+        SkindexRegistry.registerPlayerSkin(new WatcherBlueSkin());
+        SkindexRegistry.registerPlayerSkin(new WatcherYellowSkin());
+        SkindexRegistry.registerPlayerSkin(new WatcherPaperSkin());
+        SkindexRegistry.registerPlayerSkin(new WatcherTimeEaterSkin());
+        SkindexRegistry.registerPlayerSkin(new WatcherMusicSkin());
+        SkindexRegistry.registerPlayerSkin(new WatcherFormSkin());
+        SkindexRegistry.registerPlayerSkin(new WatcherAstrologerSkin());
     }
 }

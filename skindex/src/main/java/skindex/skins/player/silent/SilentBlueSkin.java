@@ -18,9 +18,9 @@ public class SilentBlueSkin extends PlayerAtlasSkin {
             skeletonUrl = "images/characters/theSilent/idle/skeleton.json";
             resourceDirectoryUrl = "skindexResources/images/skins/player/silent/blue/";
 
-            shoulderIMG = "spireTogetherResources/images/charSkins/Silent/blue/shoulder.png";
-            shoulder2IMG = "spireTogetherResources/images/charSkins/Silent/blue/shoulder2.png";
-            corpseIMG = "spireTogetherResources/images/charSkins/Silent/blue/corpse.png";
+            shoulderIMG = "skindexResources/images/skins/player/silent/blue/shoulder.png";
+            shoulder2IMG = "skindexResources/images/skins/player/silent/blue/shoulder2.png";
+            corpseIMG = "skindexResources/images/skins/player/silent/blue/corpse.png";
 
             id = ID;
             name = "Blue";

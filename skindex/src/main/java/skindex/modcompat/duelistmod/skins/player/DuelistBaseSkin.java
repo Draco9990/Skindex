@@ -21,6 +21,8 @@ public class DuelistBaseSkin extends PlayerSpriterSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = TheDuelistEnum.THE_DUELIST.toString();
+
+            isDefault = true;
         }
     }
 }

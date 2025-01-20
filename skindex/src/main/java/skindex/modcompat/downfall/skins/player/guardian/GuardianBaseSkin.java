@@ -12,5 +12,7 @@ public class GuardianBaseSkin extends DownfallSkinWrapper {
         playerClass = GuardianEnum.GUARDIAN;
         defaultAnimName = "idle";
         isOriginal = true;
+
+        isDefault = true;
     }
 }

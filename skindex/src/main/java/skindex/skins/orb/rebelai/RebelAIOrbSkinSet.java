@@ -1,18 +1,17 @@
 package skindex.skins.orb.rebelai;
 
+import skindex.registering.SkindexRegistry;
 import skindex.skins.orb.*;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class RebelAIOrbSkinSet {
-    public static List<OrbSkin> collectOrbSkins(){
-        return Arrays.asList(
-                new OrbImageSkin(new Lightning()),
-                new OrbImageSkin(new Frost()),
-                new OrbImageSkin(new Dark()),
-                new OrbImageSkin(new Plasma())
-        );
+    public static void registerOrbSkins(){
+        SkindexRegistry.registerItem(new OrbImageSkin(new Lightning()));
+        SkindexRegistry.registerItem(new OrbImageSkin(new Frost()));
+        SkindexRegistry.registerItem(new OrbImageSkin(new Dark()));
+        SkindexRegistry.registerItem(new OrbImageSkin(new Plasma()));
     }
 
     public static List<String> collectOrbSkinIds(){

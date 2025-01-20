@@ -28,6 +28,8 @@ public class MarisaBaseSkin extends PlayerAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = MARISA_ENUM.name();
+
+            isDefault = true;
         }
     }
 }

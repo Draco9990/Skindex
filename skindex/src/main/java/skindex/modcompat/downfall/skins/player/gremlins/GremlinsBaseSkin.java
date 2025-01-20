@@ -25,6 +25,8 @@ public class GremlinsBaseSkin extends GremlinsAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = GremlinEnum.GREMLIN.name();
+
+            isDefault = true;
         }
 
         /** Subclasses */

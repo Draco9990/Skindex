@@ -2,6 +2,7 @@ package skindex;
 
 import basemod.*;
 import basemod.abstracts.CustomSavable;
+import basemod.interfaces.PostInitializeSubscriber;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -13,17 +14,16 @@ import skindex.registering.*;
 import skindex.skins.player.AbstractPlayerSkin;
 
 @SpireInitializer
-public class Skindex {
+public class Skindex implements PostInitializeSubscriber {
     /** Variables */
     public static final Logger logger = LogManager.getLogger(Skindex.class.getName());
     private static String modID;
 
     /** Constructors */
     public Skindex() {
+        BaseMod.subscribe(this);
         BaseMod.subscribe(new SkinApplierPatches());
 
-        SkindexRegistry.subscribe(new SkindexDefaultRegistrant());
-        SkindexRegistry.subscribe(new SkindexModCompat());
         setModID("skindex");
     }
 
@@ -43,6 +43,12 @@ public class Skindex {
 
     public static String makeID(String idText) {
         return getModID() + ":" + idText;
+    }
+
+    @Override
+    public void receivePostInitialize() {
+        SkindexDefaultRegistrant.registerAll();
+        SkindexModCompat.registerAll();
     }
 
     @SpirePatch2(clz = BaseMod.class, method = "publishPostInitialize")

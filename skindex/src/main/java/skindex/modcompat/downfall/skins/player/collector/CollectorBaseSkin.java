@@ -22,6 +22,8 @@ public class CollectorBaseSkin extends CollectorAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = CollectorChar.Enums.THE_COLLECTOR.name();
+
+            isDefault = true;
         }
     }
 }

@@ -1,6 +1,7 @@
 package skindex.modcompat.skulHeroSlayer.skins.card;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import skindex.registering.SkindexRegistry;
 import skindex.skins.cards.CardSkin;
 import skindex.skins.cards.CardSkinData;
 import skulmod.character.LittleBone;
@@ -9,12 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LittleBoneRoyalGuardCardSkinSet {
-    public static List<CardSkin> collectCardSkins(){
-        return Arrays.asList(
-                new CardSkin(new Attack()),
-                new CardSkin(new Skill()),
-                new CardSkin(new Power())
-        );
+    public static void registerCardSkins(){
+        SkindexRegistry.registerItem(new CardSkin(new Attack()));
+        SkindexRegistry.registerItem(new CardSkin(new Skill()));
+        SkindexRegistry.registerItem(new CardSkin(new Power()));
     }
 
     public static List<String> collectCardSkinIds(){

@@ -25,6 +25,8 @@ public class UnchainedBaseSkin extends PlayerAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = TheUnchained.Enums.THE_UNCHAINED.name();
+
+            isDefault = true;
         }
     }
 }

@@ -25,6 +25,8 @@ public class AbyssalBaseSkin extends PlayerAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = ThePirate.Enums.THE_PIRATE.name();
+
+            isDefault = true;
         }
     }
 }

@@ -6,17 +6,16 @@ import skindex.bundles.Bundle;
 import skindex.registering.SkindexRegistry;
 import skindex.trackers.SkindexUnlockTracker;
 import skindex.unlockmethods.FreeUnlockMethod;
-import skindex.unlockmethods.UnlockMethod;
+import skindex.unlockmethods.AbstractUnlockMethod;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
-public abstract class AbstractOwnableItem<ItemType extends AbstractOwnableItem> extends AbstractCustomizableItem<ItemType> {
+public abstract class AbstractOwnableItem extends AbstractCustomizableItem {
     //region Variables
 
-    public UnlockMethod unlockMethod;
+    public AbstractUnlockMethod unlockMethod;
 
     public ArrayList<Bundle> bundles;
 
@@ -40,7 +39,7 @@ public abstract class AbstractOwnableItem<ItemType extends AbstractOwnableItem> 
     public boolean canUse(){
         if(SkindexDev.unlockAll) return true;
 
-        if(Objects.equals(unlockMethod.id, FreeUnlockMethod.methodId)) return true;
+        if(unlockMethod.hasUnlocked(this)) return true;
 
         return hasUnlocked();
     }
@@ -73,13 +72,16 @@ public abstract class AbstractOwnableItem<ItemType extends AbstractOwnableItem> 
 
         if(unlockDescription != null) return unlockDescription;
 
-        if(!bundles.isEmpty()){
-            return bundles.get(0).getItemUnlockDescription();
+        String unlockDescription = "";
+        for(Bundle b : bundles){
+            unlockDescription += b.getItemUnlockDescription() + "\n";
         }
 
-        if(unlockMethod != null) return unlockMethod.getItemUnlockDescription();
+        if(unlockMethod != null){
+            unlockDescription += unlockMethod.getItemUnlockDescription();
+        }
 
-        return "";
+        return unlockDescription;
     }
     //endregion
 

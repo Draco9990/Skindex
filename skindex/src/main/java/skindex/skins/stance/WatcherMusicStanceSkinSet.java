@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.stances.DivinityStance;
 import com.megacrit.cardcrawl.stances.WrathStance;
 import dLib.effects.AuraEffect;
 import dLib.util.Timer;
+import skindex.registering.SkindexRegistry;
 import skindex.skins.misc.particle.music.CalmNoteParticleEffect;
 import skindex.skins.misc.particle.music.DivinityNoteParticleEffect;
 import skindex.skins.misc.particle.music.WrathNoteParticleEffect;
@@ -17,12 +18,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class WatcherMusicStanceSkinSet {
-    public static List<StanceSkin> collectStanceSkins(){
-        return Arrays.asList(
-                new CalmSkin(),
-                new WrathSkin(),
-                new DivinitySkin()
-        );
+    public static void registerStanceSkins(){
+        SkindexRegistry.registerItem(new CalmSkin());
+        SkindexRegistry.registerItem(new WrathSkin());
+        SkindexRegistry.registerItem(new DivinitySkin());
     }
 
     public static List<String> collectStanceSkinIds(){

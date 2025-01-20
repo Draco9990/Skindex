@@ -13,8 +13,8 @@ public class FileLocations {
 
     public static String[] userConfigFiles = {
             skindexDirectory + "userConfig0.skindex",
-            skindexDirectory + "userConfig0.skindex",
-            skindexDirectory + "userConfig0.skindex"
+            skindexDirectory + "userConfig1.skindex",
+            skindexDirectory + "userConfig2.skindex"
     };
 
     public static String skindexCreatorsDirectory = skindexDirectory + "creators/";

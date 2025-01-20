@@ -1,10 +1,11 @@
 package skindex.unlockmethods;
 
 import dLib.ui.elements.UIElement;
+import skindex.itemtypes.AbstractOwnableItem;
 
 import java.io.Serializable;
 
-public class UnlockMethod implements Serializable {
+public class AbstractUnlockMethod implements Serializable {
     static final long serialVersionUID = 1L;
 
     //region Variables
@@ -13,7 +14,7 @@ public class UnlockMethod implements Serializable {
     //endregion Variables
 
     //region Constructors
-    public UnlockMethod(String id, String itemUnlockDescription){
+    public AbstractUnlockMethod(String id, String itemUnlockDescription){
         this.id = id;
         this.itemUnlockDescription = itemUnlockDescription;
     }
@@ -32,5 +33,14 @@ public class UnlockMethod implements Serializable {
         return null;
     }
     //endregion
+
+    //region Unlock Method
+
+    public boolean hasUnlocked(AbstractOwnableItem ownableItem){
+        return false;
+    }
+
+    //endregion
+
     //endregion Class Methods
 }

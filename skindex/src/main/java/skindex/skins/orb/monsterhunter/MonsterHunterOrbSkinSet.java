@@ -1,5 +1,6 @@
 package skindex.skins.orb.monsterhunter;
 
+import skindex.registering.SkindexRegistry;
 import skindex.skins.orb.OrbAtlasSkin;
 import skindex.skins.orb.OrbAtlasSkinData;
 import skindex.skins.orb.OrbSkin;
@@ -8,13 +9,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MonsterHunterOrbSkinSet {
-    public static List<OrbSkin> collectOrbSkins(){
-        return Arrays.asList(
-                new OrbAtlasSkin(new Lightning()),
-                new OrbAtlasSkin(new Frost()),
-                new OrbAtlasSkin(new Dark()),
-                new OrbAtlasSkin(new Plasma())
-        );
+    public static void registerOrbSkins(){
+        SkindexRegistry.registerItem(new OrbAtlasSkin(new Lightning()));
+        SkindexRegistry.registerItem(new OrbAtlasSkin(new Frost()));
+        SkindexRegistry.registerItem(new OrbAtlasSkin(new Dark()));
+        SkindexRegistry.registerItem(new OrbAtlasSkin(new Plasma()));
     }
 
     public static List<String> collectOrbSkinIds(){

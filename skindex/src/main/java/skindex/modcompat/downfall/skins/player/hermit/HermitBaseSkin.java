@@ -23,6 +23,8 @@ public class HermitBaseSkin extends PlayerAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = hermit.Enums.HERMIT.name();
+
+            isDefault = true;
         }
     }
 }

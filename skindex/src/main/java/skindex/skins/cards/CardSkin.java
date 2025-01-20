@@ -28,6 +28,12 @@ public final class CardSkin extends AbstractCustomizableItem {
 
         cardBg = makeAtlasRegionFromTexture(loadImageIfExists(data.cardBg));
     }
+
+    @Override
+    protected Class<? extends AbstractCustomizableItem> getItemType() {
+        return CardSkin.class;
+    }
+
     //endregion Constructors
 
     //region Class Methods

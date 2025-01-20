@@ -17,12 +17,12 @@ import dLib.util.ui.position.Pos;
 import skindex.itemtypes.AbstractCustomizableItem;
 import skindex.itemtypes.AbstractOwnableItem;
 import skindex.ui.elements.CustomizableItemPreview;
-import skindex.unlockmethods.UnlockMethod;
-import skindex.util.SkindexUI;
+import skindex.ui.elements.SkindexUICommonResources;
+import skindex.unlockmethods.AbstractUnlockMethod;
 
 import java.util.ArrayList;
 
-public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizableItem<?>> extends UIElement {
+public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizableItem> extends UIElement {
     //region Variables
     GridItemBox<Item> itemBox;
 
@@ -58,10 +58,10 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
         });
         main.setImage(Tex.stat(UICommonResources.xButton));
 
-        addChild(new Image(Tex.stat(SkindexUI.PreviewScreen.previewScreenBG()), Pos.px(43), Pos.px(1080-1058), Dim.px(867), Dim.px(1012)));
+        addChild(new Image(Tex.stat(SkindexUICommonResources.itemPreviewBg), Pos.px(43), Pos.px(1080-1058), Dim.px(867), Dim.px(1012)));
 
         itemUnlockDescriptionTextBox = new ImageTextBox("", Pos.px(891), Pos.px(1080-1013), Dim.px(1029), Dim.px(252));
-        itemUnlockDescriptionTextBox.setImage(Tex.stat(SkindexUI.PreviewScreen.previewItemUnlockDescriptionBackground()));
+        itemUnlockDescriptionTextBox.setImage(Tex.stat(SkindexUICommonResources.itemPreviewUnlockDescriptionBackground));
         itemUnlockDescriptionTextBox.textBox.setWrap(true);
         itemUnlockDescriptionTextBox.textBox.setTextRenderColor(Color.WHITE.cpy());
         addChild(itemUnlockDescriptionTextBox);
@@ -72,7 +72,7 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
         itemBox = new GridItemBox<Item>(Pos.px(93), Pos.px(1080-796-162), Dim.px(787), Dim.px(856)){
             @Override
             public UIElement makeUIForItem(Item item) {
-                return new CustomizableItemPreview<>(item, isItemFavourite(item));
+                return new CustomizableItemPreview<>(item, Dim.px(130), isItemFavourite(item));
             }
 
             @Override
@@ -175,7 +175,7 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
         }
 
         if(item instanceof AbstractOwnableItem){
-            UnlockMethod unlockMethod = ((AbstractOwnableItem) item).unlockMethod;
+            AbstractUnlockMethod unlockMethod = ((AbstractOwnableItem) item).unlockMethod;
 
             UIElement unlockMethodButton = unlockMethod.makeUnlockButton(1232, 1080-1022, 374, 75);
             if(unlockMethodButton != null){

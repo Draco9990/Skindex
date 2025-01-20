@@ -12,5 +12,7 @@ public class AutomatonBaseSkin extends DownfallSkinWrapper {
         defaultAnimName = "idle";
         playerClass = AutomatonChar.Enums.THE_AUTOMATON;
         isOriginal = true;
+
+        isDefault = true;
     }
 }

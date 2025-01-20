@@ -10,12 +10,14 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.CardTrailEffect;
 import skindex.SkindexGame;
+import skindex.itemtypes.AbstractCustomizableItem;
 import skindex.itemtypes.AbstractOwnableItem;
 import skindex.registering.SkindexRegistry;
 import skindex.effects.AbstractCreatureEffect;
 import skindex.entities.player.SkindexPlayerEntity;
 import skindex.skins.orb.OrbSkin;
 import skindex.skins.stances.StanceSkin;
+import skindex.trackers.SkindexUnlockTracker;
 import skindex.util.SkindexLogger;
 
 import java.io.Serializable;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public abstract class AbstractPlayerSkin extends AbstractOwnableItem<AbstractPlayerSkin> {
+public abstract class AbstractPlayerSkin extends AbstractOwnableItem {
     /** Variables */
     public AbstractPlayer.PlayerClass playerClass;
 
@@ -80,6 +82,11 @@ public abstract class AbstractPlayerSkin extends AbstractOwnableItem<AbstractPla
         isDefault = skinData.isDefault;
     }
 
+    @Override
+    protected Class<? extends AbstractCustomizableItem> getItemType() {
+        return AbstractPlayerSkin.class;
+    }
+
     /** Getters and Setters */
     public AbstractPlayerSkin setRenderColor(Color c){
         renderColor = c.cpy();
@@ -128,6 +135,18 @@ public abstract class AbstractPlayerSkin extends AbstractOwnableItem<AbstractPla
     }
 
     /** Methods */
+    @Override
+    public boolean unlock() {
+        SkindexUnlockTracker tracker = SkindexUnlockTracker.get();
+        return tracker.unlockPlayerSkin(this);
+    }
+
+    @Override
+    public boolean hasUnlocked() {
+        SkindexUnlockTracker tracker = SkindexUnlockTracker.get();
+        return tracker.hasPlayerSkin(this);
+    }
+
     public static void unlockSkin(String skinId, AbstractPlayer.PlayerClass playerClass){
         AbstractPlayerSkin skin = SkindexRegistry.getPlayerSkinByClassAndId(playerClass, skinId);
         if(skin != null){

@@ -13,5 +13,7 @@ public class SlimeboundBaseSkin extends DownfallSkinWrapper {
 
         defaultAnimName = "idle";
         isOriginal = true;
+
+        isDefault = true;
     }
 }

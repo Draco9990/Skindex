@@ -1,10 +1,8 @@
 package skindex.unlockmethods;
 
-public class NonUnlockableUnlockMethod extends UnlockMethod{
-    /** Variables */
+public class NonUnlockableUnlockMethod extends AbstractUnlockMethod {
     public static String methodId = "NON_UNLOCKABLE";
 
-    /** Constructors */
     public NonUnlockableUnlockMethod() {
         super(methodId, "This item is not unlockable.");
     }

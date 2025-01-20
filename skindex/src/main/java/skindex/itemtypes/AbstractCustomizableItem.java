@@ -13,14 +13,14 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
 
-public abstract class AbstractCustomizableItem<ItemType extends AbstractCustomizableItem> {
+public abstract class AbstractCustomizableItem {
     //region Variables
-    public Class<ItemType> itemTypeClass;
+    public Class<? extends AbstractCustomizableItem> itemTypeClass;
 
     protected String id;
     protected String name;
 
-    protected String previewIconPath;
+    protected Texture icon;
 
     protected ArrayList<String> credits;
 
@@ -32,14 +32,17 @@ public abstract class AbstractCustomizableItem<ItemType extends AbstractCustomiz
         this.id = itemData.id;
         this.name = itemData.name;
 
-        this.previewIconPath = itemData.icon;
+        this.icon = TextureManager.getTexture(itemData.icon);
 
         credits = itemData.credits;
 
         dataInitializer = itemData;
 
-        itemTypeClass = (Class<ItemType>) this.getClass().getGenericSuperclass();
+        itemTypeClass = getItemType();
     }
+
+    protected abstract Class<? extends AbstractCustomizableItem> getItemType();
+
     //endregion Constructors
 
     //region Class Methods
@@ -60,9 +63,9 @@ public abstract class AbstractCustomizableItem<ItemType extends AbstractCustomiz
     }
     //endregion
 
-    //region Preview Icon
-    public Texture getPreviewIcon(){
-        return TextureManager.getTexture(previewIconPath);
+    //region Icon
+    public Texture getIcon(){
+        return icon;
     }
     //endregion
 

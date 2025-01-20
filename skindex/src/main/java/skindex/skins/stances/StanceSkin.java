@@ -25,7 +25,7 @@ import skindex.skins.player.AbstractPlayerSkin;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class StanceSkin extends AbstractCustomizableItem<StanceSkin> {
+public class StanceSkin extends AbstractCustomizableItem {
     //region Variables
     public String stanceId;
 
@@ -46,6 +46,12 @@ public class StanceSkin extends AbstractCustomizableItem<StanceSkin> {
 
         }
     }
+
+    @Override
+    protected Class<? extends AbstractCustomizableItem> getItemType() {
+        return StanceSkin.class;
+    }
+
     //endregion Constructors
 
     //region Class Methods

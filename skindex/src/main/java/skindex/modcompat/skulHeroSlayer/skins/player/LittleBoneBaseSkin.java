@@ -23,6 +23,8 @@ public class LittleBoneBaseSkin extends LittleBoneAtlasSkin {
 
             unlockMethod = FreeUnlockMethod.methodId;
             playerClass = LittleBone.Enums.Little_Bone.name();
+
+            isDefault = true;
         }
     }
 }
