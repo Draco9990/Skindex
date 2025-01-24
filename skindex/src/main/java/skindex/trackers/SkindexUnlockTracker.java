@@ -139,7 +139,7 @@ public class SkindexUnlockTracker extends JsonDataFile implements Serializable {
     }
 
     private void ensureItemTypeExists(Class<? extends AbstractOwnableItem> itemType){
-        if(!unlocks.containsKey(itemType)){
+        if(!unlocks.containsKey(itemType.getName())){
             unlocks.put(itemType.getName(), new ArrayList<>());
         }
     }
