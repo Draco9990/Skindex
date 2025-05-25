@@ -56,12 +56,12 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
                 self.close();
             }
         });
-        main.setImage(Tex.stat(UICommonResources.xButton));
+        main.setTexture(Tex.stat(UICommonResources.xButton));
 
         addChild(new Image(Tex.stat(SkindexUICommonResources.itemPreviewBg), Pos.px(43), Pos.px(1080-1058), Dim.px(867), Dim.px(1012)));
 
         itemUnlockDescriptionTextBox = new ImageTextBox("", Pos.px(891), Pos.px(1080-1013), Dim.px(1029), Dim.px(252));
-        itemUnlockDescriptionTextBox.setImage(Tex.stat(SkindexUICommonResources.itemPreviewUnlockDescriptionBackground));
+        itemUnlockDescriptionTextBox.setTexture(Tex.stat(SkindexUICommonResources.itemPreviewUnlockDescriptionBackground));
         itemUnlockDescriptionTextBox.textBox.setWrap(true);
         itemUnlockDescriptionTextBox.textBox.setTextRenderColor(Color.WHITE.cpy());
         addChild(itemUnlockDescriptionTextBox);
@@ -76,18 +76,19 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
             }
 
             @Override
-            public void onItemSelectionChanged(ArrayList<Item> item) {
-                super.onItemSelectionChanged(item);
+            public void onItemSelectionChanged() {
+                super.onItemSelectionChanged();
 
-                if(item.size() != 1){
+                ArrayList<Item> items = getCurrentlySelectedItems();
+                if(items.size() != 1){
                     return;
                 }
 
-                onPreviewItemChanged(item.get(0));
+                onPreviewItemChanged(items.get(0));
             }
         };
         itemBox.setItemSpacing(20);
-        itemBox.setImage(Tex.stat(UICommonResources.white_pixel));
+        itemBox.setTexture(Tex.stat(UICommonResources.white_pixel));
         itemBox.setRenderColor(indentColor.cpy());
         itemBox.setPadding(Padd.px(30));
         addChild(itemBox);
@@ -117,7 +118,7 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
 
         if(visible){
             ArrayList<Item> items = getItems();
-            itemBox.setItems(items);
+            itemBox.setChildren(items);
             if(!items.isEmpty()) onPreviewItemChanged(items.get(0));
             //TODO Rf
         }

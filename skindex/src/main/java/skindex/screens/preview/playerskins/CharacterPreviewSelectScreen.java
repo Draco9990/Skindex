@@ -6,7 +6,7 @@ import dLib.DLib;
 import dLib.ui.elements.UIElement;
 import dLib.ui.elements.items.Image;
 import dLib.ui.elements.items.buttons.Button;
-import dLib.ui.elements.items.itembox.VerticalListBox;
+import dLib.ui.elements.items.itembox.VerticalDataBox;
 import dLib.ui.resources.UICommonResources;
 import dLib.util.bindings.texture.Tex;
 import dLib.util.ui.dimensions.Dim;
@@ -37,30 +37,31 @@ public class CharacterPreviewSelectScreen extends UIElement {
                 self.close();
             }
         });
-        child.setImage(Tex.stat(UICommonResources.xButton));
+        child.setTexture(Tex.stat(UICommonResources.xButton));
 
-        VerticalListBox<AbstractPlayer.PlayerClass> listBox = new VerticalListBox<AbstractPlayer.PlayerClass>(Pos.px(70), Pos.px(1080-1020), Dim.px(1724), Dim.px(840)){
+        VerticalDataBox<AbstractPlayer.PlayerClass> listBox = new VerticalDataBox<AbstractPlayer.PlayerClass>(Pos.px(70), Pos.px(1080-1020), Dim.px(1724), Dim.px(840)){
             @Override
             public UIElement makeUIForItem(AbstractPlayer.PlayerClass item) {
                 return new CharacterPreviewButton(item);
             }
 
             @Override
-            public void onItemSelectionChanged(ArrayList<AbstractPlayer.PlayerClass> item) {
-                super.onItemSelectionChanged(item);
+            public void onItemSelectionChanged() {
+                super.onItemSelectionChanged();
 
-                if(item.size() != 1){
+                List<AbstractPlayer.PlayerClass> items = getCurrentlySelectedItems();
+                if(items.size() != 1){
                     return;
                 }
 
-                PlayerSkinPreviewScreen screen = new PlayerSkinPreviewScreen(item.get(0));
+                PlayerSkinPreviewScreen screen = new PlayerSkinPreviewScreen(items.get(0));
                 screen.open();
             }
         };
         Color transparent = Color.WHITE.cpy();
         transparent.a = 0.0f;
         listBox.setRenderColor(transparent);
-        listBox.setItems(SkindexRegistry.getRegisteredPlayerClasses());
+        listBox.setChildren(SkindexRegistry.getRegisteredPlayerClasses());
         addChild(listBox);
     }
     //endregion Constructors

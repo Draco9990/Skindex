@@ -42,7 +42,7 @@ public class CharacterPreviewButton extends UIElement {
         AbstractPlayer player = CardCrawlGame.characterManager.getCharacter(playerClass);
         if(player != null){
             ImageTextBox textBox = new ImageTextBox(player.getLocalizedCharacterName(), Pos.px(135), Pos.px(6), Dim.px(1589), Dim.px(81));
-            textBox.setImage(Tex.stat(UICommonResources.itembox_itembg_horizontal));
+            textBox.setTexture(Tex.stat(UICommonResources.button03_square));
             textBox.textBox.setHorizontalContentAlignment(Alignment.HorizontalAlignment.LEFT);
             addChild(textBox);
         }
