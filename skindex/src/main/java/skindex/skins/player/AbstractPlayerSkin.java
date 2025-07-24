@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.CardTrailEffect;
+import dLib.files.JsonDataFileManager;
 import skindex.SkindexGame;
 import skindex.itemtypes.AbstractCustomizableItem;
 import skindex.itemtypes.AbstractOwnableItem;
@@ -137,13 +138,13 @@ public abstract class AbstractPlayerSkin extends AbstractOwnableItem {
     /** Methods */
     @Override
     public boolean unlock() {
-        SkindexUnlockTracker tracker = SkindexUnlockTracker.get();
+        SkindexUnlockTracker tracker = JsonDataFileManager.load(SkindexUnlockTracker.class);
         return tracker.unlockPlayerSkin(this);
     }
 
     @Override
     public boolean hasUnlocked() {
-        SkindexUnlockTracker tracker = SkindexUnlockTracker.get();
+        SkindexUnlockTracker tracker = JsonDataFileManager.load(SkindexUnlockTracker.class);
         return tracker.hasPlayerSkin(this);
     }
 

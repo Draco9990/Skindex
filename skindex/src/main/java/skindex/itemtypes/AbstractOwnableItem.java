@@ -1,6 +1,7 @@
 package skindex.itemtypes;
 
 import com.google.gson.annotations.SerializedName;
+import dLib.files.JsonDataFileManager;
 import skindex.SkindexDev;
 import skindex.bundles.Bundle;
 import skindex.registering.SkindexRegistry;
@@ -45,15 +46,15 @@ public abstract class AbstractOwnableItem extends AbstractCustomizableItem {
     }
 
     public boolean unlock(){
-        return SkindexUnlockTracker.get().unlockItem(this);
+        return JsonDataFileManager.load(SkindexUnlockTracker.class).unlockItem(this);
     }
     public boolean hasUnlocked(){
-        if(SkindexUnlockTracker.get().hasItem(this)){
+        if(JsonDataFileManager.load(SkindexUnlockTracker.class).hasItem(this)){
             return true;
         }
 
         for(Bundle b : bundles){
-            if(SkindexUnlockTracker.get().hasBundle(b)){
+            if(JsonDataFileManager.load(SkindexUnlockTracker.class).hasBundle(b)){
                 return true;
             }
         }

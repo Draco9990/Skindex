@@ -3,6 +3,7 @@ package skindex.screens.preview.playerskins;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
+import dLib.files.JsonDataFileManager;
 import dLib.ui.elements.items.Image;
 import dLib.util.TextureManager;
 import dLib.util.bindings.texture.Tex;
@@ -74,13 +75,13 @@ public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<AbstractP
 
     @Override
     protected boolean isItemFavourite(AbstractPlayerSkin item) {
-        return Objects.equals(SkindexUserConfig.get().getFavouritedSkin(playerClass), item);
+        return Objects.equals(JsonDataFileManager.load(SkindexUserConfig.class).getFavouritedSkin(playerClass), item);
     }
 
     @Override
     protected void onSetItemFavourite(AbstractPlayerSkin item) {
         super.onSetItemFavourite(item);
-        SkindexUserConfig.get().setFavouritedSkin(item);
+        JsonDataFileManager.load(SkindexUserConfig.class).setFavouritedSkin(item);
     }
 
     //endregion Class Methods

@@ -3,30 +3,16 @@ package skindex.files;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import dLib.files.JsonDataFile;
+import dLib.files.JsonStorageFileRules;
 import skindex.itemtypes.AbstractCustomizableItem;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.player.AbstractPlayerSkin;
+import skindex.trackers.SkindexUnlockTracker;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SkindexUserConfig extends JsonDataFile implements Serializable {
-    //region Singleton(ish)
-
-    public static SkindexUserConfig[] instances = new SkindexUserConfig[3];
-    public static SkindexUserConfig get(int saveSlot){
-        if(instances[saveSlot] == null){
-            instances[saveSlot] = load(saveSlot);
-        }
-        return instances[saveSlot];
-    }
-    public static SkindexUserConfig get(){
-        return get(CardCrawlGame.saveSlot);
-    }
-
-    //endregion
-
     //region Variables
 
     public HashMap<String, String> favouritedItems = new HashMap<>();
@@ -35,34 +21,7 @@ public class SkindexUserConfig extends JsonDataFile implements Serializable {
 
     //endregion
 
-    //region Constructors
-
-    public SkindexUserConfig(int saveSlot) {
-        super(FileLocations.userConfigFiles[saveSlot]);
-    }
-    public SkindexUserConfig(){
-        this(CardCrawlGame.saveSlot);
-    }
-
-    //endregion
-
     //region Class Methods
-
-    //region Save/Load
-
-    public static SkindexUserConfig load(int saveSlot){
-        SkindexUserConfig tracker = (SkindexUserConfig) load(FileLocations.userConfigFiles[saveSlot], SkindexUserConfig.class);
-        if(tracker == null){
-            tracker = new SkindexUserConfig(saveSlot);
-        }
-
-        return tracker;
-    }
-    public static SkindexUserConfig load(){
-        return load(CardCrawlGame.saveSlot);
-    }
-
-    //endregion
 
     //region Favourited Items
 
@@ -116,4 +75,20 @@ public class SkindexUserConfig extends JsonDataFile implements Serializable {
     //endregion
 
     //endregion
+
+    public static JsonStorageFileRules<SkindexUserConfig> makeRules(){
+        JsonStorageFileRules<SkindexUserConfig> rules = new JsonStorageFileRules<>();
+
+        rules.saveSteamCloud = true;
+        rules.saveLocal = true;
+
+        rules.localRelativeDirPath = "skindex";
+        rules.fileName = "userConfig";
+        rules.extension = ".skindex";
+        rules.perSave = true;
+
+        rules.makeNew = SkindexUserConfig::new;
+
+        return rules;
+    }
 }

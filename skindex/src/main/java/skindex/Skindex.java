@@ -6,12 +6,17 @@ import basemod.interfaces.PostInitializeSubscriber;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import dLib.files.JsonDataFile;
+import dLib.files.JsonDataFileManager;
+import dLib.files.JsonStorageFileRules;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import skindex.files.SkindexUserConfig;
 import skindex.modcompat.SkindexModCompat;
 import skindex.patches.SkinApplierPatches;
 import skindex.registering.*;
 import skindex.skins.player.AbstractPlayerSkin;
+import skindex.trackers.SkindexUnlockTracker;
 
 @SpireInitializer
 public class Skindex implements PostInitializeSubscriber {
@@ -47,6 +52,9 @@ public class Skindex implements PostInitializeSubscriber {
 
     @Override
     public void receivePostInitialize() {
+        JsonDataFileManager.registerFileRules(SkindexUnlockTracker.class, SkindexUnlockTracker.makeRules());
+        JsonDataFileManager.registerFileRules(SkindexUserConfig.class, SkindexUserConfig.makeRules());
+
         SkindexDefaultRegistrant.registerAll();
         SkindexModCompat.registerAll();
     }

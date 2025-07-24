@@ -4,6 +4,7 @@ import com.codedisaster.steamworks.SteamRemoteStorage;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import dLib.files.JsonDataFile;
+import dLib.files.JsonStorageFileRules;
 import dLib.util.Reflection;
 import dLib.util.SerializationHelpers;
 import dLib.util.helpers.SteamHelpers;
@@ -18,99 +19,13 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SkindexUnlockTracker extends JsonDataFile implements Serializable {
-    public static final long serialVersionUID = 1L;
-
-    //region Singleton(ish)
-
-    public static SkindexUnlockTracker[] instances = new SkindexUnlockTracker[3];
-    public static SkindexUnlockTracker get(int saveSlot){
-        if(instances[saveSlot] == null){
-            instances[saveSlot] = load(saveSlot);
-        }
-        return instances[saveSlot];
-    }
-    public static SkindexUnlockTracker get(){
-        return get(CardCrawlGame.saveSlot);
-    }
-
-    //endregion
-
+public class SkindexUnlockTracker extends JsonDataFile {
     //region Variables
+
     public HashMap<String, ArrayList<String>> unlocks = new HashMap<>();
 
     public ArrayList<String> unlockedBundles = new ArrayList<>();
     public HashMap<String, ArrayList<String>> unlockedSkins = new HashMap<>();
-    //endregion
-
-    //region Constructors
-    public SkindexUnlockTracker(int saveSlot) {
-        super(FileLocations.trackerFiles[saveSlot]);
-    }
-    public SkindexUnlockTracker(){
-        this(CardCrawlGame.saveSlot);
-    }
-    //endregion
-
-    //region Class Methods
-
-    //region Save/Load
-
-
-    @Override
-    public void save() {
-        super.save();
-
-        if(SteamHelpers.isSteamAvailable()){
-            SteamRemoteStorage remoteStorage = SteamHelpers.remoteStorage;
-            if(remoteStorage != null){
-                try{
-                    remoteStorage.fileWrite("skindex_tracker_" + CardCrawlGame.saveSlot + ".json", SerializationHelpers.toByteBuffer(this));
-                }catch (Exception e){
-                    SkindexLogger.logError("Failed to save SkindexUnlockTracker to Steam Cloud due to " + e.getLocalizedMessage(), SkindexLogger.ErrorType.NON_FATAL);
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    public static SkindexUnlockTracker load(int saveSlot){
-        SkindexUnlockTracker tracker = (SkindexUnlockTracker) load(FileLocations.trackerFiles[saveSlot], SkindexUnlockTracker.class);
-        if(tracker != null){
-            return tracker;
-        }
-
-        if(SteamHelpers.isSteamAvailable()){
-            SteamRemoteStorage remoteStorage = SteamHelpers.remoteStorage;
-            if(remoteStorage != null){
-                try{
-                    ByteBuffer dataBuffer = ByteBuffer.allocateDirect(10 * 1024 * 1024);
-                    remoteStorage.fileRead("skindex_tracker_" + saveSlot + ".json", dataBuffer);
-                    tracker = SerializationHelpers.fromByteBuffer(dataBuffer);
-                    if(tracker != null){
-                        SkindexUnlockTracker emptyTracker = new SkindexUnlockTracker();
-
-                        Reflection.setFieldValue("filePath", tracker, Reflection.getFieldValue("filePath", emptyTracker));
-                        Reflection.setFieldValue("encrypted", tracker, Reflection.getFieldValue("encrypted", emptyTracker));
-                        Reflection.setFieldValue("encryptionKey", tracker, Reflection.getFieldValue("encryptionKey", emptyTracker));
-
-                        tracker.save();
-                        return tracker;
-                    }
-                }catch (Exception e){
-                    SkindexLogger.logError("Failed to load SkindexUnlockTracker from Steam Cloud due to " + e.getLocalizedMessage(), SkindexLogger.ErrorType.NON_FATAL);
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        tracker = new SkindexUnlockTracker(saveSlot);
-        tracker.save();
-        return tracker;
-    }
-    public static SkindexUnlockTracker load(){
-        return load(CardCrawlGame.saveSlot);
-    }
 
     //endregion
 
@@ -205,4 +120,20 @@ public class SkindexUnlockTracker extends JsonDataFile implements Serializable {
     //endregion
 
     //endregion
+
+    public static JsonStorageFileRules<SkindexUnlockTracker> makeRules(){
+        JsonStorageFileRules<SkindexUnlockTracker> rules = new JsonStorageFileRules<>();
+
+        rules.saveSteamCloud = true;
+        rules.saveLocal = true;
+
+        rules.localRelativeDirPath = "skindex";
+        rules.fileName = "unlocks";
+        rules.extension = ".skindex";
+        rules.perSave = true;
+
+        rules.makeNew = SkindexUnlockTracker::new;
+
+        return rules;
+    }
 }

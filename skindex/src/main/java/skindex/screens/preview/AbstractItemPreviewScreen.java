@@ -5,7 +5,7 @@ import dLib.ui.Alignment;
 import dLib.ui.elements.UIElement;
 import dLib.ui.elements.items.Image;
 import dLib.ui.elements.items.buttons.Button;
-import dLib.ui.elements.items.itembox.GridItemBox;
+import dLib.ui.elements.items.itembox.VerticalDataBox;
 import dLib.ui.elements.items.text.ImageTextBox;
 import dLib.ui.elements.items.text.TextBox;
 import dLib.ui.elements.items.text.TextButton;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizableItem> extends UIElement {
     //region Variables
-    GridItemBox<Item> itemBox;
+    VerticalDataBox<Item> itemBox;
 
     TextBox itemNameTextBox;
     TextBox itemCreditsTextBox;
@@ -48,14 +48,8 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
         addChild(new Image(Tex.stat(UICommonResources.white_pixel), Dim.fill(), Dim.fill()));
 
         Button main;
-        addChild(main = new Button(Pos.px(1788), Pos.px(1080-121), Dim.px(95), Dim.px(95)){
-            @Override
-            protected void onLeftClick(boolean byProxy) {
-                super.onLeftClick(byProxy);
-
-                self.close();
-            }
-        });
+        addChild(main = new Button(Pos.px(1788), Pos.px(1080-121), Dim.px(95), Dim.px(95)));
+        main.postLeftClickEvent.subscribe(main, self::close);
         main.setTexture(Tex.stat(UICommonResources.xButton));
 
         addChild(new Image(Tex.stat(SkindexUICommonResources.itemPreviewBg), Pos.px(43), Pos.px(1080-1058), Dim.px(867), Dim.px(1012)));
@@ -69,7 +63,7 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
         Color indentColor = Color.BLACK.cpy();
         indentColor.a = 0.4f;
 
-        itemBox = new GridItemBox<Item>(Pos.px(93), Pos.px(1080-796-162), Dim.px(787), Dim.px(856)){
+        itemBox = new VerticalDataBox<Item>(Pos.px(93), Pos.px(1080-796-162), Dim.px(787), Dim.px(856)){
             @Override
             public UIElement makeUIForItem(Item item) {
                 return new CustomizableItemPreview<>(item, Dim.px(130), isItemFavourite(item));
@@ -79,7 +73,7 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
             public void onItemSelectionChanged() {
                 super.onItemSelectionChanged();
 
-                ArrayList<Item> items = getCurrentlySelectedItems();
+                ArrayList<Item> items = getSelectedItems();
                 if(items.size() != 1){
                     return;
                 }
@@ -87,6 +81,7 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
                 onPreviewItemChanged(items.get(0));
             }
         };
+        itemBox.setGridMode(true);
         itemBox.setItemSpacing(20);
         itemBox.setTexture(Tex.stat(UICommonResources.white_pixel));
         itemBox.setRenderColor(indentColor.cpy());
@@ -103,7 +98,7 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
 
         this.supportsItemFavourites = supportsItemFavourites;
         favouriteButton = new TextButton("Set Default", Pos.px(1169), Pos.px(1080-986), Dim.px(522), Dim.px(101));
-        favouriteButton.onLeftClickEvent.subscribe(favouriteButton, () -> {
+        favouriteButton.postLeftClickEvent.subscribe(favouriteButton, () -> {
             if(previewingItem != null){
                 onSetItemFavourite(previewingItem);
             }

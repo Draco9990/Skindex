@@ -30,13 +30,8 @@ public class CharacterPreviewSelectScreen extends UIElement {
         addChild(new Image(Tex.stat(UICommonResources.white_pixel), Dim.fill(), Dim.fill()));
 
         Button child;
-        addChild(child = new Button(Pos.px(1788), Pos.px(1080-121), Dim.px(95), Dim.px(95)){
-            @Override
-            protected void onLeftClick(boolean byProxy) {
-                super.onLeftClick(byProxy);
-                self.close();
-            }
-        });
+        addChild(child = new Button(Pos.px(1788), Pos.px(1080-121), Dim.px(95), Dim.px(95)));
+        child.postLeftClickEvent.subscribe(child, self::close);
         child.setTexture(Tex.stat(UICommonResources.xButton));
 
         VerticalDataBox<AbstractPlayer.PlayerClass> listBox = new VerticalDataBox<AbstractPlayer.PlayerClass>(Pos.px(70), Pos.px(1080-1020), Dim.px(1724), Dim.px(840)){
@@ -49,7 +44,7 @@ public class CharacterPreviewSelectScreen extends UIElement {
             public void onItemSelectionChanged() {
                 super.onItemSelectionChanged();
 
-                List<AbstractPlayer.PlayerClass> items = getCurrentlySelectedItems();
+                List<AbstractPlayer.PlayerClass> items = getSelectedItems();
                 if(items.size() != 1){
                     return;
                 }
