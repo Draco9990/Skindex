@@ -50,8 +50,8 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
         Button main;
         addChild(main = new Button(Pos.px(1788), Pos.px(1080-121), Dim.px(95), Dim.px(95)){
             @Override
-            protected void onLeftClick() {
-                super.onLeftClick();
+            protected void onLeftClick(boolean byProxy) {
+                super.onLeftClick(byProxy);
 
                 self.close();
             }
@@ -172,7 +172,7 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
 
     private void loadUnlockButton(Item item){
         if(unlockButton != null){
-            removeChild(unlockButton);
+            removeChildByInstance(unlockButton);
         }
 
         if(item instanceof AbstractOwnableItem){
