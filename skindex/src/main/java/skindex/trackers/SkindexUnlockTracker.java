@@ -19,7 +19,9 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SkindexUnlockTracker extends JsonDataFile {
+public class SkindexUnlockTracker extends JsonDataFile implements Serializable {
+    public static final long serialVersionUID = 1L;
+
     //region Variables
 
     public HashMap<String, ArrayList<String>> unlocks = new HashMap<>();

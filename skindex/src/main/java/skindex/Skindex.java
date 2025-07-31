@@ -57,6 +57,8 @@ public class Skindex implements PostInitializeSubscriber {
 
         SkindexDefaultRegistrant.registerAll();
         SkindexModCompat.registerAll();
+
+        SkindexVersionManager.init();
     }
 
     @SpirePatch2(clz = BaseMod.class, method = "publishPostInitialize")

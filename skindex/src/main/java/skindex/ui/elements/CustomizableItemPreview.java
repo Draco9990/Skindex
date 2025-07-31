@@ -89,7 +89,7 @@ public class CustomizableItemPreview<Item extends AbstractCustomizableItem> exte
             addChild(favouritedStar);
         }
         else if(favouritedStar != null){
-            removeChildByInstance(favouritedStar);
+            removeChild(favouritedStar);
         }
 
     }

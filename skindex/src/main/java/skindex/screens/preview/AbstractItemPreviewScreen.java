@@ -167,7 +167,7 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
 
     private void loadUnlockButton(Item item){
         if(unlockButton != null){
-            removeChildByInstance(unlockButton);
+            removeChild(unlockButton);
         }
 
         if(item instanceof AbstractOwnableItem){
