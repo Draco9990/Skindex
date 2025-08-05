@@ -43,12 +43,10 @@ public class PlayerSpriterSkin extends AbstractPlayerSkin {
     }
 
     public static boolean renderSpriterSkinModel(AbstractPlayer __instance, SpriteBatch sb){
-        if(Objects.equals(__instance, AbstractDungeon.player)){
-            AbstractPlayerSkin playerSkin = SkindexGame.getActivePlayerSkin();
-            if(playerSkin instanceof PlayerSpriterSkin){
-                ((PlayerSpriterSkin) playerSkin).renderModel(sb, (int)(__instance.drawX + __instance.animX), (int)(__instance.drawY + __instance.animY), __instance.flipHorizontal, __instance.flipVertical, 1);
-                return true;
-            }
+        AbstractPlayerSkin playerSkin = SkindexGame.getActivePlayerSkin(__instance);
+        if(playerSkin instanceof PlayerSpriterSkin){
+            ((PlayerSpriterSkin) playerSkin).renderModel(sb, (int)(__instance.drawX + __instance.animX), (int)(__instance.drawY + __instance.animY), __instance.flipHorizontal, __instance.flipVertical, 1);
+            return true;
         }
 
         return false;

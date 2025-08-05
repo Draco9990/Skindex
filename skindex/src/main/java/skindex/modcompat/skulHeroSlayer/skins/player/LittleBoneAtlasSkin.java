@@ -3,6 +3,7 @@ package skindex.modcompat.skulHeroSlayer.skins.player;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
 import com.google.gson.annotations.SerializedName;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.modcompat.ModManager;
 import dLib.util.Reflection;
@@ -50,9 +51,9 @@ public class LittleBoneAtlasSkin extends AbstractPlayerSkin {
     }
 
     @Override
-    public boolean loadOnPlayer() {
-        if(!super.loadOnPlayer()) return false;
-        if(!(AbstractDungeon.player instanceof LittleBone)) return false;
+    public boolean loadOnPlayer(AbstractPlayer player) {
+        if(!super.loadOnPlayer(player)) return false;
+        if(!(player instanceof LittleBone)) return false;
 
         String currentSkul = SkulMod.CurrentSkull;
         if(currentSkul == null || currentSkul.equals("None")) currentSkul = "LittleBone";
@@ -76,8 +77,8 @@ public class LittleBoneAtlasSkin extends AbstractPlayerSkin {
         @SpirePatch2(clz = LittleBone.class, method = "AnimateSkull", requiredModId = ModManager.SkulHeroSlayer.modId, optional = true)
         public static class SkinLoaderPatcher {
             @SpireInsertPatch(locator = Locator.class)
-            public static void Insert(){
-                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+            public static void Insert(LittleBone __instance){
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin(__instance);
                 if(currentSkin instanceof LittleBoneAtlasSkin){
                     currentSkin.loadOnPlayer();
                 }

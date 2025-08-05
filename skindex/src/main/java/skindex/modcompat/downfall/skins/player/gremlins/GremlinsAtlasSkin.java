@@ -10,6 +10,7 @@ import com.esotericsoftware.spine.SkeletonJson;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.google.gson.annotations.SerializedName;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.modcompat.ModManager;
@@ -83,11 +84,11 @@ public class GremlinsAtlasSkin extends AbstractPlayerSkin {
         return true;
     }
     @Override
-    public boolean loadOnPlayer(){
-        if(!super.loadOnPlayer()) return false;
+    public boolean loadOnPlayer(AbstractPlayer player){
+        if(!super.loadOnPlayer(player)) return false;
 
-        if(AbstractDungeon.player instanceof GremlinCharacter){
-            GremlinCharacter gremlinChar = (GremlinCharacter) AbstractDungeon.player;
+        if(player instanceof GremlinCharacter){
+            GremlinCharacter gremlinChar = (GremlinCharacter) player;
 
             String gremlin = gremlinChar.currentGremlin == null ? gremlinChar.mobState.getFrontGremlin() : gremlinChar.currentGremlin;
             String animation = getGremlinAnimationName(gremlin);
@@ -147,8 +148,8 @@ public class GremlinsAtlasSkin extends AbstractPlayerSkin {
 
         @SpirePatch2(clz = GremlinCharacter.class, method = "swapBody", requiredModId = ModManager.Downfall.modId, optional = true)
         public static class ReloadAnimPatcher{
-            public static void Postfix(){
-                AbstractPlayerSkin activeSkin = SkindexGame.getActivePlayerSkin();
+            public static void Postfix(GremlinCharacter __instance){
+                AbstractPlayerSkin activeSkin = SkindexGame.getActivePlayerSkin(__instance);
                 if(activeSkin != null){
                     activeSkin.loadOnPlayer();
                 }
@@ -157,8 +158,8 @@ public class GremlinsAtlasSkin extends AbstractPlayerSkin {
 
         @SpirePatch(clz = GremlinCharacter.class, method = "becomeNob", requiredModId = ModManager.Downfall.modId, optional = true)
         public static class BecomeNobPatcher{
-            public static void Postfix(){
-                AbstractPlayerSkin activeSkin = SkindexGame.getActivePlayerSkin();
+            public static void Postfix(GremlinCharacter __instance){
+                AbstractPlayerSkin activeSkin = SkindexGame.getActivePlayerSkin(__instance);
                 if(activeSkin != null){
                     activeSkin.loadOnPlayer();
                 }

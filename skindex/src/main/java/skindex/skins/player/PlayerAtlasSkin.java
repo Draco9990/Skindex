@@ -1,6 +1,7 @@
 package skindex.skins.player;
 
 import com.google.gson.annotations.SerializedName;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.util.Reflection;
 import skindex.entities.player.SkindexPlayerAtlasEntity;
@@ -44,13 +45,13 @@ public class PlayerAtlasSkin extends AbstractPlayerSkin {
         return true;
     }
     @Override
-    public boolean loadOnPlayer() {
-        if(!super.loadOnPlayer()) return false;
+    public boolean loadOnPlayer(AbstractPlayer player) {
+        if(!super.loadOnPlayer(player)) return false;
 
         PlayerLoadAnimationPatcher.LoadAnimationConsumer.resourceDirectoryUrl = resourceDirectory;
-        Reflection.invokeMethod("loadAnimation", AbstractDungeon.player, atlasUrl, skeletonUrl, 1 / scale);
-        AbstractDungeon.player.state.setAnimation(0, defaultAnimName, true);
-        AbstractDungeon.player.state.setTimeScale(defaultTimeScale);
+        Reflection.invokeMethod("loadAnimation", player, atlasUrl, skeletonUrl, 1 / scale);
+        player.state.setAnimation(0, defaultAnimName, true);
+        player.state.setTimeScale(defaultTimeScale);
 
         return true;
     }

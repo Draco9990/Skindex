@@ -1,5 +1,6 @@
 package skindex.modcompat.duelistmod.skins.player;
 
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import duelistmod.DuelistMod;
 import duelistmod.patches.TheDuelistEnum;
 import skindex.entities.player.SkindexPlayerEntity;
@@ -19,9 +20,9 @@ public class DuelistAnimatedYugiSkin extends PlayerAtlasSkin {
     }
 
     @Override
-    public boolean loadOnPlayer() {
+    public boolean loadOnPlayer(AbstractPlayer player) {
         this.defaultTimeScale = DuelistMod.persistentDuelistData.VisualSettings.getAnimationSpeed();
-        return super.loadOnPlayer();
+        return super.loadOnPlayer(player);
     }
 
     /** Data */

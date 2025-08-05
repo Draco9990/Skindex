@@ -2,10 +2,8 @@ package skindex.modcompat.downfall.skins.player.hexaghost;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpireField;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
-import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
+import com.evacipated.cardcrawl.modthespire.lib.*;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.BobEffect;
@@ -78,10 +76,10 @@ public class HexaghostAtlasSkin extends PlayerAtlasSkin {
         return true;
     }
     @Override
-    public boolean loadOnPlayer() {
-        if(!super.loadOnPlayer()) return false;
+    public boolean loadOnPlayer(AbstractPlayer player) {
+        if(!super.loadOnPlayer(player)) return false;
 
-        MyBody hexaBody = ((TheHexaghost) AbstractDungeon.player).myBody;
+        MyBody hexaBody = ((TheHexaghost) player).myBody;
         if(plasma1 != null) Reflection.setFieldValue("plasma1", hexaBody, plasma1);
         if(plasma2 != null) Reflection.setFieldValue("plasma2", hexaBody, plasma2);
         if(plasma3 != null) Reflection.setFieldValue("plasma3", hexaBody, plasma3);
@@ -96,20 +94,20 @@ public class HexaghostAtlasSkin extends PlayerAtlasSkin {
     public static class Patches{
         @SpirePatch2(clz = TheHexaghost.class, method = "preBattlePrep", requiredModId = ModManager.Downfall.modId, optional = true)
         public static class InCombatRotationSpeedPatch{
-            public static void Postfix(){
-                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
-                if(currentSkin instanceof HexaghostAtlasSkin && AbstractDungeon.player instanceof TheHexaghost){
-                    ((TheHexaghost) AbstractDungeon.player).myBody.targetRotationSpeed = ((HexaghostAtlasSkin) currentSkin).fastRotationSpeed;
+            public static void Postfix(TheHexaghost __instance){
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin(__instance);
+                if(currentSkin instanceof HexaghostAtlasSkin){
+                    __instance.myBody.targetRotationSpeed = ((HexaghostAtlasSkin) currentSkin).fastRotationSpeed;
                 }
             }
         }
 
         @SpirePatch2(clz = TheHexaghost.class, method = "onVictory", requiredModId = ModManager.Downfall.modId, optional = true)
         public static class OutOfCombatRotationSpeedPatch{
-            public static void Postfix(){
-                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
-                if(currentSkin instanceof HexaghostAtlasSkin && AbstractDungeon.player instanceof TheHexaghost){
-                    ((TheHexaghost) AbstractDungeon.player).myBody.targetRotationSpeed = ((HexaghostAtlasSkin) currentSkin).standardRotationSpeed;
+            public static void Postfix(TheHexaghost __instance){
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin(__instance);
+                if(currentSkin instanceof HexaghostAtlasSkin){
+                    __instance.myBody.targetRotationSpeed = ((HexaghostAtlasSkin) currentSkin).standardRotationSpeed;
                 }
             }
         }
@@ -120,14 +118,29 @@ public class HexaghostAtlasSkin extends PlayerAtlasSkin {
             public static SpireField<Float> scale = new SpireField<>(() -> 1.f);
         }
 
+        @SpirePatch2(clz = TheHexaghost.class, method = "render")
+        public static class RenderTrackerPatch{
+            public static TheHexaghost renderingHexa = null;
+
+            @SpirePrefixPatch
+            public static void Prefix(TheHexaghost __instance){
+                renderingHexa = __instance;
+            }
+
+            @SpirePostfixPatch
+            public static void Postfix(TheHexaghost __instance){
+                renderingHexa = null;
+            }
+        }
+
         @SpirePatch2(clz = MyBody.class, method = "render", requiredModId = ModManager.Downfall.modId, optional = true)
         public static class MyBodyRenderPatch{
             public static SpireReturn Prefix(MyBody __instance, SpriteBatch sb){
                 Float scale = FieldPatches.scale.get(__instance);
                 if(scale != null){
-                    AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
-                    if(currentSkin instanceof HexaghostAtlasSkin && AbstractDungeon.player instanceof TheHexaghost){
-                        if(__instance.equals(((TheHexaghost) AbstractDungeon.player).myBody)){
+                    AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin(RenderTrackerPatch.renderingHexa);
+                    if(currentSkin instanceof HexaghostAtlasSkin){
+                        if(__instance.equals(RenderTrackerPatch.renderingHexa.myBody)){
                             if(((HexaghostAtlasSkin) currentSkin).disablePlasma){
                                 return SpireReturn.Return();
                             }
@@ -147,11 +160,11 @@ public class HexaghostAtlasSkin extends PlayerAtlasSkin {
 
                     BobEffect effect = Reflection.getFieldValue("effect", __instance);
 
-                    sb.setColor(AbstractDungeon.player.tint.color);
-                    sb.draw(plasma3, __instance.XOffset + AbstractDungeon.player.drawX - 270.0F + AbstractDungeon.player.animX - 12.0F * Settings.scale * scale, __instance.YOffset + AbstractDungeon.player.drawY + AbstractDungeon.player.animY + effect.y * 2.0F - 256.0F + BODY_OFFSET_Y * scale, 256.0F, 256.0F, 512.0F, 512.0F, Settings.scale * 0.95F * scale, Settings.scale * 0.95F * scale, plasma3Angle, 0, 0, 512, 512, false, false);
-                    sb.draw(plasma2, __instance.XOffset + AbstractDungeon.player.drawX - 270.0F + AbstractDungeon.player.animX - 6.0F * Settings.scale * scale, __instance.YOffset + AbstractDungeon.player.drawY + AbstractDungeon.player.animY + effect.y - 256.0F + BODY_OFFSET_Y * scale, 256.0F, 256.0F, 512.0F, 512.0F, Settings.scale * scale, Settings.scale * scale, plasma2Angle, 0, 0, 512, 512, false, false);
-                    sb.draw(plasma1, __instance.XOffset + AbstractDungeon.player.drawX - 270.0F + AbstractDungeon.player.animX, __instance.YOffset + AbstractDungeon.player.drawY + AbstractDungeon.player.animY + effect.y * 0.5F - 256.0F + BODY_OFFSET_Y * scale, 256.0F, 256.0F, 512.0F, 512.0F, Settings.scale * scale, Settings.scale * scale, plasma1Angle, 0, 0, 512, 512, false, false);
-                    sb.draw(shadow, __instance.XOffset + AbstractDungeon.player.drawX - 270.0F + AbstractDungeon.player.animX - 12.0F * Settings.scale * scale, __instance.YOffset + AbstractDungeon.player.drawY + AbstractDungeon.player.animY + effect.y / 4.0F - 15.0F * Settings.scale * scale - 256.0F + BODY_OFFSET_Y * scale, 256.0F, 256.0F, 512.0F, 512.0F, Settings.scale * scale, Settings.scale * scale, 0.0F, 0, 0, 512, 512, false, false);
+                    sb.setColor(RenderTrackerPatch.renderingHexa.tint.color);
+                    sb.draw(plasma3, __instance.XOffset + RenderTrackerPatch.renderingHexa.drawX - 270.0F + RenderTrackerPatch.renderingHexa.animX - 12.0F * Settings.scale * scale, __instance.YOffset + RenderTrackerPatch.renderingHexa.drawY + RenderTrackerPatch.renderingHexa.animY + effect.y * 2.0F - 256.0F + BODY_OFFSET_Y * scale, 256.0F, 256.0F, 512.0F, 512.0F, Settings.scale * 0.95F * scale, Settings.scale * 0.95F * scale, plasma3Angle, 0, 0, 512, 512, false, false);
+                    sb.draw(plasma2, __instance.XOffset + RenderTrackerPatch.renderingHexa.drawX - 270.0F + RenderTrackerPatch.renderingHexa.animX - 6.0F * Settings.scale * scale, __instance.YOffset + RenderTrackerPatch.renderingHexa.drawY + RenderTrackerPatch.renderingHexa.animY + effect.y - 256.0F + BODY_OFFSET_Y * scale, 256.0F, 256.0F, 512.0F, 512.0F, Settings.scale * scale, Settings.scale * scale, plasma2Angle, 0, 0, 512, 512, false, false);
+                    sb.draw(plasma1, __instance.XOffset + RenderTrackerPatch.renderingHexa.drawX - 270.0F + RenderTrackerPatch.renderingHexa.animX, __instance.YOffset + RenderTrackerPatch.renderingHexa.drawY + RenderTrackerPatch.renderingHexa.animY + effect.y * 0.5F - 256.0F + BODY_OFFSET_Y * scale, 256.0F, 256.0F, 512.0F, 512.0F, Settings.scale * scale, Settings.scale * scale, plasma1Angle, 0, 0, 512, 512, false, false);
+                    sb.draw(shadow, __instance.XOffset + RenderTrackerPatch.renderingHexa.drawX - 270.0F + RenderTrackerPatch.renderingHexa.animX - 12.0F * Settings.scale * scale, __instance.YOffset + RenderTrackerPatch.renderingHexa.drawY + RenderTrackerPatch.renderingHexa.animY + effect.y / 4.0F - 15.0F * Settings.scale * scale - 256.0F + BODY_OFFSET_Y * scale, 256.0F, 256.0F, 512.0F, 512.0F, Settings.scale * scale, Settings.scale * scale, 0.0F, 0, 0, 512, 512, false, false);
 
                     return SpireReturn.Return();
                 }

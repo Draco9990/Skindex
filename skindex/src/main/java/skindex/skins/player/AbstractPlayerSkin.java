@@ -2,6 +2,8 @@ package skindex.skins.player;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.evacipated.cardcrawl.modthespire.lib.SpireField;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.google.gson.annotations.SerializedName;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -120,16 +122,20 @@ public abstract class AbstractPlayerSkin extends AbstractOwnableItem {
         entity.setPlayerSkin(this);
         return true;
     }
-    public boolean loadOnPlayer(){
+
+    public final boolean loadOnPlayer(){
+        return loadOnPlayer(AbstractDungeon.player);
+    }
+    public boolean loadOnPlayer(AbstractPlayer player){
         if(!CardCrawlGame.isInARun()) return false;
-        if(!playerClass.equals(AbstractDungeon.player.chosenClass)) {
-            SkindexLogger.log("Tried to load skin: " + getId() + " for class " + playerClass + "on a " + AbstractDungeon.player);
+        if(!playerClass.equals(player.chosenClass)) {
+            SkindexLogger.log("Tried to load skin: " + getId() + " for class " + playerClass + "on a " + player);
             return false;
         }
 
-        if(corpseIMG != null) AbstractDungeon.player.corpseImg = corpseIMG;
-        if(shoulderIMG != null) AbstractDungeon.player.shoulderImg = shoulderIMG;
-        if(shoulder2IMG != null) AbstractDungeon.player.shoulder2Img = shoulder2IMG;
+        if(corpseIMG != null) player.corpseImg = corpseIMG;
+        if(shoulderIMG != null) player.shoulderImg = shoulderIMG;
+        if(shoulder2IMG != null) player.shoulder2Img = shoulder2IMG;
 
         SkindexGame.setActivePlayerSkin(this);
         return true;
@@ -159,16 +165,13 @@ public abstract class AbstractPlayerSkin extends AbstractOwnableItem {
         unlockSkin(skinData.id, AbstractPlayer.PlayerClass.valueOf(skinData.playerClass));
     }
 
-    /** Patches */
     public static class Patches{
         @SpirePatch2(clz = AbstractPlayer.class, method = "update")
         public static class UpdatePatcher{
             public static void Postfix(AbstractPlayer __instance){
-                if(__instance.equals(AbstractDungeon.player)){
-                    AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
-                    if(currentSkin != null){
-                        currentSkin.update(__instance);
-                    }
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin(__instance);
+                if(currentSkin != null){
+                    currentSkin.update(__instance);
                 }
             }
         }

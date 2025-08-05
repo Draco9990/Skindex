@@ -61,15 +61,14 @@ public class PlayerImageSkin extends AbstractPlayerSkin {
         public static class PlayerImageSkinPatcher {
             @SpireInsertPatch(locator = Locator.class)
             public static SpireReturn Insert(AbstractPlayer __instance, SpriteBatch sb){
-                if(Objects.equals(AbstractDungeon.player, __instance)){
-                    AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
-                    if(currentSkin instanceof PlayerImageSkin){
-                        PlayerImageSkin imgSkin = (PlayerImageSkin) currentSkin;
-                        imgSkin.renderSkinImage(sb, __instance, __instance.img, 1.0f);
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin(__instance);
+                if(currentSkin instanceof PlayerImageSkin){
+                    PlayerImageSkin imgSkin = (PlayerImageSkin) currentSkin;
+                    imgSkin.renderSkinImage(sb, __instance, __instance.img, 1.0f);
 
-                        return SpireReturn.Return();
-                    }
+                    return SpireReturn.Return();
                 }
+
                 return SpireReturn.Continue();
             }
         }
@@ -78,15 +77,14 @@ public class PlayerImageSkin extends AbstractPlayerSkin {
         public static class PlayerImageSkinPatcher2 {
             @SpireInsertPatch(locator = Locator.class)
             public static SpireReturn Insert(AbstractPlayer __instance, SpriteBatch sb){
-                if(Objects.equals(AbstractDungeon.player, __instance)){
-                    AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
-                    if(currentSkin instanceof PlayerImageSkin){
-                        PlayerImageSkin imgSkin = (PlayerImageSkin) currentSkin;
-                        imgSkin.renderSkinImage(sb, __instance, __instance.img, 1.0f);
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin(__instance);
+                if(currentSkin instanceof PlayerImageSkin){
+                    PlayerImageSkin imgSkin = (PlayerImageSkin) currentSkin;
+                    imgSkin.renderSkinImage(sb, __instance, __instance.img, 1.0f);
 
-                        return SpireReturn.Return();
-                    }
+                    return SpireReturn.Return();
                 }
+
                 return SpireReturn.Continue();
             }
         }

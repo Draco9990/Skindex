@@ -9,6 +9,7 @@ import com.esotericsoftware.spine.*;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.google.gson.annotations.SerializedName;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.characters.Watcher;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -69,25 +70,25 @@ public class WatcherAtlasSkin extends PlayerAtlasSkin {
     }
 
     @Override
-    public boolean loadOnPlayer() {
-        if(!super.loadOnPlayer()) return false;
+    public boolean loadOnPlayer(AbstractPlayer player) {
+        if(!super.loadOnPlayer(player)) return false;
 
         if(eyeAtlasUrl != null && eyeSkeletonUrl != null){
-            Skeleton skeleton = Reflection.getFieldValue("skeleton", AbstractDungeon.player);
-            Reflection.setFieldValue("eyeBone", AbstractDungeon.player, skeleton.findBone("eye_anchor"));
-            loadEyeAnimationOnPlayer();
+            Skeleton skeleton = Reflection.getFieldValue("skeleton", player);
+            Reflection.setFieldValue("eyeBone", player, skeleton.findBone("eye_anchor"));
+            loadEyeAnimationOnPlayer(player);
         }
-        else if(AbstractDungeon.player instanceof Watcher){
-            Skeleton eyeSkeleton = Reflection.getFieldValue("eyeSkeleton", AbstractDungeon.player);
+        else if(player instanceof Watcher){
+            Skeleton eyeSkeleton = Reflection.getFieldValue("eyeSkeleton", player);
             eyeSkeleton.setDrawOrder(new Array<>());
-            Reflection.setFieldValue("eyeSkeleton", AbstractDungeon.player, eyeSkeleton);
+            Reflection.setFieldValue("eyeSkeleton", player, eyeSkeleton);
         }
 
         return true;
     }
 
-    private void loadEyeAnimationOnPlayer() {
-        Watcher w = (Watcher) AbstractDungeon.player;
+    private void loadEyeAnimationOnPlayer(AbstractPlayer player) {
+        Watcher w = (Watcher) player;
 
         TextureAtlas eyeAtlas = AssetLoader.loadTextureAtlas(eyeAtlasUrl, eyeResourceDirectory);
         Reflection.setFieldValue("eyeAtlas", w, eyeAtlas);
@@ -114,7 +115,7 @@ public class WatcherAtlasSkin extends PlayerAtlasSkin {
         @SpirePatch2(clz = Watcher.class, method = "renderPlayerImage")
         public static class NoEyeRenderPatch{
             public static SpireReturn Prefix(Watcher __instance, SpriteBatch sb){
-                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin();
+                AbstractPlayerSkin currentSkin = SkindexGame.getActivePlayerSkin(__instance);
 
                 if(currentSkin instanceof PlayerSpriterSkin){
                     ((PlayerSpriterSkin) currentSkin).renderModel(sb, (int)(__instance.drawX + __instance.animX), (int)(__instance.drawY + __instance.animY), __instance.flipHorizontal, __instance.flipVertical, 1);

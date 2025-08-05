@@ -47,11 +47,16 @@ public class SkindexGame {
         FieldPatches.Player.skin.set(AbstractDungeon.player, skin);
     }
     public static AbstractPlayerSkin getActivePlayerSkin(){
-        if(!CardCrawlGame.isInARun()) return null;
+        if(!CardCrawlGame.isInARun() || AbstractDungeon.player == null) return null;
 
-        AbstractPlayerSkin current = FieldPatches.Player.skin.get(AbstractDungeon.player);
+        return getActivePlayerSkin(AbstractDungeon.player);
+    }
+    public static AbstractPlayerSkin getActivePlayerSkin(AbstractPlayer player){
+        if(player == null) return null;
+
+        AbstractPlayerSkin current = FieldPatches.Player.skin.get(player);
         if(current == null){
-            current = SkindexRegistry.getDefaultPlayerSkinByClass(AbstractDungeon.player.chosenClass, true);
+            current = SkindexRegistry.getDefaultPlayerSkinByClass(player.chosenClass, true);
             if(current != null){
                 current.loadOnPlayer();
             }
