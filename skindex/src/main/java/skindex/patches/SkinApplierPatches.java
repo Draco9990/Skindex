@@ -10,7 +10,7 @@ import skindex.skins.entity.player.AbstractPlayerSkin;
 public class SkinApplierPatches implements StartGameSubscriber {
     @Override
     public void receiveStartGame() {
-        AbstractPlayerSkin queuedSkin = SkindexGame.getActivePlayerSkinRaw(AbstractDungeon.player);
+        AbstractPlayerSkin queuedSkin = SkindexGame.getPlayerSkinRaw(AbstractDungeon.player);
         if (queuedSkin == null) {
             queuedSkin = JsonDataFileManager.load(SkindexUserConfig.class).getFavouritedSkin(AbstractDungeon.player.chosenClass);
         }

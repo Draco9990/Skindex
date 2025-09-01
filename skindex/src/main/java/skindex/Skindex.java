@@ -80,7 +80,7 @@ public class Skindex implements PostInitializeSubscriber {
                     if(s != null){
                         AbstractPlayerSkin skinToLoad = SkindexRegistry.getPlayerSkinByClassAndId(AbstractDungeon.player.chosenClass, s);
                         if(skinToLoad != null){
-                            SkindexGame.setActivePlayerSkinRaw(AbstractDungeon.player, skinToLoad);
+                            SkindexGame.setPlayerSkinRaw(AbstractDungeon.player, skinToLoad);
                         }
                     }
                 }

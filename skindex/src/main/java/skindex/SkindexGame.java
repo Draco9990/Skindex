@@ -20,10 +20,10 @@ public class SkindexGame {
         public static SpireField<AbstractPlayerSkin> skin = new SpireField<>(() -> null);
     }
 
-    public static <T extends AbstractPlayerSkin> T getActivePlayerSkinRaw(AbstractPlayer creature){
+    public static <T extends AbstractPlayerSkin> T getPlayerSkinRaw(AbstractPlayer creature){
         return (T) FieldExtensions.skin.get(creature);
     }
-    public static void setActivePlayerSkinRaw(AbstractPlayer creature, AbstractPlayerSkin skin){
+    public static void setPlayerSkinRaw(AbstractPlayer creature, AbstractPlayerSkin skin){
         FieldExtensions.skin.set(creature, skin);
     }
 
@@ -35,7 +35,7 @@ public class SkindexGame {
     public static AbstractPlayerSkin getActivePlayerSkin(AbstractPlayer player){
         if(player == null) return null;
 
-        AbstractPlayerSkin current = getActivePlayerSkinRaw(player);
+        AbstractPlayerSkin current = getPlayerSkinRaw(player);
         if(current == null){
             current = SkindexRegistry.getDefaultPlayerSkinByClass(player.chosenClass, true);
             if(current != null){

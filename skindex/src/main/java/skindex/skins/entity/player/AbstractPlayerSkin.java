@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.google.gson.annotations.SerializedName;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.CardTrailEffect;
 import dLib.files.JsonDataFileManager;
@@ -113,15 +111,12 @@ public abstract class AbstractPlayerSkin extends AbstractOwnableItem {
         return loadOnPlayer(AbstractDungeon.player);
     }
     public boolean loadOnPlayer(AbstractPlayer player){
-        if(!CardCrawlGame.isInARun()) {
-            return false;
-        }
         if(!playerClass.equals(player.chosenClass)) {
             SkindexLogger.log("Tried to load skin: " + getId() + " for class " + playerClass + "on a " + player);
             return false;
         }
 
-        SkindexGame.setActivePlayerSkinRaw(player, this);
+        SkindexGame.setPlayerSkinRaw(player, this);
 
         if(corpseIMG != null) player.corpseImg = corpseIMG;
         if(shoulderIMG != null) player.shoulderImg = shoulderIMG;

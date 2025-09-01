@@ -33,8 +33,8 @@ public class PlayerImageSkin extends AbstractPlayerSkin {
         super.update(updateSource);
 
         if(updateSource != null){
-            AbstractDungeon.player.img = getImageToRender();
-            Reflection.setFieldValue("atlas", AbstractDungeon.player, null);
+            updateSource.img = getImageToRender();
+            Reflection.setFieldValue("atlas", updateSource, null);
         }
     }
 
