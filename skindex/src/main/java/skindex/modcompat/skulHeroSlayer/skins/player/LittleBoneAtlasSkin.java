@@ -34,11 +34,15 @@ public class LittleBoneAtlasSkin extends AbstractPlayerSkin {
 
     @Override
     public boolean loadOnPlayer(AbstractPlayer player) {
+        String currentSkul = SkulMod.CurrentSkull;
+        if(currentSkul == null || currentSkul.equals("None")) currentSkul = "LittleBone";
+        return loadOnPlayer(player, currentSkul);
+    }
+
+    public boolean loadOnPlayer(AbstractPlayer player, String currentSkul) {
         if(!super.loadOnPlayer(player)) return false;
         if(!(player instanceof LittleBone)) return false;
 
-        String currentSkul = SkulMod.CurrentSkull;
-        if(currentSkul == null || currentSkul.equals("None")) currentSkul = "LittleBone";
         PlayerLoadAnimationPatcher.LoadAnimationConsumer.resourceDirectoryUrl = resourceDirectory;
         Reflection.invokeMethod("loadAnimation", AbstractDungeon.player, getAtlasUrl(currentSkul), getJsonUrl(currentSkul), 1 / scale);
         AbstractDungeon.player.state.setAnimation(0, defaultAnimName, true);

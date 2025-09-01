@@ -56,27 +56,37 @@ public class GremlinsAtlasSkin extends AbstractPlayerSkin {
 
     @Override
     public boolean loadOnPlayer(AbstractPlayer player){
-        if(!super.loadOnPlayer(player)) return false;
-
-        if(player instanceof GremlinCharacter){
-            GremlinCharacter gremlinChar = (GremlinCharacter) player;
-
-            String gremlin = gremlinChar.currentGremlin == null ? gremlinChar.mobState.getFrontGremlin() : gremlinChar.currentGremlin;
-            String animation = getGremlinAnimationName(gremlin);
-
-            if(gremlinChar.nob){
-                gremlin = "nob";
-            }
-
-            GremlinSkin gremlinSkin = getSkinForGremlin(gremlin);
-            String atlasLoc = gremlinSkin.atlasUrl;
-            String jsonLoc = gremlinSkin.skeletonUrl;
-
-            PlayerLoadAnimationPatcher.LoadAnimationConsumer.resourceDirectoryUrl = gremlinSkin.resourceDirectory;
-            Reflection.invokeMethod("loadAnimation", gremlinChar, atlasLoc, jsonLoc, 1 / scale);
-            AnimationState.TrackEntry trackEntry = gremlinChar.state.setAnimation(0, animation, true);
-            trackEntry.setTime(trackEntry.getEndTime() * MathUtils.random());
+        if (!(player instanceof GremlinCharacter)) {
+            return false;
         }
+
+        GremlinCharacter gremlinChar = (GremlinCharacter) player;
+
+        String gremlin = gremlinChar.currentGremlin == null ? gremlinChar.mobState.getFrontGremlin() : gremlinChar.currentGremlin;
+        return loadOnPlayer(player, gremlin, getGremlinAnimationName(gremlin));
+    }
+
+    public boolean loadOnPlayer(AbstractPlayer player, String gremlin, String animation){
+        if(!super.loadOnPlayer(player)) {
+            return false;
+        }
+        if (!(player instanceof GremlinCharacter)) {
+            return false;
+        }
+
+        GremlinCharacter gremlinChar = (GremlinCharacter) player;
+        if(gremlinChar.nob){
+            gremlin = "nob";
+        }
+
+        GremlinSkin gremlinSkin = getSkinForGremlin(gremlin);
+        String atlasLoc = gremlinSkin.atlasUrl;
+        String jsonLoc = gremlinSkin.skeletonUrl;
+
+        PlayerLoadAnimationPatcher.LoadAnimationConsumer.resourceDirectoryUrl = gremlinSkin.resourceDirectory;
+        Reflection.invokeMethod("loadAnimation", gremlinChar, atlasLoc, jsonLoc, 1 / scale);
+        AnimationState.TrackEntry trackEntry = gremlinChar.state.setAnimation(0, animation, true);
+        trackEntry.setTime(trackEntry.getEndTime() * MathUtils.random());
 
         return true;
     }
