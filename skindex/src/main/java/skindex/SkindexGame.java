@@ -18,6 +18,7 @@ public class SkindexGame {
     @SpirePatch(clz = AbstractPlayer.class, method = "<class>")
     private static class FieldExtensions {
         public static SpireField<AbstractPlayerSkin> skin = new SpireField<>(() -> null);
+        public static SpireField<Float> scale = new SpireField<>(() -> 1.0f);
     }
 
     public static <T extends AbstractPlayerSkin> T getPlayerSkinRaw(AbstractPlayer creature){
@@ -25,6 +26,14 @@ public class SkindexGame {
     }
     public static void setPlayerSkinRaw(AbstractPlayer creature, AbstractPlayerSkin skin){
         FieldExtensions.skin.set(creature, skin);
+    }
+
+    public static void setPlayerScale(AbstractPlayer creature, float scale){
+        FieldExtensions.scale.set(creature, scale);
+        getActivePlayerSkin(creature).loadOnPlayer(creature);
+    }
+    public static float getPlayerScale(AbstractPlayer creature){
+        return FieldExtensions.scale.get(creature);
     }
 
     public static AbstractPlayerSkin getActivePlayerSkin(){

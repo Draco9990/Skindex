@@ -3,6 +3,7 @@ package skindex.skins.entity.player;
 import com.google.gson.annotations.SerializedName;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import dLib.util.Reflection;
+import skindex.SkindexGame;
 import skindex.patches.PlayerLoadAnimationPatcher;
 
 public class PlayerAtlasSkin extends AbstractPlayerSkin {
@@ -35,7 +36,7 @@ public class PlayerAtlasSkin extends AbstractPlayerSkin {
         if(!super.loadOnPlayer(player)) return false;
 
         PlayerLoadAnimationPatcher.LoadAnimationConsumer.resourceDirectoryUrl = resourceDirectory;
-        Reflection.invokeMethod("loadAnimation", player, atlasUrl, skeletonUrl, 1 / scale);
+        Reflection.invokeMethod("loadAnimation", player, atlasUrl, skeletonUrl, 1 / SkindexGame.getPlayerScale(player));
         player.state.setAnimation(0, defaultAnimName, true);
         player.state.setTimeScale(defaultTimeScale);
 

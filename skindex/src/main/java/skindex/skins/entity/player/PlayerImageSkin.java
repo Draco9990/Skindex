@@ -47,6 +47,8 @@ public class PlayerImageSkin extends AbstractPlayerSkin {
     public void renderSkinImage(SpriteBatch sb, AbstractCreature creature, Texture img, float scaleMult){
         sb.setColor(renderColor);
 
+        scaleMult *= SkindexGame.getPlayerScale((AbstractPlayer) creature);
+
         sb.draw(img, creature.drawX - ((float)img.getWidth() / 2.0F) * scale * Settings.xScale + creature.animX, creature.drawY, (float)img.getWidth() / 2, 0, (float)img.getWidth() * Settings.scale, (float)img.getHeight() * Settings.scale, scaleMult * scale * Settings.xScale, scaleMult * scale * Settings.yScale, 0, 0, 0, img.getWidth(), img.getHeight(), creature.flipHorizontal, creature.flipVertical);
     }
 
