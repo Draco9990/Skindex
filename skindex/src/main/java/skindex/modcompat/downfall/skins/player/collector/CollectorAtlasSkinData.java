@@ -1,7 +1,7 @@
 package skindex.modcompat.downfall.skins.player.collector;
 
 import com.google.gson.annotations.SerializedName;
-import skindex.skins.player.PlayerAtlasSkin;
+import skindex.skins.entity.player.PlayerAtlasSkin;
 
 import java.util.ArrayList;
 

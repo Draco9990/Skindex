@@ -1,7 +1,7 @@
 package skindex.modcompat.downfall.skins.player.hexaghost;
 
 import com.google.gson.annotations.SerializedName;
-import skindex.skins.player.PlayerAtlasSkin;
+import skindex.skins.entity.player.PlayerAtlasSkin;
 
 public class HexaghostAtlasSkinData extends PlayerAtlasSkin.PlayerAtlasSkinData {
     /** Variables */

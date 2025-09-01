@@ -6,7 +6,7 @@ import dLib.files.JsonDataFile;
 import dLib.files.JsonStorageFileRules;
 import skindex.itemtypes.AbstractCustomizableItem;
 import skindex.registering.SkindexRegistry;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 import skindex.trackers.SkindexUnlockTracker;
 
 import java.io.Serializable;

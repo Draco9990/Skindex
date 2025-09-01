@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.modcompat.ModManager;
 import guardian.characters.GuardianCharacter;
 import skindex.SkindexGame;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 import slimebound.characters.SlimeboundCharacter;
 import sneckomod.TheSnecko;
 import theHexaghost.TheHexaghost;

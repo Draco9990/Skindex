@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.audio.SoundMaster;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -17,10 +18,9 @@ import dLib.util.Reflection;
 import dLib.util.StaticResourceLoader;
 import dLib.util.Timer;
 import skindex.SkindexGame;
-import skindex.entities.player.SkindexPlayerEntity;
 import skindex.itemtypes.AbstractCustomizableItem;
 import skindex.skins.misc.particle.ParticleData;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -57,7 +57,7 @@ public class StanceSkin extends AbstractCustomizableItem {
     //region Class Methods
 
     public AbstractCreature getRenderTarget(){
-        return SkindexGame.getStanceOverrideRenderCreature() == null ? AbstractDungeon.player : SkindexGame.getStanceOverrideRenderCreature();
+        return SkindexGame.getStanceRenderOverridePlayer() == null ? AbstractDungeon.player : SkindexGame.getStanceRenderOverridePlayer();
     }
 
     //region Update & Render
@@ -98,7 +98,7 @@ public class StanceSkin extends AbstractCustomizableItem {
             @SpirePatch(clz = StanceAuraEffect.class, method = SpirePatch.CONSTRUCTOR)
             public static class StanceAuraPatcher{
                 public static void Postfix(StanceAuraEffect __instance){
-                    AbstractCreature renderOverride = SkindexGame.getStanceOverrideRenderCreature();
+                    AbstractCreature renderOverride = SkindexGame.getStanceRenderOverridePlayer();
                     if(renderOverride != null){
                         Reflection.setFieldValue("x", __instance, renderOverride.hb.cX + MathUtils.random(-renderOverride.hb.width / 16.0F, renderOverride.hb.width / 16.0F) - ((TextureAtlas.AtlasRegion) Reflection.getFieldValue("img", __instance)).packedWidth/2.0F);
                         Reflection.setFieldValue("y", __instance, renderOverride.hb.cY + MathUtils.random(-renderOverride.hb.height / 16.0F, renderOverride.hb.height / 12.0F) - ((TextureAtlas.AtlasRegion) Reflection.getFieldValue("img", __instance)).packedHeight/2.0F);
@@ -109,7 +109,7 @@ public class StanceSkin extends AbstractCustomizableItem {
             @SpirePatch(clz = DivinityParticleEffect.class, method = SpirePatch.CONSTRUCTOR)
             public static class DivinityEffectsPatcher{
                 public static void Postfix(DivinityParticleEffect __instance){
-                    AbstractCreature renderOverride = SkindexGame.getStanceOverrideRenderCreature();
+                    AbstractCreature renderOverride = SkindexGame.getStanceRenderOverridePlayer();
                     if(renderOverride != null){
                         Reflection.setFieldValue("x", __instance, renderOverride.hb.cX + MathUtils.random(-renderOverride.hb.width / 2.0F - 50.0F * Settings.xScale, renderOverride.hb.width / 2.0F + 50.0F * Settings.xScale) - ((TextureAtlas.AtlasRegion) Reflection.getFieldValue("img", __instance)).packedWidth/2.0F);
                         Reflection.setFieldValue("y", __instance, renderOverride.hb.cY + MathUtils.random(-renderOverride.hb.height / 2.0F + 10.0F * Settings.yScale, renderOverride.hb.height / 2.0F - 20.0F * Settings.yScale) - ((TextureAtlas.AtlasRegion) Reflection.getFieldValue("img", __instance)).packedHeight/2.0F);
@@ -120,7 +120,7 @@ public class StanceSkin extends AbstractCustomizableItem {
             @SpirePatch(clz = WrathParticleEffect.class, method = SpirePatch.CONSTRUCTOR)
             public static class WrathEffectsPatcher{
                 public static void Postfix(WrathParticleEffect __instance){
-                    AbstractCreature renderOverride = SkindexGame.getStanceOverrideRenderCreature();
+                    AbstractCreature renderOverride = SkindexGame.getStanceRenderOverridePlayer();
                     if(renderOverride != null){
                         Reflection.setFieldValue("x", __instance, renderOverride.hb.cX + MathUtils.random(-renderOverride.hb.width / 2.0F - 30.0F * Settings.xScale, renderOverride.hb.width / 2.0F + 30.0F * Settings.xScale) - ((TextureAtlas.AtlasRegion) Reflection.getFieldValue("img", __instance)).packedWidth/2.0F);
                         Reflection.setFieldValue("y", __instance, renderOverride.hb.cY + MathUtils.random(-renderOverride.hb.height / 2.0F - -10.0F * Settings.yScale, renderOverride.hb.height / 2.0F - 10.0F * Settings.yScale) - ((TextureAtlas.AtlasRegion) Reflection.getFieldValue("img", __instance)).packedHeight/2.0F);
@@ -131,7 +131,7 @@ public class StanceSkin extends AbstractCustomizableItem {
             @SpirePatch(clz = CalmParticleEffect.class, method = SpirePatch.CONSTRUCTOR)
             public static class CalmEffectsPatcher{
                 public static void Postfix(CalmParticleEffect __instance){
-                    AbstractCreature renderOverride = SkindexGame.getStanceOverrideRenderCreature();
+                    AbstractCreature renderOverride = SkindexGame.getStanceRenderOverridePlayer();
                     if(renderOverride != null){
                         Reflection.setFieldValue("x", __instance, renderOverride.hb.cX + MathUtils.random(100.0F, 160.0F) * Settings.xScale - 32.0F);
                         Reflection.setFieldValue("y", __instance, renderOverride.hb.cY + MathUtils.random(-50.0F, 220.0F) * Settings.yScale - 32.0F);
@@ -142,16 +142,18 @@ public class StanceSkin extends AbstractCustomizableItem {
         
         public static class RenderPatches{
             public static StanceSkin getStanceSkin(String stanceId){
-                AbstractCreature renderOverride = SkindexGame.getStanceOverrideRenderCreature();
+                AbstractPlayer renderOverride = SkindexGame.getStanceRenderOverridePlayer();
 
                 AbstractPlayerSkin skinToRender = null;
-                if(renderOverride instanceof SkindexPlayerEntity){
-                    skinToRender = ((SkindexPlayerEntity) renderOverride).getPlayerSkin();
+                if(renderOverride != null){
+                    skinToRender = SkindexGame.getActivePlayerSkin(renderOverride);
                 }
                 else if (AbstractDungeon.player != null){
                     skinToRender = SkindexGame.getActivePlayerSkin();
                 }
-                if(skinToRender == null) return null;
+                if(skinToRender == null) {
+                    return null;
+                }
 
                 StanceSkin currentSkin = skinToRender.stanceSkinMap.get(stanceId);
                 return currentSkin;

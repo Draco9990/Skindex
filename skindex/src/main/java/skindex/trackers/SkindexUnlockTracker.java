@@ -11,7 +11,7 @@ import dLib.util.helpers.SteamHelpers;
 import skindex.bundles.Bundle;
 import skindex.files.FileLocations;
 import skindex.itemtypes.AbstractOwnableItem;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 import skindex.util.SkindexLogger;
 
 import java.io.Serializable;

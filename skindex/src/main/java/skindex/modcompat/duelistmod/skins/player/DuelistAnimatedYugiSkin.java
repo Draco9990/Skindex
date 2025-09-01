@@ -3,20 +3,13 @@ package skindex.modcompat.duelistmod.skins.player;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import duelistmod.DuelistMod;
 import duelistmod.patches.TheDuelistEnum;
-import skindex.entities.player.SkindexPlayerEntity;
-import skindex.skins.player.PlayerAtlasSkin;
+import skindex.skins.entity.player.PlayerAtlasSkin;
 import skindex.unlockmethods.FreeUnlockMethod;
 
 public class DuelistAnimatedYugiSkin extends PlayerAtlasSkin {
     /** Constructors */
     public DuelistAnimatedYugiSkin() {
         super(new SkinData());
-    }
-
-    @Override
-    public boolean loadOnEntity(SkindexPlayerEntity entity) {
-        this.defaultTimeScale = DuelistMod.persistentDuelistData.VisualSettings.getAnimationSpeed();
-        return super.loadOnEntity(entity);
     }
 
     @Override

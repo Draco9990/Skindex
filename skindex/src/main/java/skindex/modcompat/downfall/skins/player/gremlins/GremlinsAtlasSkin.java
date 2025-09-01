@@ -12,7 +12,6 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.google.gson.annotations.SerializedName;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.modcompat.ModManager;
 import dLib.util.AssetLoader;
 import dLib.util.Reflection;
@@ -20,16 +19,12 @@ import gremlin.GremlinMod;
 import gremlin.characters.GremlinCharacter;
 import gremlin.orbs.GremlinStandby;
 import skindex.SkindexGame;
-import skindex.entities.player.SkindexPlayerAtlasEntity;
-import skindex.entities.player.SkindexPlayerEntity;
-import skindex.modcompat.downfall.entities.player.SkindexGremlinsAtlasEntity;
 import skindex.patches.PlayerLoadAnimationPatcher;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.Random;
 
 public class GremlinsAtlasSkin extends AbstractPlayerSkin {
     /** Variables */
@@ -59,30 +54,6 @@ public class GremlinsAtlasSkin extends AbstractPlayerSkin {
         return gremlinSkinMap.get(gremlinId);
     }
 
-    /** Load on player */
-    @Override
-    public boolean loadOnEntity(SkindexPlayerEntity entity) {
-        if(!super.loadOnEntity(entity)) return false;
-        if(!(entity instanceof SkindexGremlinsAtlasEntity)) return false;
-
-        String gremlin = ((SkindexGremlinsAtlasEntity) entity).getCurrentGremlin();
-        String animation = ((SkindexGremlinsAtlasEntity) entity).getCurrentGremlinAnimation();
-
-        if(gremlin == null){
-            gremlin = gremlinList[new Random().nextInt(gremlinList.length)];
-            animation = getGremlinAnimationName(gremlin);
-        }
-
-        GremlinSkin gremlinSkin = getSkinForGremlin(gremlin);
-        String atlasLoc = gremlinSkin.atlasUrl;
-        String jsonLoc = gremlinSkin.skeletonUrl;
-
-        ((SkindexPlayerAtlasEntity) entity).loadAnimation(atlasLoc, jsonLoc, gremlinSkin.resourceDirectory, 1 / scale);
-        AnimationState.TrackEntry trackEntry = ((SkindexPlayerAtlasEntity) entity).getState().setAnimation(0, animation, true);
-        trackEntry.setTime(trackEntry.getEndTime() * MathUtils.random());
-
-        return true;
-    }
     @Override
     public boolean loadOnPlayer(AbstractPlayer player){
         if(!super.loadOnPlayer(player)) return false;

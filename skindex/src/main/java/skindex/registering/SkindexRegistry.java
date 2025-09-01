@@ -8,7 +8,7 @@ import skindex.itemtypes.AbstractCustomizableItem;
 import skindex.itemtypes.AbstractOwnableItem;
 import skindex.skins.cards.CardSkin;
 import skindex.skins.orb.OrbSkin;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 import skindex.skins.stances.StanceSkin;
 import skindex.unlockmethods.NonUnlockableUnlockMethod;
 import skindex.unlockmethods.AbstractUnlockMethod;
@@ -17,6 +17,7 @@ import java.util.*;
 
 public class SkindexRegistry {
     //region Variables
+
     private static HashMap<Class<? extends AbstractCustomizableItem>, LinkedHashMap<String, AbstractCustomizableItem>> items = new HashMap<>();
 
     private static HashMap<String, Bundle> bundles = new HashMap<>();
@@ -26,6 +27,8 @@ public class SkindexRegistry {
     private static LinkedHashMap<AbstractPlayer.PlayerClass, AbstractPlayerSkin> defaultPlayerSkins = new LinkedHashMap<>();
 
     private static ArrayList<SkindexPostRegistryFinishCallback> postRegistryFinishCallbacks = new ArrayList<>();
+
+    //endregion Variables
 
     //region Class Methods
 

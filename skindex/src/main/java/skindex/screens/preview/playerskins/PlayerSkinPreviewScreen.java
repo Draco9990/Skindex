@@ -13,7 +13,7 @@ import skindex.entities.player.DummyPlayer;
 import skindex.files.SkindexUserConfig;
 import skindex.registering.SkindexRegistry;
 import skindex.screens.preview.AbstractItemPreviewScreen;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -63,7 +63,7 @@ public class PlayerSkinPreviewScreen extends AbstractItemPreviewScreen<AbstractP
     protected void onPreviewItemChanged(AbstractPlayerSkin item) {
         super.onPreviewItemChanged(item);
 
-        item.loadOnEntity(previewEntity);
+        item.loadOnPlayer(previewEntity.source);
 
         addChild(new Image(Tex.stat(TextureManager.getTexture("skindexResources/images/ui/preview/customorbskins.png")), Pos.px(1596), Pos.px(1080-173), Dim.px(291), Dim.px(27)){
             @Override

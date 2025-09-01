@@ -7,8 +7,8 @@ import reskinContent.skinCharacter.AbstractSkinCharacter;
 import skindex.SkindexGame;
 import skindex.modcompat.downfall.skins.player.DownfallSkinWrapper;
 import skindex.modcompat.downfall.skins.player.hexaghost.HexaghostAtlasSkin;
-import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.PlayerAtlasSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 
 public class DownfallSkinPatches {
     @SpirePatch2(clz = AbstractSkinCharacter.class, method = "isOriginal", requiredModId = ModManager.Downfall.modId, optional = true)

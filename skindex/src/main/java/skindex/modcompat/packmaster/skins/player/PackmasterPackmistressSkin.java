@@ -1,6 +1,6 @@
 package skindex.modcompat.packmaster.skins.player;
 
-import skindex.skins.player.PlayerAtlasSkin;
+import skindex.skins.entity.player.PlayerAtlasSkin;
 import skindex.unlockmethods.FreeUnlockMethod;
 import thePackmaster.ThePackmaster;
 

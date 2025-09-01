@@ -1,6 +1,6 @@
 package skindex.modcompat.skins.player.theUnchained;
 
-import skindex.skins.player.PlayerAtlasSkin;
+import skindex.skins.entity.player.PlayerAtlasSkin;
 import skindex.unlockmethods.AchievementUnlockMethod;
 import theUnchainedMod.characters.TheUnchained;
 

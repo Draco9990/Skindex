@@ -15,6 +15,7 @@ import java.util.UUID;
 
 public abstract class AbstractCustomizableItem {
     //region Variables
+
     public Class<? extends AbstractCustomizableItem> itemTypeClass;
 
     protected String id;
@@ -25,9 +26,11 @@ public abstract class AbstractCustomizableItem {
     protected ArrayList<String> credits;
 
     private CustomizableItemData dataInitializer;
+
     //endregion Variables
 
     //region Constructors
+
     public AbstractCustomizableItem(CustomizableItemData itemData){
         this.id = itemData.id;
         this.name = itemData.name;
@@ -43,16 +46,21 @@ public abstract class AbstractCustomizableItem {
 
     protected abstract Class<? extends AbstractCustomizableItem> getItemType();
 
+
     //endregion Constructors
 
     //region Class Methods
+
     //region Id
+
     public String getId(){
         return id;
     }
+
     //endregion
 
     //region Name
+
     public AbstractCustomizableItem setName(String newName){
         this.name = newName;
         return this;
@@ -61,15 +69,19 @@ public abstract class AbstractCustomizableItem {
         if(name == null) return id;
         else return name;
     }
+
     //endregion
 
     //region Icon
+
     public Texture getIcon(){
         return icon;
     }
+
     //endregion
 
     //region Credits
+
     public AbstractCustomizableItem setCredits(String... credits){
         this.credits = new ArrayList<>(Arrays.asList(credits));
         return this;
@@ -77,15 +89,19 @@ public abstract class AbstractCustomizableItem {
     public ArrayList<String> getCredits(){
         return credits;
     }
+
     //endregion
 
     //region UUID
+
     public Integer getUUID(){
         return 10000000 + new Random(id.hashCode()).nextInt(90000000);
     }
+
     //endregion
 
     //region Utility
+
     public Texture loadImageIfExists(String assetName){
         if(assetName == null) return null;
 
@@ -98,9 +114,11 @@ public abstract class AbstractCustomizableItem {
 
         return new TextureAtlas.AtlasRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
     }
+
     //endregion
 
     //region Misc
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof AbstractCustomizableItem)) return false;
@@ -126,7 +144,9 @@ public abstract class AbstractCustomizableItem {
 
         return this;
     }
+
     //endregion
+
     //endregion Class Methods
 
     public static class CustomizableItemData implements Serializable {

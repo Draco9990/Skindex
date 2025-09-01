@@ -1,6 +1,6 @@
 package skindex.modcompat.skins.player.theAbyssal;
 
-import skindex.skins.player.PlayerAtlasSkin;
+import skindex.skins.entity.player.PlayerAtlasSkin;
 import skindex.unlockmethods.FreeUnlockMethod;
 import thePirate.characters.ThePirate;
 

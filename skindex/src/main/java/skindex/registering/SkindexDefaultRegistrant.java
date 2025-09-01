@@ -2,11 +2,11 @@ package skindex.registering;
 
 import skindex.skins.orb.monsterhunter.MonsterHunterOrbSkinSet;
 import skindex.skins.orb.rebelai.*;
-import skindex.skins.player.AbstractPlayerSkin;
-import skindex.skins.player.defect.*;
-import skindex.skins.player.ironclad.*;
-import skindex.skins.player.silent.*;
-import skindex.skins.player.watcher.*;
+import skindex.skins.entity.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.defect.*;
+import skindex.skins.entity.player.ironclad.*;
+import skindex.skins.entity.player.silent.*;
+import skindex.skins.entity.player.watcher.*;
 import skindex.skins.stance.WatcherMusicStanceSkinSet;
 import skindex.unlockmethods.AchievementUnlockMethod;
 import skindex.unlockmethods.FreeUnlockMethod;

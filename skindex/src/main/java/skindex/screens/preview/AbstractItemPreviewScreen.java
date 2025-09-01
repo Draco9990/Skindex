@@ -108,7 +108,7 @@ public abstract class AbstractItemPreviewScreen<Item extends AbstractCustomizabl
     }
 
     @Override
-    protected void setVisibility(boolean visible) {
+    public void setVisibility(boolean visible) {
         super.setVisibility(visible);
 
         if(visible){

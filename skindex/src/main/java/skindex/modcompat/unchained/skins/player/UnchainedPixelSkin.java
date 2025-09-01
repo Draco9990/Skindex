@@ -1,8 +1,8 @@
 package skindex.modcompat.unchained.skins.player;
 
 import skindex.modcompat.unchained.skins.card.UnchainedPixelCardSkinSet;
-import skindex.skins.player.PlayerGifSkin;
-import skindex.skins.player.PlayerGifSkinData;
+import skindex.skins.entity.player.PlayerGifSkin;
+import skindex.skins.entity.player.PlayerGifSkinData;
 import skindex.unlockmethods.FreeUnlockMethod;
 import theUnchainedMod.characters.TheUnchained;
 

@@ -5,17 +5,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.BobEffect;
 import dLib.modcompat.ModManager;
 import dLib.util.Reflection;
 import dLib.util.TextureManager;
 import skindex.SkindexGame;
-import skindex.entities.player.SkindexPlayerEntity;
-import skindex.modcompat.downfall.entities.player.SkindexHexaghostAtlasEntity;
 import skindex.modcompat.downfall.skins.player.DownfallSkinWrapper;
-import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.PlayerAtlasSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 import theHexaghost.TheHexaghost;
 import theHexaghost.vfx.MyBody;
 
@@ -59,22 +56,6 @@ public class HexaghostAtlasSkin extends PlayerAtlasSkin {
         shadow = TextureManager.getTexture("images/monsters/theBottom/boss/ghost/shadow.png");
     }
 
-    /** Load */
-    @Override
-    public boolean loadOnEntity(SkindexPlayerEntity entity) {
-        if(!super.loadOnEntity(entity)) return false;
-        if(!(entity instanceof SkindexHexaghostAtlasEntity)) return false;
-
-        MyBody hexaBody = ((SkindexHexaghostAtlasEntity) entity).getMyBody();
-        if(plasma1 != null) Reflection.setFieldValue("plasma1", hexaBody, plasma1);
-        if(plasma2 != null) Reflection.setFieldValue("plasma2", hexaBody, plasma2);
-        if(plasma3 != null) Reflection.setFieldValue("plasma3", hexaBody, plasma3);
-        if(shadow != null) Reflection.setFieldValue("shadow", hexaBody, shadow);
-
-        Patches.FieldPatches.scale.set(hexaBody, scale);
-
-        return true;
-    }
     @Override
     public boolean loadOnPlayer(AbstractPlayer player) {
         if(!super.loadOnPlayer(player)) return false;
@@ -118,7 +99,7 @@ public class HexaghostAtlasSkin extends PlayerAtlasSkin {
             public static SpireField<Float> scale = new SpireField<>(() -> 1.f);
         }
 
-        @SpirePatch2(clz = TheHexaghost.class, method = "render")
+        @SpirePatch2(clz = TheHexaghost.class, method = "render", requiredModId = ModManager.Downfall.modId, optional = true)
         public static class RenderTrackerPatch{
             public static TheHexaghost renderingHexa = null;
 

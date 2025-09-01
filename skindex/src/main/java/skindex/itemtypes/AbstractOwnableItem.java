@@ -25,6 +25,7 @@ public abstract class AbstractOwnableItem extends AbstractCustomizableItem {
     //endregion
 
     //region Constructors
+
     public AbstractOwnableItem(OwnableItemData itemData){
         super(itemData);
 
@@ -33,10 +34,13 @@ public abstract class AbstractOwnableItem extends AbstractCustomizableItem {
         unlockMethod = SkindexRegistry.getUnlockMethodById(itemData.unlockMethod);
         bundles = new ArrayList<>();
     }
+
     //endregion
 
     //region Class Methods
+
     //region Unlock
+
     public boolean canUse(){
         if(SkindexDev.unlockAll) return true;
 
@@ -61,9 +65,11 @@ public abstract class AbstractOwnableItem extends AbstractCustomizableItem {
 
         return false;
     }
+
     //endregion
 
     //region Unlock Description
+
     public AbstractOwnableItem setUnlockDescription(String unlockDescription){
         this.unlockDescription = unlockDescription;
         return this;
@@ -84,9 +90,11 @@ public abstract class AbstractOwnableItem extends AbstractCustomizableItem {
 
         return unlockDescription;
     }
+
     //endregion
 
     //region Bundles
+
     public AbstractCustomizableItem setBundles(Bundle... keywords){
         this.bundles = new ArrayList<>(Arrays.asList(keywords));
         return this;
@@ -97,6 +105,7 @@ public abstract class AbstractOwnableItem extends AbstractCustomizableItem {
     public boolean hasBundle(Bundle bundle){
         return bundles.contains(bundle);
     }
+
     //endregion
 
     //endregion

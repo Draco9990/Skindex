@@ -10,11 +10,8 @@ import dLib.util.Reflection;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
 import skindex.SkindexGame;
-import skindex.entities.player.SkindexPlayerAtlasEntity;
-import skindex.entities.player.SkindexPlayerEntity;
-import skindex.modcompat.skulHeroSlayer.entities.player.SkindexLittleBoneAtlasEntity;
 import skindex.patches.PlayerLoadAnimationPatcher;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 import skulmod.SkulMod;
 import skulmod.character.LittleBone;
 
@@ -33,21 +30,6 @@ public class LittleBoneAtlasSkin extends AbstractPlayerSkin {
         this.skeletonDirectoryUrl = skinData.skeletonDirectoryUrl;
 
         this.defaultAnimName = skinData.defaultAnimName;
-    }
-
-    @Override
-    public boolean loadOnEntity(SkindexPlayerEntity entity) {
-        if(!super.loadOnEntity(entity)) return false;
-
-        String currentSkul = null;
-        if(entity instanceof SkindexLittleBoneAtlasEntity){
-            currentSkul = ((SkindexLittleBoneAtlasEntity) entity).getCurrentSkull();
-        }
-        if(currentSkul == null || currentSkul.equals("None")) currentSkul = "LittleBone";
-        ((SkindexPlayerAtlasEntity) entity).loadAnimation(getAtlasUrl(currentSkul), getJsonUrl(currentSkul), resourceDirectory, 1 / scale);
-        ((SkindexPlayerAtlasEntity) entity).getState().setAnimation(0, defaultAnimName, true);
-
-        return true;
     }
 
     @Override

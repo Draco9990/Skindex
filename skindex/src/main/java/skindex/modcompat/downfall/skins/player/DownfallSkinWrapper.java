@@ -1,7 +1,7 @@
 package skindex.modcompat.downfall.skins.player;
 
 import reskinContent.skinCharacter.AbstractSkin;
-import skindex.skins.player.PlayerAtlasSkin;
+import skindex.skins.entity.player.PlayerAtlasSkin;
 
 public class DownfallSkinWrapper extends PlayerAtlasSkin {
     public boolean isOriginal;

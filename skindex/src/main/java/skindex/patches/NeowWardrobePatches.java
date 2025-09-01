@@ -16,7 +16,7 @@ import dLib.util.ui.dimensions.Dim;
 import dLib.util.ui.position.Pos;
 import skindex.SkindexGame;
 import skindex.registering.SkindexRegistry;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 
 public class NeowWardrobePatches {
     public static Toggle wardrobe;

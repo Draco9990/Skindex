@@ -13,11 +13,11 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import dLib.util.AssetLoader;
 import dLib.util.Reflection;
 import skindex.registering.SkindexRegistry;
-import skindex.skins.player.PlayerImageSkin;
-import skindex.skins.player.AbstractPlayerSkin;
-import skindex.skins.player.PlayerSpriterSkin;
+import skindex.skins.entity.player.PlayerImageSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.PlayerSpriterSkin;
 
-public class DummyPlayer extends AbstractMonster implements SkindexPlayerImageEntity, SkindexPlayerAtlasEntity {
+public class DummyPlayer extends AbstractMonster {
     //region Variables
     protected AbstractPlayerSkin currentSkin;
 
@@ -31,23 +31,22 @@ public class DummyPlayer extends AbstractMonster implements SkindexPlayerImageEn
         super("Dummy", "SKINDEX_DUMMY", 9999, 0, 0, 0, 0, null, 9999, 9999);
 
         source = CardCrawlGame.characterManager.getCharacter(playerClass);
-        SkindexRegistry.getDefaultPlayerSkinByClass(playerClass, true).loadOnEntity(this);
+        SkindexRegistry.getDefaultPlayerSkinByClass(playerClass, true).loadOnPlayer(source);
     }
     //endregion Constructors
 
     //region Class Methods
 
-    @Override
-    public AbstractPlayer.PlayerClass getPlayerClass() {
-        return source.chosenClass;
-    }
-
     //region Update & Render
 
     @Override
     public void update() {
-        if(this.currentSkin != null) this.currentSkin.update(this);
-        if(this.hb != null) this.hb.update();
+        if(this.currentSkin != null){
+            this.currentSkin.update(source);
+        }
+        if(this.hb != null) {
+            this.hb.update();
+        }
 
         this.updateReticle();
         this.updateAnimations();
@@ -124,79 +123,16 @@ public class DummyPlayer extends AbstractMonster implements SkindexPlayerImageEn
 
     //endregion
 
-    //region Player Skin implementation
-
-    @Override
-    public void setPlayerSkin(AbstractPlayerSkin newSkin) {
-        this.currentSkin = newSkin;
-    }
-
-    @Override
-    public AbstractPlayerSkin getPlayerSkin() {
-        return currentSkin;
-    }
-
-    //endregion
-
     //region Render Scale
 
     public DummyPlayer setRenderScale(float renderScale){
         this.renderScale = renderScale;
-        currentSkin.loadOnEntity(this);
+        currentSkin.loadOnPlayer(source);
         return this;
     }
 
-    @Override
     public float getScale() {
         return renderScale;
-    }
-
-    //endregion
-
-    //region Atlas Skin Implementation
-
-    @Override
-    public void loadAnimation(String atlasUrl, String skeletonUrl, String resourceDirectory, float scale) {
-        TextureAtlas atlas = AssetLoader.loadTextureAtlas(atlasUrl, resourceDirectory);
-        Reflection.setFieldValue("atlas", source, atlas);
-
-        SkeletonJson json = new SkeletonJson(atlas);
-        json.setScale(Settings.renderScale * getScale() / scale);
-        SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(skeletonUrl));
-        Skeleton skeleton = new Skeleton(skeletonData);
-        skeleton.setColor(Color.WHITE);
-        Reflection.setFieldValue("skeleton", source, skeleton);
-
-        AnimationStateData stateData = new AnimationStateData(skeletonData);
-        Reflection.setFieldValue("stateData", source, stateData);
-        source.state = new AnimationState(stateData);
-    }
-
-    @Override
-    public TextureAtlas getAtlas(){
-        return Reflection.getFieldValue("atlas", source);
-    }
-    @Override
-    public Skeleton getSkeleton(){
-        return Reflection.getFieldValue("skeleton", source);
-    }
-    @Override
-    public AnimationState getState(){
-        return source.state;
-    }
-    @Override
-    public AnimationStateData getStateData(){
-        return Reflection.getFieldValue("stateData", source);
-    }
-
-    //endregion
-
-    //region Player Image Skin Implementation
-
-    @Override
-    public void setRenderImage(Texture texture) {
-        this.source.img = texture;
-        Reflection.setFieldValue("atlas", source, null);
     }
 
     //endregion

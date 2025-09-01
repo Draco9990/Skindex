@@ -11,8 +11,8 @@ import com.megacrit.cardcrawl.vfx.StaffFireEffect;
 import dLib.modcompat.ModManager;
 import dLib.util.Reflection;
 import skindex.SkindexGame;
-import skindex.skins.player.PlayerAtlasSkin;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.PlayerAtlasSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 
 import java.util.ArrayList;
 import java.util.Objects;

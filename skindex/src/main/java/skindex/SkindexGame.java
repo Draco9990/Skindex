@@ -4,48 +4,29 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import skindex.registering.SkindexRegistry;
 import skindex.skins.cards.CardSkin;
 import skindex.skins.orb.OrbSkin;
-import skindex.skins.player.AbstractPlayerSkin;
+import skindex.skins.entity.player.AbstractPlayerSkin;
 import skindex.skins.stances.StanceSkin;
 
 import java.util.Objects;
 
 public class SkindexGame {
-    private static AbstractPlayerSkin queuedSkin = null;
-
-    /** Field Patches */
-    public static class FieldPatches{
-        /** Field Patches */
-        @SpirePatch(clz = AbstractPlayer.class, method = "<class>")
-        public static class Player {
-            public static SpireField<AbstractPlayerSkin> skin = new SpireField<>(() -> null);
-        }
+    @SpirePatch(clz = AbstractPlayer.class, method = "<class>")
+    private static class FieldExtensions {
+        public static SpireField<AbstractPlayerSkin> skin = new SpireField<>(() -> null);
     }
 
-    /** Getters and Setters */
-    public static void queuePlayerSkin(AbstractPlayerSkin skin){
-        queuedSkin = skin;
+    public static <T extends AbstractPlayerSkin> T getActivePlayerSkinRaw(AbstractPlayer creature){
+        return (T) FieldExtensions.skin.get(creature);
     }
-    public static AbstractPlayerSkin getQueuedPlayerSkin(){
-        return queuedSkin;
-    }
-    public static boolean hasQueuedPlayerSkin(){
-        return queuedSkin != null;
-    }
-    public static void clearQueuedPlayerSkin(){
-        queuedSkin = null;
+    public static void setActivePlayerSkinRaw(AbstractPlayer creature, AbstractPlayerSkin skin){
+        FieldExtensions.skin.set(creature, skin);
     }
 
-    public static void setActivePlayerSkin(AbstractPlayerSkin skin){
-        if(!CardCrawlGame.isInARun()) return;
-
-        FieldPatches.Player.skin.set(AbstractDungeon.player, skin);
-    }
     public static AbstractPlayerSkin getActivePlayerSkin(){
         if(!CardCrawlGame.isInARun() || AbstractDungeon.player == null) return null;
 
@@ -54,7 +35,7 @@ public class SkindexGame {
     public static AbstractPlayerSkin getActivePlayerSkin(AbstractPlayer player){
         if(player == null) return null;
 
-        AbstractPlayerSkin current = FieldPatches.Player.skin.get(player);
+        AbstractPlayerSkin current = getActivePlayerSkinRaw(player);
         if(current == null){
             current = SkindexRegistry.getDefaultPlayerSkinByClass(player.chosenClass, true);
             if(current != null){
@@ -99,14 +80,15 @@ public class SkindexGame {
     }
 
     //region Stance Override
-    private static AbstractCreature stanceOverrideRenderCreature = null;
 
-    public static AbstractCreature getStanceOverrideRenderCreature(){
-        return stanceOverrideRenderCreature;
+    private static AbstractPlayer stanceRenderOverridePlayer = null;
+
+    public static AbstractPlayer getStanceRenderOverridePlayer(){
+        return stanceRenderOverridePlayer;
     }
 
-    public static void setStanceOverrideRenderCreature(AbstractCreature creature){
-        stanceOverrideRenderCreature = creature;
+    public static void setStanceRenderOverridePlayer(AbstractPlayer creature){
+        stanceRenderOverridePlayer = creature;
     }
     //endregion Stance Override
 }
