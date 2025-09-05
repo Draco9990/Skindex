@@ -30,7 +30,11 @@ public class SkindexGame {
 
     public static void setPlayerScale(AbstractPlayer creature, float scale){
         FieldExtensions.scale.set(creature, scale);
-        getActivePlayerSkin(creature).loadOnPlayer(creature);
+
+        AbstractPlayerSkin skin = getActivePlayerSkin(creature);
+        if(skin != null){
+            skin.loadOnPlayer(creature);
+        }
     }
     public static float getPlayerScale(AbstractPlayer creature){
         return FieldExtensions.scale.get(creature);
@@ -48,7 +52,7 @@ public class SkindexGame {
         if(current == null){
             current = SkindexRegistry.getDefaultPlayerSkinByClass(player.chosenClass, true);
             if(current != null){
-                current.loadOnPlayer();
+                current.loadOnPlayer(player);
             }
         }
         return current;

@@ -7,6 +7,8 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import dLib.files.JsonDataFileManager;
+import dLib.util.events.Event;
+import dLib.util.events.localevents.ConsumerEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import skindex.files.SkindexUserConfig;
@@ -21,6 +23,8 @@ public class Skindex implements PostInitializeSubscriber {
     /** Variables */
     public static final Logger logger = LogManager.getLogger(Skindex.class.getName());
     private static String modID;
+
+    public static ConsumerEvent<AbstractPlayerSkin> postSaveLoadPlayerSkinApplyGlobalEvent = new ConsumerEvent<>();
 
     /** Constructors */
     public Skindex() {
@@ -81,6 +85,7 @@ public class Skindex implements PostInitializeSubscriber {
                         AbstractPlayerSkin skinToLoad = SkindexRegistry.getPlayerSkinByClassAndId(AbstractDungeon.player.chosenClass, s);
                         if(skinToLoad != null){
                             SkindexGame.setPlayerSkinRaw(AbstractDungeon.player, skinToLoad);
+                            postSaveLoadPlayerSkinApplyGlobalEvent.invoke(skinToLoad);
                         }
                     }
                 }
